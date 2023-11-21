@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .uinput{
+        @apply py-2 bg-ubg border border-solid border-udark px-2 focus:outline-none mb-5;
+    }
+    .ulabel{
+        @apply font-semibold mb-1;
+    }
+}
