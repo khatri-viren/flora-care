@@ -1,8 +1,5 @@
 import express from "express";
 import { connect, Schema, model } from "mongoose";
-import pkg from "body-parser";
-const { json, urlencoded } = pkg;
-// const cors = require('cors'); // Import the cors package
 import cors from "cors";
 
 const app = express();
@@ -17,9 +14,6 @@ connect(`${process.env.MONGODB_URI}`).then(
 );
 app.use(express.json());
 app.use(cors());
-// app.use(urlencoded({extended: true}));
-// app.use(express.static("public"));
-// app.set('view engine', 'ejs');
 
 // Create a MongoDB schema and model for your data
 const dataSchema = new Schema({
@@ -38,7 +32,7 @@ const dataSchema = new Schema({
 const Data = model("Data", dataSchema);
 
 // Middleware to parse JSON requests
-app.use(json());
+app.use(express.json());
 
 // Route to receive data from IoT device
 app.post("/api/data", async (req, res) => {
@@ -47,8 +41,8 @@ app.post("/api/data", async (req, res) => {
     // if(req){
     //   console.log("Logged");
     // }
-    console.log(req.body);
-    return;
+    // console.log(req.body);
+    // return;
 
     // Create a new data entry
     const newData = new Data({
