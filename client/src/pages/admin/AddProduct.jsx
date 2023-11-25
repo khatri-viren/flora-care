@@ -17,14 +17,29 @@ const AddProduct = () => {
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, images: Array.from(e.target.files) });
+    const files = e.target.files;
+    const imagesArray = Array.from(files); // Convert FileList to array
+    setFormData({ ...formData, images: imagesArray });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      await axios.post("admin/addproduct", formData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.title);
+      for (let i = 0; i < formData.images.length; i++) {
+        formDataToSend.append("images", formData.images[i]);
+      }
+
+      formDataToSend.append("price", Number(formData.price));
+      formDataToSend.append("shortIntroduction", formData.intro);
+      formDataToSend.append("description", formData.desc);
+      formDataToSend.append("quantity", Number(formData.quantity));
+
+      await axios.post(
+        "http://localhost:4000/admin/addproduct",
+        formDataToSend
+      );
       toast.success("Successfully Added Product");
       window.location.href = "/admin/manageproducts";
     } catch (error) {
