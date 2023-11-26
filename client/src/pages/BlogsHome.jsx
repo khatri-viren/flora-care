@@ -4,6 +4,7 @@ import axios from "axios";
 import BlogCard from "../components/BlogsHome/BlogCard";
 import CTA2 from "../components/BlogsHome/CTA2";
 import BorderButton from "../components/shared/Buttons/BorderButton";
+import { Link } from "react-router-dom"; 
 
 const BlogsHome = () => {
   const [blogs, setBlogs] = useState([]);
@@ -49,18 +50,22 @@ const BlogsHome = () => {
           </div>
         </div>
         <div className="cardsContainer grid grid-cols-3 gap-12">
-          {blogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))}
+        {blogs.map((blog) => (
+  <Link to={`/blogpage/${blog._id}`} key={blog._id}>
+    <BlogCard blog={blog} />
+  </Link>
+))}
         </div>
       </section>
       <section className="posts mx-5 lg:mx-20 my-12">
         <h2 className="text-3xl font-bold my-5">All Posts</h2>
         <hr className="border border-solid border-umedium mb-6" />
         <div className="cardsContainer grid grid-cols-3 gap-12">
-          {blogs.map((blog) => (
-            <BlogCard key={blog._id} blog={blog} />
-          ))}
+        {blogs.map((blog) => (
+  <Link to={`/blogpage/${blog._id}`} key={blog._id}>
+    <BlogCard blog={blog} />
+  </Link>
+))}
         </div>
         <div className="w-fit mx-auto mt-6">
           <BorderButton title="Show More" />
