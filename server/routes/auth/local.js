@@ -12,7 +12,7 @@ router.post("/local/login", async (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        res.send("Successfully Authenticated");
+        res.status(200).json({ message: "Successfully Authenticated", user });
         console.log(req.user);
       });
     }
@@ -42,6 +42,8 @@ router.post("/local/register", async (req, res) => {
   console.log(req.body);
 });
 
-router.get("/local/getuser", async (req, res) => {});
+router.get("/local/getuser", async (req, res) => {
+  res.send(req.user);
+});
 
 export default router;

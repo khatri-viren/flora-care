@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import axios from "axios";
 
@@ -21,7 +21,7 @@ const Products = () => {
           Explore our wide range of innovative plant care products.
         </p>
       </div>
-      <div className="cardContainer grid grid-cols-2 gap-8 lg:grid-cols-3 mb-24">
+      <div className="cardContainer grid grid-cols-2 gap-8 lg:grid-cols-4 mb-24">
         {products.map((product) => (
           <ProductCard key={product._id} product={product} />
         ))}

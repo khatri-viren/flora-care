@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ProductHeader from "../components/ProductPage/ProductHeader.jsx";
-import InfoSection2 from "../components/HomePage/InfoSection2";
-import InfoSection3 from "../components/HomePage/InfoSection3";
-import InfoSection4 from "../components/ProductPage/InfoSection4/InfoSection4";
+import InfoSection2 from "../components/shared/InfoSection2.jsx";
+import InfoSection3 from "../components/shared/InfoSection3.jsx";
+import InfoSection4 from "../components/ProductPage/InfoSection4.jsx";
 import Reviews from "../components/ProductPage/Reviews/Reviews";
 import FAQs from "../components/ProductPage/FAQs/FAQs";
 import { useParams } from "react-router-dom";
@@ -39,11 +39,11 @@ const ProductPage = () => {
         images={images}
         price={price}
         shortIntro={shortIntroduction}
-        desc={description}
         reviews={reviews}
+        id={id}
       />
       <InfoSection2 />
-      <InfoSection3 />
+      <InfoSection3 image={images[2]} desc={description} />
       <InfoSection4 />
       <Reviews />
       <FAQs />

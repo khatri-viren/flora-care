@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import leftArrow from "../../../assets/leftArrow.svg";
 import hamburger from "../../../assets/hamburger.svg";
+import { useUser } from "../../../store/UserContext.jsx";
 
 const Navbar = () => {
+  const { user } = useUser();
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuToggle = () => {
@@ -31,6 +33,7 @@ const Navbar = () => {
             Flora Care
           </span>
         </div>
+        <div onClick={() => console.log(user)}>fdsa</div>
         <div className="rightSide my-auto md:flex space-x-8 hidden">
           <Link to="/cart" className="navButton hover:text-umedium">
             Cart

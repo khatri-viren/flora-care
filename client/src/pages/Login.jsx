@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import BorderButton from "../components/shared/Buttons/BorderButton";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useUser } from "../store/UserContext.jsx";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const { updateUser } = useUser();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -21,20 +24,24 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios({
+      const response = await axios({
         method: "post",
         data: loginData,
         withCredentials: true,
         url: "http://localhost:4000/auth/local/login",
       });
-      setLoginData({
-        email: "",
-        password: "",
-      });
-      toast.success("Successfully Added Product");
+      if (response.status === 200) {
+        setLoginData({
+          email: "",
+          password: "",
+        });
+        updateUser(response.data);
+        toast.success("Successfully Logged In", { className: "toast" });
+        navigate("/");
+      }
     } catch (error) {
-      console.error("Error adding product: ", error);
-      toast.error("Error Adding Product");
+      console.error("Error Logging In: ", error);
+      toast.error("Error Logging In");
     }
   };
 

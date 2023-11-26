@@ -22,4 +22,10 @@
     font-weight: 600;
     margin-bottom: 0.25rem;
   }
+
+  .toast {
+    background-color: #ebe6de;
+    color: #343829;
+    font-weight: 400;
+  }
 }

@@ -24,34 +24,46 @@ import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
+import { CartProvider } from "./store/CartContext.jsx";
+import { UserProvider } from "./store/UserContext.jsx";
+
 function App() {
   return (
     <>
       <div className="bg-ubg scroll-smooth">
         <ToastContainer />
-        <Navbar />
-        <Routes>
-          <Route index path="/" element={<HomePage />} />
-          <Route path="/userdashboard" element={<UserDashboard />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/productpage/:id" element={<ProductPage />} />
-          <Route path="/blogshome" element={<BlogsHome />} />
-          <Route path="/blogpage/:id" element={<BlogPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/payship" element={<PaymentShipping />} />
+        <UserProvider>
+          <Navbar />
+          <CartProvider>
+            <Routes>
+              <Route index path="/" element={<HomePage />} />
+              <Route path="/userdashboard" element={<UserDashboard />} />
+              <Route path="/shop" element={<Shop />} />
+              <Route path="/aboutus" element={<AboutUs />} />
 
-          <Route path="/admin/manageproducts" element={<ManageProducts />} />
-          <Route path="/admin/manageblogs" element={<ManageBlogs />} />
-          <Route path="/admin/addproduct" element={<AddProduct />} />
-          <Route path="/admin/addblog" element={<AddBlog />} />
-          <Route path="/admin/dashboard" element={<Dashboard />} />
-          <Route path="/admin/productedit/:id" element={<ProductEdit />} />
-          <Route path="/admin/blogedit/:id" element={<BlogEdit />} />
-        </Routes>
-        <Footer />
+              <Route path="/productpage/:id" element={<ProductPage />} />
+
+              <Route path="/blogshome" element={<BlogsHome />} />
+              <Route path="/blogpage" element={<BlogPage />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/payship" element={<PaymentShipping />} />
+
+              <Route
+                path="/admin/manageproducts"
+                element={<ManageProducts />}
+              />
+              <Route path="/admin/manageblogs" element={<ManageBlogs />} />
+              <Route path="/admin/addproduct" element={<AddProduct />} />
+              <Route path="/admin/addblog" element={<AddBlog />} />
+              <Route path="/admin/dashboard" element={<Dashboard />} />
+              <Route path="/admin/productedit/:id" element={<ProductEdit />} />
+              <Route path="/admin/blogedit/:id" element={<BlogEdit />} />
+            </Routes>
+          </CartProvider>
+          <Footer />
+        </UserProvider>
       </div>
     </>
   );

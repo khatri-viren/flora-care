@@ -1,16 +1,19 @@
-import React from 'react'
-
-const ProductCard = () => {
+/* eslint-disable react/prop-types */
+const ProductCard = ({ key, name, price, quantity, image }) => {
   return (
-    <div className="product flex my-4">
-    <img src="https://placehold.co/100x100" alt="" />
-    <div className="details mx-10 space-y-1">
-        <div className="text-lg font-bold">Product Name</div>
-        <div className="font-semibold">$55</div>
-        <div>Quantity: 1</div>
+    <div className="product flex my-4" key={key}>
+      <img
+        src={"http://localhost:4000/" + image}
+        alt=""
+        className="w-24 h-24"
+      />
+      <div className="details mx-5 space-y-1">
+        <div className="text-lg font-bold">{name}</div>
+        <div className="font-semibold">${price * quantity}</div>
+        <div>Quantity: {quantity}</div>
+      </div>
     </div>
-</div>
-  )
-}
+  );
+};
 
-export default ProductCard
+export default ProductCard;

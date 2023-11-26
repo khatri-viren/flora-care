@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
         <img
           src={"http://localhost:4000/" + product.images[0]}
           alt={product.name}
-          className="w-full  aspect-3/4 "
+          className="w-full  aspect-square shadow-md "
         />
       </Link>
       <div className="content flex justify-between px-1">

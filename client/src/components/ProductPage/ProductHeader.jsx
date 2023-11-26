@@ -2,9 +2,33 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
 import FillButton from "../shared/Buttons/FillButton";
-import filledStar from "../../assets/starFilled.svg";
+import { useEffect, useState } from "react";
+import { useCart } from "../../store/CartContext.jsx";
 
-const ProductHeader = ({ name, images, price, shortIntro, reviews }) => {
+const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
+  const [selectedImg, setSelectedImg] = useState(images[0]);
+
+  const handleThumbnailClick = (img) => {
+    setSelectedImg(img);
+  };
+
+  const { addToCart, cart } = useCart();
+  useEffect(() => {
+    console.log("Updated Cart:", cart);
+  }, [cart]);
+
+  const handleAddToCart = () => {
+    const existingProduct = cart.find((item) => item._id === id);
+
+    if (existingProduct) {
+      // If the product is already in the cart, increment the quantity
+      addToCart({ ...existingProduct, quantity: existingProduct.quantity + 1 });
+    } else {
+      // If the product is not in the cart, add it with quantity 1
+      addToCart({ id, name, price, images, quantity: 1 });
+    }
+  };
+
   return (
     <section className="mx-5 md:mx-20 my-12">
       <div className="breadcrumbs flex space-x-1 text-sm pt-5">
@@ -34,20 +58,21 @@ const ProductHeader = ({ name, images, price, shortIntro, reviews }) => {
       </div>
       <div className="main my-5 grid md:grid-cols-2">
         <div className="leftSide flex space-x-2 mx-auto mb-5">
-          <div className="w-20 h-96 flex-col space-y-3">
+          <div className="w-32 h-96 flex-col space-y-3">
             {images.map((img, index) => (
               <img
                 key={index}
-                className="h-20"
+                className="h-20 hover:cursor-pointer"
                 src={"http://localhost:4000/" + img}
                 alt={`Product ${index + 1}`}
+                onClick={() => handleThumbnailClick(img)}
               />
             ))}
           </div>
           <div className="h-fit">
             <img
               className="w-3/4 md:w-11/12"
-              src={"http://localhost:4000/" + images[0]}
+              src={"http://localhost:4000/" + selectedImg}
               alt={name}
             />
           </div>
@@ -77,7 +102,12 @@ const ProductHeader = ({ name, images, price, shortIntro, reviews }) => {
             </div>
           </div>
           <p className="shortDesc my-4">{shortIntro}</p>
-          <FillButton title="Add to Cart" />
+          <button
+            className="p-2 bg-udark w-32 h-12 text-ubg"
+            onClick={handleAddToCart}
+          >
+            Add to Cart
+          </button>
           <hr className="border border-solid border-umedium mt-8 mb-3" />
           <div className="shipping font-semibold ">Shipping</div>
           <p className="font-light text-sm my-2">
