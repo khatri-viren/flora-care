@@ -1,4 +1,3 @@
-import React from "react";
 import FillButton from "../shared/Buttons/FillButton";
 
 const HeroSection = () => {

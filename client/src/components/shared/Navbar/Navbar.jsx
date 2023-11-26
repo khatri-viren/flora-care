@@ -28,7 +28,7 @@ const Navbar = () => {
         </div>
         <div className="logo w-fit">
           <span className="brandLogo font-playFair font-bold text-xl lg:text-3xl tracking-wide cursor-pointer">
-            BotanicBalance Systems
+            Flora Care
           </span>
         </div>
         <div className="rightSide my-auto md:flex space-x-8 hidden">

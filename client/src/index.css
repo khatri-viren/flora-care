@@ -1,14 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@layer components{
-    .uinput{
-        @apply py-2 bg-ubg border border-solid border-udark px-2 focus:outline-none mb-5;
-    }
-    .ulabel{
-        @apply font-semibold mb-1;
-    }
+@layer components {
+  .uinput {
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border: 1px solid #343829;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .ulabel {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
 }

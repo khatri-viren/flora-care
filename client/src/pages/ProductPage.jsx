@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ProductHeader from "../components/ProductPage/ProductHeader.jsx";
 import InfoSection2 from "../components/HomePage/InfoSection2";
 import InfoSection3 from "../components/HomePage/InfoSection3";
@@ -29,15 +29,8 @@ const ProductPage = () => {
     return <div>Loading...</div>; // Add proper loading state or error handling
   }
 
-  const {
-    name,
-    images,
-    price,
-    shortIntroduction,
-    description,
-    reviews,
-    quantity,
-  } = product;
+  const { name, images, price, shortIntroduction, description, reviews } =
+    product;
 
   return (
     <div className="text-udark">

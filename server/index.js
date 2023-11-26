@@ -12,6 +12,7 @@ import { fileURLToPath } from "url";
 
 import localAuth from "./routes/auth/local.js";
 import iotRoutes from "./routes/iot.js";
+import productPageRoute from "./routes/productPage.js";
 import shopRoute from "./routes/shop.js";
 import adminRoutes from "./routes/admin.js";
 import addProductRoute from "./routes/admin/addProduct.js";
@@ -59,6 +60,7 @@ app.use("/uploads", express.static(join(__dirname, "uploads")));
 // ------------------- Routes --------------------------
 app.use("/auth", localAuth);
 app.use("/", iotRoutes);
+app.use("/productpage", productPageRoute);
 app.use("/shop", shopRoute);
 app.use("/admin", adminRoutes);
 
