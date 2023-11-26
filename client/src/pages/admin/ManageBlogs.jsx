@@ -39,9 +39,8 @@ const ManageBlogs = () => {
               className="w-16 h-16 object-cover rounded"
             />
             <div className="details mx-10 space-y-1">
-              <div className="text-lg font-bold">{blog.name}</div>
-              <div className="font-semibold">${blog.price}</div>
-              <Link to={`/admin/productedit/${blog._id}`}>
+              <div className="text-lg font-bold">{blog.title}</div>
+              <Link to={`/admin/blogedit/${blog._id}`}>
                 <button className="py-1 px-5 font-semibold border border-solid border-udark">
                   Edit
                 </button>
