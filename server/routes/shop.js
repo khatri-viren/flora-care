@@ -13,9 +13,5 @@ router.get("/", async (req, res) => {
   }
 });
 
-// router.get('/', (req, res) => {
-//   // Handle the GET request here
-//   res.send('This is the shop route');
-// });
 
 export default router;

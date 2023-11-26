@@ -118,7 +118,7 @@ const ProductEdit = () => {
               id="title"
               value={product.name}
               onChange={(e) =>
-                setProduct({ ...product, title: e.target.value })
+                setProduct({ ...product, name: e.target.value })
               }
             />
           </div>
@@ -133,10 +133,10 @@ const ProductEdit = () => {
               className="uinput"
               cols="30"
               rows="3"
-              onChange={(e) =>
-                setProduct({ ...product, intro: e.target.value })
+              onChange={(e) => 
+                setProduct({ ...product, shortIntroduction: e.target.value })
               }
-              value={product.intro}
+              value={product.shortIntroduction}
             />
           </div>
           <div className="flex flex-col mb-5">

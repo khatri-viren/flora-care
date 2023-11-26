@@ -13,11 +13,18 @@ import { fileURLToPath } from "url";
 import localAuth from "./routes/auth/local.js";
 import iotRoutes from "./routes/iot.js";
 import productPageRoute from "./routes/productPage.js";
+import blogpageRoute from "./routes/blogpage.js";
 import shopRoute from "./routes/shop.js";
 import adminRoutes from "./routes/admin.js";
 import addProductRoute from "./routes/admin/addProduct.js";
 import manageProductRoutes from "./routes/admin/manageProducts.js";
 import deleteProductRoutes from "./routes/admin/deleteProduct.js";
+import manageBlogsRoutes from "./routes/admin/manageBlogs.js";
+import blogEditRoutes from './routes/admin/blogEdit.js';
+import deleteBlogRoute from "./routes/admin/deleteBlog.js";
+import addBlogRoute from "./routes/admin/addBlog.js";
+import blogsHomeRoute from "./routes/blogshome.js";
+
 
 config();
 const app = express();
@@ -67,6 +74,12 @@ app.use("/shop", shopRoute);
 app.use("/admin", adminRoutes);
 app.use("/admin/manageproducts", manageProductRoutes);
 app.use("/admin/deleteproduct", deleteProductRoutes);
+app.use("/admin/manageblogs", manageBlogsRoutes);
+app.use('/blogpage', blogpageRoute);
+app.use('/admin/blogedit', blogEditRoutes);
+app.use("/admin/deleteblog", deleteBlogRoute);
+app.use("/admin/addblog", addBlogRoute);
+app.use("/blogshome", blogsHomeRoute);
 
 app.use(
   "/admin/addproduct",

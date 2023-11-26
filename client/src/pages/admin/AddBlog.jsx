@@ -1,11 +1,8 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
 const AddBlog = () => {
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     title: "",
     intro: "",
@@ -15,33 +12,37 @@ const AddBlog = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFileChange = (e) => {
-    setFormData({ ...formData, images: Array.from(e.target.files) });
+    const files = e.target.files;
+    setFormData({ ...formData, images: files });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.title);
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("intro", formData.intro);
+      formDataToSend.append("content", formData.content);
+      formDataToSend.append("conclusion", formData.conclusion);
+  
       for (let i = 0; i < formData.images.length; i++) {
         formDataToSend.append("images", formData.images[i]);
       }
-      formDataToSend.append("shortIntroduction", formData.intro);
-      formDataToSend.append("content", formData.content);
-      formDataToSend.append("conclusion", Number(formData.conclusion));
+  
       await axios.post("http://localhost:4000/admin/addblog", formDataToSend);
       toast.success("Successfully Added Blog");
-      navigate("/admin/manageproducts");
+      window.location.href = "/admin/Dashboard";
     } catch (error) {
       console.error("Error adding blog: ", error);
       toast.error("Error Adding Blog");
     }
   };
+  
+
   return (
     <div className="mx-5 lg:mx-20 pt-8 my-12 text-udark">
       <h2 className="text-4xl font-bold my-5">Add Blog</h2>
@@ -88,7 +89,7 @@ const AddBlog = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label htmlFor="desc" className="ulabel">
+          <label htmlFor="content" className="ulabel">
             Content
           </label>
           <textarea

@@ -1,26 +1,25 @@
+// BlogCard.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BlogCard = () => {
+const BlogCard = ({ blog }) => {
   return (
-    <div className=" flex flex-col">
-      <Link to="/blogpage" className="">
-      <img src="https://via.placeholder.com/400x200" alt="" />
+    <div className="w-fit space-y-1 mx-auto my-5">
+      <Link to={`/blogpage/${blog._id}`}>
+        <img
+          src={`http://localhost:4000/uploads/${blog.images[0]}`}
+          alt={blog.title}
+          className="w-full h-auto"
+        />
       </Link>
-      <div className="my-4 mx-2">
-        <div className="mb-3">
-          <span className="w-fit px-2 py-1 text-xs font-semibold bg-ulight mb-2">
-            Category
-          </span>
-          <span className="w-fit text-xs font-semibold mx-3">5 min read</span>
-        </div>
-        <div className="font-bold text-lg lg:text-xl">
-          The Benefits of IoT in Plant Care
-        </div>
-        <p className="font-light text-sm lg:text-base my-2">
-          Discover how IoT technology is revolutionizing plant care.
-        </p>
+      <div className="content flex justify-between px-1">
+        <Link to={`/blogpage/${blog._id}`}>
+          <span className="text-lg font-semibold">{blog.title}</span>
+        </Link>
+        {/* Add additional details here if needed */}
       </div>
+      <div className="text-sm font-light px-1">{blog.intro}</div>
+      {/* Add additional buttons or actions here if needed */}
     </div>
   );
 };

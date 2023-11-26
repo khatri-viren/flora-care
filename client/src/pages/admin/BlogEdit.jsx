@@ -39,24 +39,46 @@ export default function BlogEdit() {
 
   const handleDelete = async (blogid) => {
     try {
-      const response = await fetch(
+      // Delete the blog
+      const blogResponse = await fetch(
         `http://localhost:4000/admin/deleteblog/${blogid}`,
         {
           method: "DELETE",
         }
       );
-
-      if (response.ok) {
-        console.log("Product deleted successfully");
-        // Redirect to the product management page or perform any other action.
+  
+      if (blogResponse.ok) {
+        console.log("Blog deleted successfully");
+  
+        // Get the list of images associated with the blog
+        const blogImagesResponse = await fetch(
+          `http://localhost:4000/admin/getblogimages/${blogid}`
+        );
+  
+        if (blogImagesResponse.ok) {
+          const images = await blogImagesResponse.json();
+  
+          // Delete each image associated with the blog
+          for (const image of images) {
+            await fetch(`http://localhost:4000/admin/deleteblogimage/${image}`, {
+              method: "DELETE",
+            });
+          }
+  
+          console.log("Blog images deleted successfully");
+        } else {
+          console.error("Failed to fetch blog images");
+        }
+  
+        // Redirect to the blog management page or perform any other action.
         navigate("/admin/manageblogs");
       } else {
-        console.error("Failed to delete product");
+        console.error("Failed to delete Blog");
       }
     } catch (error) {
-      console.error("Error deleting product:", error);
+      console.error("Error deleting Blog:", error);
     }
-  };
+  };  
 
   const handleUpdate = async (blogid) => {
     try {
@@ -72,13 +94,13 @@ export default function BlogEdit() {
       );
 
       if (response.ok) {
-        console.log("Product updated successfully");
+        console.log("Blog updated successfully");
         navigate("/admin/manageblogs");
       } else {
-        console.error("Failed to update product");
+        console.error("Failed to update Blog");
       }
     } catch (error) {
-      console.error("Error updating product:", error);
+      console.error("Error updating Blog:", error);
     }
   };
 
@@ -97,7 +119,7 @@ export default function BlogEdit() {
         {blog.images.map((image, index) => (
           <img
             key={index}
-            src={`http://localhost:4000/${image}`}
+            src={`http://localhost:4000/uploads/${image}`}
             alt={`Blog ${index + 1}`}
             className="mx-auto max-h-56"
           />
@@ -168,14 +190,14 @@ export default function BlogEdit() {
               className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold mb-5"
               onClick={() => handleDelete(id)}
             >
-              Delete Product
+              Delete Blog
             </button>
             <button
               type="button"
               className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold"
               onClick={() => handleUpdate(id)}
             >
-              Update
+              Update Blog
             </button>
           </div>
         </div>

@@ -36,9 +36,4 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// router.get('/', (req, res) => {
-//   // Handle the GET request here
-//   res.send('This is the productpage route');
-// });
-
 export default router;

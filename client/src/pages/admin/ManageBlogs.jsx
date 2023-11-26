@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 
 const ManageBlogs = () => {
   const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -12,7 +13,9 @@ const ManageBlogs = () => {
         const data = await response.json();
         setBlogs(data);
       } catch (error) {
-        console.error("Error fetching products:", error);
+        console.error("Error fetching blogs:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -31,23 +34,27 @@ const ManageBlogs = () => {
       </div>
       <hr className="border border-solid border-udark my-5" />
       <div className="container">
-        {blogs.map((blog) => (
-          <div key={blog.id} className="product flex my-4">
-            <img
-              src={`http://localhost:4000/${blog.images[0]}`}
-              alt={blog.name}
-              className="w-16 h-16 object-cover rounded"
-            />
-            <div className="details mx-10 space-y-1">
-              <div className="text-lg font-bold">{blog.title}</div>
-              <Link to={`/admin/blogedit/${blog._id}`}>
-                <button className="py-1 px-5 font-semibold border border-solid border-udark">
-                  Edit
-                </button>
-              </Link>
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          blogs.map((blog) => (
+            <div key={blog._id} className="product flex my-4">
+              <img
+                src={`http://localhost:4000/uploads/${blog.images[0]}`}
+                alt={blog.title}
+                className="w-16 h-16 object-cover rounded"
+              />
+              <div className="details mx-10 space-y-1">
+                <div className="text-lg font-bold">{blog.title}</div>
+                <Link to={`/admin/blogedit/${blog._id}`}>
+                  <button className="py-1 px-5 font-semibold border border-solid border-udark">
+                    Edit
+                  </button>
+                </Link>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        )}
       </div>
     </div>
   );
