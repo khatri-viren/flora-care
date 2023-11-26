@@ -33,14 +33,14 @@ function App() {
           <Route path="/userdashboard" element={<UserDashboard />} />
           <Route path="/shop" element={<Shop />} />
           <Route path="/aboutus" element={<AboutUs />} />
-          <Route path="/productpage" element={<ProductPage />} />
+          <Route path="/productpage/:id" element={<ProductPage />} />
           <Route path="/blogshome" element={<BlogsHome />} />
           <Route path="/blogpage" element={<BlogPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payship" element={<PaymentShipping />} />
-
+          
           <Route path="/admin/manageproducts" element={<ManageProducts />} />
           <Route path="/admin/addproduct" element={<AddProduct />} />
           <Route path="/admin/addblog" element={<AddBlog />} />

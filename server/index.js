@@ -16,6 +16,8 @@ import productPageRoute from "./routes/productPage.js";
 import shopRoute from "./routes/shop.js";
 import adminRoutes from "./routes/admin.js";
 import addProductRoute from "./routes/admin/addProduct.js";
+import manageProductRoutes from "./routes/admin/manageProducts.js";
+import deleteProductRoutes from "./routes/admin/deleteProduct.js";
 
 config();
 const app = express();
@@ -63,6 +65,8 @@ app.use("/", iotRoutes);
 app.use("/productpage", productPageRoute);
 app.use("/shop", shopRoute);
 app.use("/admin", adminRoutes);
+app.use("/admin/manageproducts", manageProductRoutes);
+app.use("/admin/deleteproduct", deleteProductRoutes);
 
 app.use(
   "/admin/addproduct",

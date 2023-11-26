@@ -4,18 +4,14 @@ import Product from "../../models/product.js";
 const router = Router();
 
 // Route to get all products for admin management
-router.get('/manageproducts', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const products = await Product.find(); // Retrieve all products
-    res.json(products);
+    const products = await Product.find();
+    res.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
-
-// router.get("/manageproducts", (req, res) => {
-//   // Handle the GET request here
-//   res.send("This is the manageproduct route");
-// });
 
 export default router;
