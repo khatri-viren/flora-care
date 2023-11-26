@@ -1,4 +1,4 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 
 const ProductCard = ({ product }) => {
@@ -8,7 +8,7 @@ const ProductCard = ({ product }) => {
         <img
           src={"http://localhost:4000/" + product.images[0]}
           alt={product.name}
-          className="w-full h-auto"
+          className="w-full  aspect-3/4 "
         />
       </Link>
       <div className="content flex justify-between px-1">
@@ -18,7 +18,7 @@ const ProductCard = ({ product }) => {
         <span className="text-lg font-semibold">${product.price}</span>
       </div>
       <div className="text-sm font-light px-1">{product.shortIntroduction}</div>
-      <button className="border border-udark p-2 w-full">Buy Now</button>
+      <button className="border border-udark p-2 w-full">Add to Cart</button>
     </div>
   );
 };

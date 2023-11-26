@@ -33,7 +33,6 @@ export default function passportConfig(passport) {
 
   passport.deserializeUser(async function (id, done) {
     try {
-      console.log("sddfasdff");
       const user = await User.findById(id);
 
       if (!user) {

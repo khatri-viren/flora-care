@@ -13,10 +13,12 @@ import Navbar from "./components/shared/Navbar/Navbar";
 import Footer from "./components/shared/Footer/Footer";
 import PaymentShipping from "./pages/PaymentShipping";
 import ManageProducts from "./pages/admin/ManageProducts";
+import ManageBlogs from "./pages/admin/ManageBlogs";
 import ProductEdit from "./pages/admin/ProductEdit";
 import AddProduct from "./pages/admin/AddProduct";
 import Dashboard from "./pages/admin/Dashboard";
 import AddBlog from "./pages/admin/AddBlog";
+import BlogEdit from "./pages/admin/BlogEdit";
 import { Routes, Route } from "react-router-dom";
 
 import { ToastContainer } from "react-toastify";
@@ -25,7 +27,7 @@ import "react-toastify/dist/ReactToastify.css";
 function App() {
   return (
     <>
-      <div className="bg-ubg">
+      <div className="bg-ubg scroll-smooth">
         <ToastContainer />
         <Navbar />
         <Routes>
@@ -40,12 +42,14 @@ function App() {
           <Route path="/signup" element={<Signup />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/payship" element={<PaymentShipping />} />
-          
+
           <Route path="/admin/manageproducts" element={<ManageProducts />} />
+          <Route path="/admin/manageblogs" element={<ManageBlogs />} />
           <Route path="/admin/addproduct" element={<AddProduct />} />
           <Route path="/admin/addblog" element={<AddBlog />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/productedit/:id" element={<ProductEdit />} />
+          <Route path="/admin/blogedit/:id" element={<BlogEdit />} />
         </Routes>
         <Footer />
       </div>

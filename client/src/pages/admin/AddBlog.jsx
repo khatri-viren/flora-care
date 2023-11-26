@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const AddBlog = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     title: "",
     intro: "",
@@ -23,9 +26,17 @@ const AddBlog = () => {
     e.preventDefault();
 
     try {
-      await axios.post("admin/addblog", formData);
+      const formDataToSend = new FormData();
+      formDataToSend.append("name", formData.title);
+      for (let i = 0; i < formData.images.length; i++) {
+        formDataToSend.append("images", formData.images[i]);
+      }
+      formDataToSend.append("shortIntroduction", formData.intro);
+      formDataToSend.append("content", formData.content);
+      formDataToSend.append("conclusion", Number(formData.conclusion));
+      await axios.post("http://localhost:4000/admin/addblog", formDataToSend);
       toast.success("Successfully Added Blog");
-      window.location.href = "/admin/manageproducts";
+      navigate("/admin/manageproducts");
     } catch (error) {
       console.error("Error adding blog: ", error);
       toast.error("Error Adding Blog");
@@ -81,7 +92,7 @@ const AddBlog = () => {
             Content
           </label>
           <textarea
-            name="desc"
+            name="content"
             className="uinput"
             id=""
             cols="30"

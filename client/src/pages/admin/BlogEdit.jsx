@@ -1,34 +1,32 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-const ProductEdit = () => {
+export default function BlogEdit() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const [product, setProduct] = useState({
+  const [blog, setBlog] = useState({
     title: "",
     intro: "",
-    description: "",
+    content: "",
+    conclusion: "",
     images: [],
-    quantity: 0,
-    price: 0,
   });
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const fetchProductData = async () => {
+    const fetchBlogData = async () => {
       try {
         if (!id) {
           throw new Error("Product ID is undefined");
         }
-        const response = await fetch(`http://localhost:4000/productpage/${id}`);
+        const response = await fetch(`http://localhost:4000/blogpage/${id}`);
         if (!response.ok) {
           throw new Error("Failed to fetch product data");
         }
         const data = await response.json();
-        setProduct(data);
+        setBlog(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -36,13 +34,13 @@ const ProductEdit = () => {
       }
     };
 
-    fetchProductData();
+    fetchBlogData();
   }, [id]);
 
-  const handleDelete = async (productId) => {
+  const handleDelete = async (blogid) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/deleteproduct/${productId}`,
+        `http://localhost:4000/admin/deleteblog/${blogid}`,
         {
           method: "DELETE",
         }
@@ -51,7 +49,7 @@ const ProductEdit = () => {
       if (response.ok) {
         console.log("Product deleted successfully");
         // Redirect to the product management page or perform any other action.
-        navigate("/admin/manageproducts");
+        navigate("/admin/manageblogs");
       } else {
         console.error("Failed to delete product");
       }
@@ -60,22 +58,22 @@ const ProductEdit = () => {
     }
   };
 
-  const handleUpdate = async (productId) => {
+  const handleUpdate = async (blogid) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/productedit/${productId}`,
+        `http://localhost:4000/admin/blogedit/${blogid}`,
         {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(product),
+          body: JSON.stringify(blog),
         }
       );
 
       if (response.ok) {
         console.log("Product updated successfully");
-        navigate("/admin/manageproducts");
+        navigate("/admin/manageblogs");
       } else {
         console.error("Failed to update product");
       }
@@ -96,11 +94,11 @@ const ProductEdit = () => {
     <div className="mx-5 pt-8 lg:mx-20 my-12 text-udark">
       <h2 className="text-4xl font-bold">Edit Product</h2>
       <div className="imageContainer grid grid-cols-4 gap-10 my-5">
-        {product.images.map((image, index) => (
+        {blog.images.map((image, index) => (
           <img
             key={index}
             src={`http://localhost:4000/${image}`}
-            alt={`Product ${index + 1}`}
+            alt={`Blog ${index + 1}`}
             className="mx-auto max-h-56"
           />
         ))}
@@ -109,17 +107,15 @@ const ProductEdit = () => {
         <div className="leftSide">
           <div className="flex flex-col">
             <label htmlFor="title" className="ulabel">
-              Product Name
+              Title
             </label>
             <input
               type="text"
               className="uinput"
               name="title"
               id="title"
-              value={product.name}
-              onChange={(e) =>
-                setProduct({ ...product, title: e.target.value })
-              }
+              value={blog.title}
+              onChange={(e) => setBlog({ ...blog, title: e.target.value })}
             />
           </div>
           <div className="flex flex-col">
@@ -133,15 +129,13 @@ const ProductEdit = () => {
               className="uinput"
               cols="30"
               rows="3"
-              onChange={(e) =>
-                setProduct({ ...product, intro: e.target.value })
-              }
-              value={product.intro}
+              onChange={(e) => setBlog({ ...blog, intro: e.target.value })}
+              value={blog.intro}
             />
           </div>
           <div className="flex flex-col mb-5">
             <label htmlFor="desc" className="ulabel">
-              Description
+              Content
             </label>
             <textarea
               name="desc"
@@ -149,42 +143,25 @@ const ProductEdit = () => {
               id="desc"
               cols="30"
               rows="10"
-              value={product.description}
-              onChange={(e) =>
-                setProduct({ ...product, description: e.target.value })
-              }
+              value={blog.content}
+              onChange={(e) => setBlog({ ...blog, content: e.target.value })}
             ></textarea>
           </div>
         </div>
         <div className="rightSide">
-          <div className="flex flex-col">
-            <label htmlFor="price" className="ulabel">
-              Price
+          <div className="flex flex-col mb-5">
+            <label htmlFor="desc" className="ulabel">
+              Conclusion
             </label>
-            <input
-              type="number"
-              className="uinput w-28"
-              name="price"
-              onChange={(e) =>
-                setProduct({ ...product, price: e.target.value })
-              }
-              value={product.price}
-            />
-          </div>
-          <div className="flex flex-col">
-            <label htmlFor="quantity" className="ulabel">
-              Quantity
-            </label>
-            <input
-              type="number"
-              className="uinput w-28"
-              name="quantity"
-              id="quantity"
-              value={product.quantity}
-              onChange={(e) =>
-                setProduct({ ...product, quantity: e.target.value })
-              }
-            />
+            <textarea
+              name="desc"
+              className="uinput"
+              id="desc"
+              cols="30"
+              rows="10"
+              value={blog.conclusion}
+              onChange={(e) => setBlog({ ...blog, conclusion: e.target.value })}
+            ></textarea>
           </div>
           <div className="flex flex-col my-2">
             <button
@@ -205,6 +182,4 @@ const ProductEdit = () => {
       </div>
     </div>
   );
-};
-
-export default ProductEdit;
+}

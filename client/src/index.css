@@ -12,6 +12,11 @@
     padding-left: 0.5rem;
     padding-right: 0.5rem;
     margin-bottom: 1.25rem;
+    background-color: #ebe6de;
+  }
+
+  .uinput:focus {
+    outline: none;
   }
   .ulabel {
     font-weight: 600;
