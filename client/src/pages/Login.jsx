@@ -3,11 +3,9 @@ import BorderButton from "../components/shared/Buttons/BorderButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useUser } from "../store/UserContext.jsx";
 
 const Login = () => {
   const navigate = useNavigate();
-  const { updateUser } = useUser();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -24,6 +22,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      toast("Logging in....", { className: "toast" });
       const response = await axios({
         method: "post",
         data: loginData,
@@ -35,7 +34,9 @@ const Login = () => {
           email: "",
           password: "",
         });
-        updateUser(response.data);
+        const token = response.data.token;
+        localStorage.setItem("authToken", token);
+
         toast.success("Successfully Logged In", { className: "toast" });
         navigate("/");
       }

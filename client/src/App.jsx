@@ -1,6 +1,6 @@
 import "./App.css";
 import HomePage from "./pages/HomePage";
-import UserDashboard from "./components/UserDashboard/UserDashboard";
+import UserDashboard from "./pages/UserDashboard.jsx";
 import AboutUs from "./pages/AboutUs";
 import Shop from "./pages/Shop";
 import ProductPage from "./pages/ProductPage";

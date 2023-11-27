@@ -1,12 +1,17 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import leftArrow from "../../../assets/leftArrow.svg";
 import hamburger from "../../../assets/hamburger.svg";
-import { useUser } from "../../../store/UserContext.jsx";
 
 const Navbar = () => {
-  const { user } = useUser();
   const [showMenu, setShowMenu] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    // Update the isLoggedIn state whenever the token changes
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(token !== null);
+  }, []);
 
   const handleMenuToggle = () => {
     setShowMenu(!showMenu);
@@ -33,14 +38,19 @@ const Navbar = () => {
             Flora Care
           </span>
         </div>
-        <div onClick={() => console.log(user)}>fdsa</div>
         <div className="rightSide my-auto md:flex space-x-8 hidden">
           <Link to="/cart" className="navButton hover:text-umedium">
             Cart
           </Link>
-          <Link to="/login" className="navButton hover:text-umedium">
-            Login
-          </Link>
+          {isLoggedIn ? (
+            <Link to="/userdashboard" className="navButton hover:text-umedium">
+              Account
+            </Link>
+          ) : (
+            <Link to="/login" className="navButton hover:text-umedium">
+              Login
+            </Link>
+          )}
         </div>
         <img
           src={hamburger}
@@ -77,9 +87,18 @@ const Navbar = () => {
             <Link to="/cart" className="navButton hover:text-umedium">
               Cart
             </Link>
-            <Link to="/login" className="navButton hover:text-umedium">
-              Login
-            </Link>
+            {isLoggedIn ? (
+              <Link
+                to="/userdashboard"
+                className="navButton hover:text-umedium"
+              >
+                Account
+              </Link>
+            ) : (
+              <Link to="/login" className="navButton hover:text-umedium">
+                Login
+              </Link>
+            )}
           </div>
         </div>
       </div>
