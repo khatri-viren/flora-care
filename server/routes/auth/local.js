@@ -50,6 +50,7 @@ router.post("/local/register", async (req, res) => {
     async (doc) => {
       if (doc) res.send("User already Exists");
       else {
+        console.log("fds");
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = new User({
           firstname: req.body.firstname,

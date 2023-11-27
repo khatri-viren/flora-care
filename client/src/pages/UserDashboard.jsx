@@ -1,8 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditProfile from "../components/UserDashboard/EditProfile";
-import { useState } from "react";
 import UserOrders from "../components/UserDashboard/UserOrders";
+import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { useUser } from "../store/UserContext.jsx";
+import { ring } from "ldrs";
 
 const UserDashboard = () => {
   const [selectedSection, setSelectedSection] = useState("edit");
@@ -18,6 +21,55 @@ const UserDashboard = () => {
     setSelectedSection(section);
   };
 
+  const { user, updateUser } = useUser();
+  const [loading, setLoading] = useState(true);
+  ring.register();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const token = localStorage.getItem("authToken");
+
+        if (!token) {
+          toast.error("Token not found");
+          return;
+        }
+        // Attach the token to the request headers
+        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+        const response = await axios.get(
+          "http://localhost:4000/auth/local/getuser"
+        );
+        // Assuming the server sends the user details in the response data
+        const userData = response.data;
+        // Update the user context with the fetched data
+        updateUser(userData);
+      } catch (error) {
+        console.error("Error fetching user data:", error);
+        toast.error("Error fetching user data", { className: "toast" });
+        // Handle the error (e.g., redirect to login page)
+      } finally {
+        // Set loading to false, indicating that the data has been fetched
+        setLoading(false);
+      }
+    };
+    // Call the fetchUserData function
+    fetchUserData();
+  }, [updateUser]); // Only re-run the effect if updateUser changes
+
+  if (loading) {
+    return (
+      <div className="w-screen h-screen flex justify-center items-center">
+        <l-ring
+          size="40"
+          stroke="5"
+          bg-opacity="0"
+          speed="2"
+          color="black"
+        ></l-ring>
+      </div>
+    );
+  }
   return (
     <div className="bg-ubg text-udark lg:mx-20 mx-5 pb-12 pt-20">
       <h1 className="text-4xl font-bold">Dashboard</h1>
@@ -25,15 +77,17 @@ const UserDashboard = () => {
       <div className="userInfo grid grid-cols-2 my-auto font-medium m-5">
         <div className="flex">
           <div className="leftSide col-span-1">
-            <img
+            {/* <img
               src="https://images.pexels.com/photos/2380794/pexels-photo-2380794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
               alt="  "
               className="profileImage rounded-full p-5 w-40"
-            />
+            /> */}
           </div>
           <div className="rightSide flex flex-col col-span-1 my-auto space-y-2">
-            <span className="text-lg">Viren Khatri</span>
-            <span className="text-lg">vk102002@gmail.com</span>
+            <span className="text-lg">
+              {user.firstname + " " + user.lastname}
+            </span>
+            <span className="text-lg">{user.email}</span>
             <span>+911234567890</span>
           </div>
         </div>
@@ -64,7 +118,7 @@ const UserDashboard = () => {
           </button>
         </div>
       </div>
-      {selectedSection === "edit" && <EditProfile />}
+      {selectedSection === "edit" && <EditProfile user={user} />}
       {selectedSection === "orders" && <UserOrders />}
       {selectedSection === "data" && <EditProfile />}
     </div>

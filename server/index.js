@@ -6,7 +6,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import passportConfig from "./config/passport.js";
-import {upload} from "./config/multer.js";
+import { upload } from "./config/multer.js";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -24,6 +24,8 @@ import blogEditRoutes from "./routes/admin/blogEdit.js";
 import deleteBlogRoute from "./routes/admin/deleteBlog.js";
 import addBlogRoute from "./routes/admin/addBlog.js";
 import blogsHomeRoute from "./routes/blogshome.js";
+import userEditRoute from "./routes/userEdit.js";
+import stripe from "./routes/stripe.js";
 
 config();
 const app = express();
@@ -79,6 +81,8 @@ app.use("/admin/blogedit", blogEditRoutes);
 app.use("/admin/deleteblog", deleteBlogRoute);
 app.use("/admin/addblog", addBlogRoute);
 app.use("/blogshome", blogsHomeRoute);
+app.use("/userdashboard", userEditRoute);
+app.use("/api/stripe", stripe);
 app.use("/admin/addproduct", addProductRoute);
 // app.use(
 //   "/admin/addproduct",

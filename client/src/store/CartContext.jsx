@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 /* eslint-disable react-refresh/only-export-components */
 /* eslint-disable react/prop-types */
-import { createContext, useReducer, useContext } from "react";
+import { createContext, useReducer, useContext, useEffect } from "react";
 
 // Initial state for the shopping cart
 const initialState = {
@@ -58,7 +58,10 @@ const CartContext = createContext();
 
 // Create the context provider
 const CartProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(cartReducer, initialState);
+  const storedCart = localStorage.getItem("cart");
+  const initialCart = storedCart ? JSON.parse(storedCart) : initialState.cart;
+
+  const [state, dispatch] = useReducer(cartReducer, { cart: initialCart });
 
   // Actions
   const addToCart = (item) => {
@@ -72,6 +75,10 @@ const CartProvider = ({ children }) => {
   const clearCart = () => {
     dispatch({ type: CLEAR_CART });
   };
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(state.cart));
+  }, [state.cart]);
 
   return (
     <CartContext.Provider

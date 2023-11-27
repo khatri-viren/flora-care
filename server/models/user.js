@@ -6,21 +6,26 @@ const user = new Schema({
   lastname: String,
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
+  role: {
+    type: String,
+    enum: ["admin", "user"],
+    default: "user",
+  },
 
   // Address information
   address: {
-    addressline1: String,
-    addressline2: String,
-    city: String,
-    state: String,
-    pincode: String,
+    addressline1: { type: String, default: "" },
+    addressline2: { type: String, default: "" },
+    city: { type: String, default: "" },
+    state: { type: String, default: "" },
+    pincode: { type: String, default: "" },
   },
 
   // E-commerce related information
   orders: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Order',
+      ref: "Order",
     },
   ],
 
@@ -28,19 +33,19 @@ const user = new Schema({
   blog: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Blog',
+      ref: "Blog",
     },
   ],
 
   // Additional user information
   profile: {
-    phoneno: String,
-    avatar: String,
-    bio: String,
+    phoneno: { type: String, default: "" },
+    avatar: { type: String, default: "" },
+    bio: { type: String, default: "" },
     socialLinks: {
-      twitter: String,
-      facebook: String,
-      instagram: String,
+      twitter: { type: String, default: "" },
+      facebook: { type: String, default: "" },
+      instagram: { type: String, default: "" },
     },
   },
 
@@ -53,7 +58,6 @@ const user = new Schema({
     type: Date,
     default: Date.now,
   },
-
 });
 
 export default model("User", user);

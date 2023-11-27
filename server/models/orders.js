@@ -8,11 +8,11 @@ const orderSchema = new Schema({
 
     // Address information
     address: {
-      addressline1: String,
-      addressline2: String,
-      city: String,
-      state: String,
-      pincode: String,
+      addressline1: { type: String, default: "" },
+      addressline2: { type: String, default: "" },
+      city: { type: String, default: "" },
+      state: { type: String, default: "" },
+      pincode: { type: String, default: "" },
     },
   },
   products: [
@@ -27,6 +27,15 @@ const orderSchema = new Schema({
       },
     },
   ],
+  total: {
+    type: Number,
+    required: true,
+  },
+  orderStatus: {
+    type: String,
+    enum: ["Shipped", "Delivered", "Placed"],
+    default: "Placed",
+  },
   orderDate: {
     type: Date,
     default: Date.now,

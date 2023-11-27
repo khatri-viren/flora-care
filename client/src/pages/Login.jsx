@@ -22,7 +22,6 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      toast("Logging in....", { className: "toast" });
       const response = await axios({
         method: "post",
         data: loginData,

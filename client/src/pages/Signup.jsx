@@ -1,11 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import BorderButton from "../components/shared/Buttons/BorderButton";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    password: "",
+    password1: "",
+  });
+
+  const [errors, setErrors] = useState({
     firstname: "",
     lastname: "",
     email: "",
@@ -15,17 +25,52 @@ const Signup = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+  };
+
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = { ...errors };
+
+    // Basic required field validation
+    Object.keys(formData).forEach((field) => {
+      if (!formData[field]) {
+        newErrors[field] = `${field} field is required`;
+        isValid = false;
+      }
+    });
+
+    // Password validation
+    const passwordRegex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()-=_+])[A-Za-z\d!@#$%^&*()-=_+]{8,}$/;
+    if (!passwordRegex.test(formData.password)) {
+      newErrors.password =
+        "Password must be at least 8 characters long and contain at least one lowercase letter, one uppercase letter, one number, and one special character.";
+      isValid = false;
+    }
+
+    // Password match validation
+    if (formData.password !== formData.password1) {
+      newErrors.password1 = "Passwords do not match";
+      isValid = false;
+    }
+
+    setErrors(newErrors);
+    return isValid;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      return;
+    }
     console.log(formData);
     try {
       await axios({
         method: "post",
         data: formData,
         withCredentials: true,
-        url: "http://localhost:4000/auth/lcoal/register",
+        url: "http://localhost:4000/auth/local/register",
       });
       setFormData({
         firstname: "",
@@ -34,8 +79,8 @@ const Signup = () => {
         password: "",
         password1: "",
       });
-      window.location.href = "/admin/manageproducts";
       toast.success("Successfully Added Product");
+      navigate("/userdashboard");
     } catch (error) {
       console.error("Error adding product: ", error);
       toast.error("Error Adding Product");
@@ -43,7 +88,7 @@ const Signup = () => {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <div className="flex flex-col w-fit mx-auto justify-center text-udark py-32">
+      <div className="flex flex-col w-fit mx-auto justify-center text-udark py-32 max-w-lg">
         <h1 className="font-bold text-4xl text-center">Signup</h1>
         <label htmlFor="firstname" className="mt-10">
           First Name
@@ -101,6 +146,11 @@ const Signup = () => {
           onChange={handleChange}
           value={formData.password1}
         />
+        {Object.keys(errors).map((field) => (
+          <p key={field} className="text-red-500 text-sm w-1/2">
+            {errors[field]}
+          </p>
+        ))}
         <div className="mx-auto my-6">
           <BorderButton title="Submit" />
         </div>

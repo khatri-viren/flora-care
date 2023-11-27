@@ -1,125 +1,178 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import { useState } from "react";
 import { toast } from "react-toastify";
+// import { useUser } from "../../store/UserContext.jsx";
 
-import { useUser } from "../../store/UserContext.jsx";
+/* eslint-disable react/prop-types */
+export default function EditProfile({ user }) {
+  // const { updateUser } = useUser();
 
-export default function EditProfile() {
-  const { user, updateUser } = useUser();
-  const [loading, setLoading] = useState(true);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, []);
 
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("authToken");
+  const [formData, setFormData] = useState({
+    firstname: user.firstname,
+    lastname: user.lastname,
+    email: user.email,
+    addressline1: user.address.addressline1,
+    addressline2: user.address.addressline2,
+    city: user.address.city,
+    pincode: user.address.pincode,
+    phoneno: user.profile.phoneno,
+  });
 
-        if (!token) {
-          toast.error("Token not found");
-          return;
-        }
-        // Attach the token to the request headers
-        axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
 
-        const response = await axios.get(
-          "http://localhost:4000/auth/local/getuser"
-        );
-        // Assuming the server sends the user details in the response data
-        const userData = response.data;
-        // Update the user context with the fetched data
-        updateUser(userData);
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-        toast.error("Error fetching user data", { className: "toast" });
-        // Handle the error (e.g., redirect to login page)
-      } finally {
-        // Set loading to false, indicating that the data has been fetched
-        setLoading(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`http://localhost:4000/userdashboard`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          userId: user._id,
+          formData,
+        }),
+      });
+
+      if (response.ok) {
+        // console.log("Blog updated successfully");
+        // updateUser({ ...user, ...formData });
+        toast.success("Profile updated successfully", { className: "toast" });
+      } else {
+        // console.error("Failed to update Profile");
+        toast.error("Failed to update Profile");
       }
-    };
-    // Call the fetchUserData function
-    fetchUserData();
-  }, [updateUser]); // Only re-run the effect if updateUser changes
-
-  if (loading) {
-    return <p>Loading user data...</p>;
-  }
+    } catch (error) {
+      console.error("Error updating Profile:", error);
+    }
+    // console.log("Form submitted with data:", formData);
+  };
 
   return (
     <section className="text-udark">
       <hr className="border border-solid border-umedium my-3" />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
-      <div className="grid grid-cols-3 gap-x-8 gap-y-2 my-5">
-        <div className="flex flex-col">
-          <label htmlFor="title" className="ulabel">
-            First Name
-          </label>
-          <input
-            type="text"
-            className="uinput"
-            name="firstname"
-            id=""
-            value={user.firstname}
-          />
+      <form onSubmit={handleSubmit}>
+        <div className="grid grid-cols-3 gap-x-8 gap-y-2 my-5">
+          <div className="flex flex-col">
+            <label htmlFor="title" className="ulabel">
+              First Name
+            </label>
+            <input
+              onChange={handleChange}
+              type="text"
+              className="uinput"
+              name="firstname"
+              id=""
+              value={user.firstname}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="title" className="ulabel">
+              Last Name
+            </label>
+            <input
+              onChange={handleChange}
+              type="text"
+              className="uinput"
+              name="lastname"
+              id=""
+              value={user.lastname}
+            />
+          </div>
+          <div className="flex flex-col">
+            <label htmlFor="title" className="ulabel">
+              Email
+            </label>
+            <input
+              onChange={handleChange}
+              type="text"
+              className="uinput"
+              name="email"
+              id=""
+              disabled
+              value={user.email}
+            />
+          </div>
+          <div className=" flex flex-col col-span-2">
+            <label className="ulabel" htmlFor="address1">
+              Address Line 1
+            </label>
+            <input
+              onChange={handleChange}
+              className="uinput"
+              type="text"
+              name="addressline1"
+              id=""
+              value={user.address.addressline1}
+            />
+          </div>
+          <div className=" flex flex-col">
+            <label className="ulabel" htmlFor="phoneNumber">
+              Phone Number
+            </label>
+            <input
+              onChange={handleChange}
+              className="uinput"
+              type="text"
+              name="phoneno"
+              id=""
+              value={user.profile.phoneno}
+            />
+          </div>
+          <div className=" flex flex-col col-span-2">
+            <label className="ulabel" htmlFor="address2">
+              Address Line 2
+            </label>
+            <input
+              onChange={handleChange}
+              className="uinput"
+              type="text"
+              name="addressline2"
+              id=""
+              value={user.address.addressline2}
+            />
+          </div>
+          <div className=" flex flex-col">
+            <label className="ulabel" htmlFor="city">
+              City
+            </label>
+            <input
+              onChange={handleChange}
+              className="uinput"
+              type="text"
+              name="city"
+              id=""
+              value={user.address.city}
+            />
+          </div>
+          <div className=" flex flex-col">
+            <label className="ulabel" htmlFor="pincode">
+              Pincode
+            </label>
+            <input
+              onChange={handleChange}
+              className="uinput"
+              type="number"
+              name="pincode"
+              id=""
+              value={user.address.pincode}
+            />
+          </div>
         </div>
-        <div className="flex flex-col">
-          <label htmlFor="title" className="ulabel">
-            Last Name
-          </label>
-          <input
-            type="text"
-            className="uinput"
-            name="lastname"
-            id=""
-            value={user.lastname}
-          />
-        </div>
-        <div className="flex flex-col">
-          <label htmlFor="title" className="ulabel">
-            Email
-          </label>
-          <input
-            type="text"
-            className="uinput"
-            name="email"
-            id=""
-            disabled
-            value={user.email}
-          />
-        </div>
-        <div className=" flex flex-col col-span-2">
-          <label className="ulabel" htmlFor="address1">
-            Address Line 1
-          </label>
-          <input className="uinput" type="text" name="address1" id="" />
-        </div>
-        <div className=" flex flex-col">
-          <label className="ulabel" htmlFor="phoneNumber">
-            Phone Number
-          </label>
-          <input className="uinput" type="number" name="phoneNumber" id="" />
-        </div>
-        <div className=" flex flex-col col-span-2">
-          <label className="ulabel" htmlFor="address2">
-            Address Line 2
-          </label>
-          <input className="uinput" type="text" name="address2" id="" />
-        </div>
-        <div className=" flex flex-col">
-          <label className="ulabel" htmlFor="city">
-            City
-          </label>
-          <input className="uinput" type="text" name="city" id="" />
-        </div>
-        <div className=" flex flex-col">
-          <label className="ulabel" htmlFor="pincode">
-            Pincode
-          </label>
-          <input className="uinput" type="number" name="pincode" id="" />
-        </div>
-      </div>
-      <button className="py-2 px-6 w-fit h-12 text-udark border-udark border-2 hover:text-umedium ">
-        Update
-      </button>
+        <button className="py-2 px-6 w-fit h-12 text-udark border-udark border-2 hover:text-umedium ">
+          Update
+        </button>
+      </form>
     </section>
   );
 }

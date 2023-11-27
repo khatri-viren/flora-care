@@ -19,11 +19,12 @@ import AddProduct from "./pages/admin/AddProduct";
 import Dashboard from "./pages/admin/Dashboard";
 import AddBlog from "./pages/admin/AddBlog";
 import BlogEdit from "./pages/admin/BlogEdit";
-import { Routes, Route } from "react-router-dom";
+import CheckoutSuccess from "./pages/CheckoutSuccess.jsx";
+import NotFound from "./pages/NotFound.jsx";
 
+import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
 import { CartProvider } from "./store/CartContext.jsx";
 import { UserProvider } from "./store/UserContext.jsx";
 
@@ -49,6 +50,8 @@ function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/payship" element={<PaymentShipping />} />
+              <Route path="/checkout-success" element={<CheckoutSuccess />} />
+              <Route path="*" element={<NotFound />} />
 
               <Route
                 path="/admin/manageproducts"

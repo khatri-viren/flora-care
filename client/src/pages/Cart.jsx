@@ -1,13 +1,55 @@
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useCart } from "../store/CartContext.jsx";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
+  const navigator = useNavigate();
   const { cart, removeFromCart } = useCart();
-
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const handleClick = async () => {
+    console.log(cart);
+    let user = {};
+    const token = localStorage.getItem("authToken");
+
+    try {
+      const token = localStorage.getItem("authToken");
+
+      if (!token) {
+        console.log("Token not found");
+        return;
+      }
+      // Attach the token to the request headers
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+
+      const response = await axios.get(
+        "http://localhost:4000/auth/local/getuser"
+      );
+      // Assuming the server sends the user details in the response data
+      user = response.data;
+      // Update the user context with the fetched data
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      // Handle the error (e.g., redirect to login page)
+    }
+    console.log(user._id);
+
+    axios
+      .post("http://localhost:4000/api/stripe/create-checkout-session", {
+        cart,
+        userID: user._id,
+      })
+      .then((res) => {
+        if (res.data.url) {
+          window.location.href = res.data.url;
+        }
+      })
+      .catch((err) => console.error(err));
+  };
 
   return (
     <div className="text-udark lg:mx-20 mx-5 my-12 pt-8 ">
@@ -60,10 +102,13 @@ const Cart = () => {
                 rows="5"
                 className="bg-ubg border border-solid border-umedium"
               ></textarea>
-              <button className="px-3 py-2 bg-ulight mt-5">
-                <Link to="/payship" className="font-semibold">
-                  Proceed
-                </Link>
+              <button
+                className="px-3 py-2 bg-ulight mt-5"
+                onClick={handleClick}
+              >
+                {/* <Link to="/payship" className="font-semibold"> */}
+                Proceed
+                {/* </Link> */}
               </button>
             </div>
           </div>
