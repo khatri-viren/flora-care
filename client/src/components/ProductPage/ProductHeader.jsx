@@ -63,7 +63,7 @@ const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
               <img
                 key={index}
                 className="h-20 hover:cursor-pointer"
-                src={"http://localhost:4000/" + img}
+                src={"http://localhost:4000/uploads/" + img}
                 alt={`Product ${index + 1}`}
                 onClick={() => handleThumbnailClick(img)}
               />
@@ -72,7 +72,7 @@ const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
           <div className="h-fit">
             <img
               className="w-3/4 md:w-11/12"
-              src={"http://localhost:4000/" + selectedImg}
+              src={"http://localhost:4000/uploads/" + selectedImg}
               alt={name}
             />
           </div>

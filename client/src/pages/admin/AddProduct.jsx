@@ -4,42 +4,38 @@ import { toast } from "react-toastify";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
-    title: "",
-    intro: "",
-    desc: "",
+    name: "",
+    shortIntroduction: "",
+    description: "",
     images: [],
     price: 0,
     quantity: 0,
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: [e.target.value] });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleFileChange = (e) => {
     const files = e.target.files;
-    const imagesArray = Array.from(files); // Convert FileList to array
-    setFormData({ ...formData, images: imagesArray });
+    setFormData({ ...formData, images: files });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const formDataToSend = new FormData();
-      formDataToSend.append("name", formData.title);
+      formDataToSend.append("name", formData.name);
+      formDataToSend.append("price", formData.price);
+      formDataToSend.append("shortIntroduction", formData.shortIntroduction);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("quantity", formData.quantity);
+
       for (let i = 0; i < formData.images.length; i++) {
         formDataToSend.append("images", formData.images[i]);
       }
 
-      formDataToSend.append("price", Number(formData.price));
-      formDataToSend.append("shortIntroduction", formData.intro);
-      formDataToSend.append("description", formData.desc);
-      formDataToSend.append("quantity", Number(formData.quantity));
-
-      await axios.post(
-        "http://localhost:4000/admin/addproduct",
-        formDataToSend
-      );
+      await axios.post("http://localhost:4000/admin/addproduct", formDataToSend);
       toast.success("Successfully Added Product");
       window.location.href = "/admin/manageproducts";
     } catch (error) {
@@ -55,45 +51,42 @@ const AddProduct = () => {
         <div className="grid lg:grid-cols-2 lg:gap-16">
           <div className="leftSide">
             <div className="flex flex-col">
-              <label htmlFor="title" className="ulabel">
+              <label htmlFor="name" className="ulabel">
                 Product Name
               </label>
               <input
                 type="text"
                 className="uinput"
-                name="title"
-                id=""
+                name="name"
                 onChange={handleChange}
-                value={formData.title}
+                value={formData.name}
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="intro" className="ulabel">
+              <label htmlFor="shortIntroduction" className="ulabel">
                 Introduction
               </label>
               <textarea
                 type="text"
-                name="intro"
-                id=""
+                name="shortIntroduction"
                 className="uinput"
                 cols="30"
                 rows="3"
                 onChange={handleChange}
-                value={formData.intro}
+                value={formData.shortIntroduction}
               />
             </div>
             <div className="flex flex-col mb-5">
-              <label htmlFor="desc" className="ulabel">
+              <label htmlFor="description" className="ulabel">
                 Description
               </label>
               <textarea
-                name="desc"
+                name="description"
                 className="uinput lg:mb-32"
-                id=""
                 cols="30"
                 rows="10"
                 onChange={handleChange}
-                value={formData.desc}
+                value={formData.description}
               ></textarea>
             </div>
           </div>
@@ -107,7 +100,6 @@ const AddProduct = () => {
                 className="uinput"
                 multiple
                 name="imageUpload"
-                id=""
                 onChange={handleFileChange}
               />
             </div>

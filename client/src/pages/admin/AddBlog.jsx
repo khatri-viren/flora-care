@@ -35,7 +35,7 @@ const AddBlog = () => {
   
       await axios.post("http://localhost:4000/admin/addblog", formDataToSend);
       toast.success("Successfully Added Blog");
-      window.location.href = "/admin/Dashboard";
+      window.location.href = "/admin/manageblogs";
     } catch (error) {
       console.error("Error adding blog: ", error);
       toast.error("Error Adding Blog");

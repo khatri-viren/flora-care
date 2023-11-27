@@ -1,15 +1,16 @@
 import express from "express";
-import upload from "../../config/multer.js";
+import { upload, resizeAndCompressImages } from "../../config/multer.js";
 import Blog from "../../models/blog.js";
 
 const router = express.Router();
 
-router.use(upload.array("images", 5));
+// Use resizeAndCompressImages middleware with different width and height parameters
+router.use(upload.array("images", 5), resizeAndCompressImages(600, 300));
 
 router.post("/", async (req, res) => {
   try {
     const { title, intro, content, conclusion } = req.body;
-    const images = req.files.map((file) => file.filename);
+    const images = req.processedImages; // Use the processed images
 
     const newBlog = new Blog({
       title,

@@ -6,7 +6,7 @@ const ProductCard = ({ product }) => {
     <div className="w-fit space-y-1 mx-auto my-5">
       <Link to={`/productpage/${product._id}`}>
         <img
-          src={"http://localhost:4000/" + product.images[0]}
+          src={"http://localhost:4000/uploads/" + product.images[0]}
           alt={product.name}
           className="w-full  aspect-square shadow-md "
         />

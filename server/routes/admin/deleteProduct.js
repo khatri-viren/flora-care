@@ -1,4 +1,3 @@
-// deleteProduct.js
 import express from 'express';
 import { promises as fsPromises } from 'fs';
 import path from 'path';
@@ -21,16 +20,19 @@ router.delete('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
-    // Delete the images associated with the product from the uploads folder
-    for (const image of product.images) {
-      console.log(image);
-      const imagePath = path.join(__dirname, '../../', image);
-      console.log(imagePath);
+    // Assuming the images are stored in the 'uploads' directory
+    const imagesDirectory = path.join(__dirname, '../../uploads');
+
+    // Delete both the original and resized images associated with the product from the uploads folder
+    for (const imageName of product.images) {
+      const imagePathOriginal = path.join(imagesDirectory, imageName);
+      const imagePathResized = path.join(imagesDirectory, `resized_${imageName}`);
 
       try {
-        await unlink(imagePath);
+        await unlink(imagePathOriginal);
+        await unlink(imagePathResized);
       } catch (error) {
-        console.error(`Failed to delete image ${image}:`, error);
+        console.error(`Failed to delete image ${imageName}:`, error);
       }
     }
 

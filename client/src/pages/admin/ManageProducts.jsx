@@ -35,7 +35,7 @@ const ManageProducts = () => {
         {products.map((product) => (
           <div key={product.id} className="product flex my-4">
             <img
-              src={`http://localhost:4000/${product.images[0]}`}
+              src={`http://localhost:4000/uploads/${product.images[0]}`}
               alt={product.name}
               className="w-16 h-16 object-cover rounded"
             />

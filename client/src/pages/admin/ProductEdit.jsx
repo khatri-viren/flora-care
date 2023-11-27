@@ -99,7 +99,7 @@ const ProductEdit = () => {
         {product.images.map((image, index) => (
           <img
             key={index}
-            src={`http://localhost:4000/${image}`}
+            src={`http://localhost:4000/uploads/${image}`}
             alt={`Product ${index + 1}`}
             className="mx-auto max-h-56"
           />

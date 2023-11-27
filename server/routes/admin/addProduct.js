@@ -1,43 +1,37 @@
-import { Router } from "express";
+import express from "express";
+import { upload, resizeAndCompressImages } from "../../config/multer.js";
 import Product from "../../models/product.js";
-import winston from "winston";
 
-const router = Router();
+const router = express.Router();
 
-const logger = winston.createLogger({
-  level: "info",
-  format: winston.format.simple(),
-  transports: [
-    new winston.transports.File({ filename: "error.log", level: "error" }),
-    new winston.transports.File({ filename: "combined.log" }),
-  ],
-});
+// Use resizeAndCompressImages middleware with width and height parameters
+router.use(upload.array("images", 5), resizeAndCompressImages(700, 700));
 
-// Route to add a new product
 router.post("/", async (req, res) => {
-  console.log("Received request to add product:", req.body);
-  console.log("Uploaded files:", req.files);
-
   try {
-    const imagesArray = req.files.map((file) => file.path); // Get an array of file paths
+    const { name, price, shortIntroduction, description, quantity } = req.body;
+    const images = req.files.map((file) => `resized_${file.filename}`);
 
     const newProduct = new Product({
-      name: req.body.name,
-      images: imagesArray,
-      price: req.body.price,
-      shortIntroduction: req.body.shortIntroduction,
-      description: req.body.description,
-      quantity: req.body.quantity,
+      name,
+      images,
+      price,
+      shortIntroduction,
+      description,
+      quantity,
     });
 
-    const savedProduct = await newProduct.save();
-    console.log("Product successfully saved:", savedProduct);
+    // Save the product entry
+    await newProduct.save();
 
-    res.status(201).json(savedProduct);
+    // Respond with success message
+    res.status(201).json({ message: "Product added successfully" });
   } catch (error) {
     console.error("Error adding product:", error);
     res.status(500).json({ message: "Internal Server Error" });
   }
 });
+
+
 
 export default router;

@@ -6,7 +6,7 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import passportConfig from "./config/passport.js";
-import upload from "./config/multer.js";
+import {upload} from "./config/multer.js";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -79,22 +79,22 @@ app.use("/admin/blogedit", blogEditRoutes);
 app.use("/admin/deleteblog", deleteBlogRoute);
 app.use("/admin/addblog", addBlogRoute);
 app.use("/blogshome", blogsHomeRoute);
-
-app.use(
-  "/admin/addproduct",
-  (req, res, next) => {
-    console.log("File upload middleware triggered");
-    upload.array("images", 5)(req, res, (err) => {
-      if (err) {
-        console.error("Multer error:", err);
-        return res.status(500).json({ error: "Error uploading files" });
-      }
-      console.log("Files uploaded successfully");
-      next();
-    });
-  },
-  addProductRoute
-);
+app.use("/admin/addproduct", addProductRoute);
+// app.use(
+//   "/admin/addproduct",
+//   (req, res, next) => {
+//     console.log("File upload middleware triggered");
+//     upload.array("images", 5)(req, res, (err) => {
+//       if (err) {
+//         console.error("Multer error:", err);
+//         return res.status(500).json({ error: "Error uploading files" });
+//       }
+//       console.log("Files uploaded successfully");
+//       next();
+//     });
+//   },
+//   addProductRoute
+// );
 
 // Start the server
 app.listen(process.env.PORT || 4001, () => {
