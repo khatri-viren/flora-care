@@ -17,4 +17,6 @@ const blogSchema = new Schema({
   dateUploaded: { type: Date }, 
 });
 
+//add user id
+
 export default model("Blog", blogSchema);
