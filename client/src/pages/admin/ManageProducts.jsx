@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { ring } from "ldrs";
 
 const ManageProducts = () => {
   const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  ring.register();
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -14,6 +17,8 @@ const ManageProducts = () => {
         setProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -32,24 +37,36 @@ const ManageProducts = () => {
       </div>
       <hr className="border border-solid border-udark my-5" />
       <div className="container">
-        {products.map((product) => (
-          <div key={product.id} className="product flex my-4">
-            <img
-              src={`http://localhost:4000/uploads/${product.images[0]}`}
-              alt={product.name}
-              className="w-16 h-16 object-cover rounded"
-            />
-            <div className="details mx-10 space-y-1">
-              <div className="text-lg font-bold">{product.name}</div>
-              <div className="font-semibold">${product.price}</div>
-              <Link to={`/admin/productedit/${product._id}`}>
-                <button className="py-1 px-5 font-semibold border border-solid border-udark">
-                  Edit
-                </button>
-              </Link>
-            </div>
+        {loading ? (
+          <div className="w-full flex justify-center items-center">
+            <l-ring
+              size="40"
+              stroke="5"
+              bg-opacity="0"
+              speed="2"
+              color="black"
+            ></l-ring>
           </div>
-        ))}
+        ) : (
+          products.map((product, index) => (
+            <div key={index} className="product flex my-4">
+              <img
+                src={`http://localhost:4000/uploads/${product.images[0]}`}
+                alt={product.name}
+                className="w-16 h-16 object-cover rounded"
+              />
+              <div className="details mx-10 space-y-1">
+                <div className="text-lg font-bold">{product.name}</div>
+                <div className="font-semibold">${product.price}</div>
+                <Link to={`/admin/productedit/${product._id}`}>
+                  <button className="py-1 px-5 font-semibold border border-solid border-udark">
+                    Edit
+                  </button>
+                </Link>
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

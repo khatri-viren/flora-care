@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-unused-vars */
 /* eslint-disable react/prop-types */
@@ -5,8 +6,19 @@ import FillButton from "../shared/Buttons/FillButton";
 import { useEffect, useState } from "react";
 import { useCart } from "../../store/CartContext.jsx";
 
-const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
+const ProductHeader = ({
+  id,
+  name,
+  images,
+  price,
+  shortIntro,
+  reviews,
+  quantity,
+}) => {
   const [selectedImg, setSelectedImg] = useState(images[0]);
+  const [inStock, setInStock] = useState(true);
+
+  if (quantity === 0) return setInStock(false);
 
   const handleThumbnailClick = (img) => {
     setSelectedImg(img);
@@ -79,7 +91,7 @@ const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
         </div>
         <div className="rightSide">
           <h1 className="productName text-4xl font-bold my-1">{name}</h1>
-          <h2 className="productName text-2xl font-bold my-4">${price}</h2>
+          <h2 className="productName text-2xl font-bold my-4">₹{price}</h2>
           <div className="stars flex space-x-2 my-4">
             {[1, 2, 3, 4, 5].map((star) => (
               <svg
@@ -105,8 +117,9 @@ const ProductHeader = ({ id, name, images, price, shortIntro, reviews }) => {
           <button
             className="p-2 bg-udark w-32 h-12 text-ubg"
             onClick={handleAddToCart}
+            disabled={!inStock}
           >
-            Add to Cart
+            {inStock ? "Add to Cart" : "Out of Stock"}
           </button>
           <hr className="border border-solid border-umedium mt-8 mb-3" />
           <div className="shipping font-semibold ">Shipping</div>

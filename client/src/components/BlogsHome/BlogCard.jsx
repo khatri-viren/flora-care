@@ -1,8 +1,15 @@
-// BlogCard.jsx
-import React from "react";
+/* eslint-disable react/prop-types */
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
+  const [isTruncated, setIsTruncated] = useState(true);
+  const maxChars = 150;
+
+  const truncatedText = isTruncated
+    ? blog.intro.slice(0, maxChars) + "..."
+    : blog.intro;
+
   return (
     <div className="w-fit space-y-1 mx-auto my-5">
       <Link to={`/blogpage/${blog._id}`}>
@@ -18,7 +25,12 @@ const BlogCard = ({ blog }) => {
         </Link>
         {/* Add additional details here if needed */}
       </div>
-      <div className="text-sm font-light px-1">{blog.intro}</div>
+      <div
+        className="text-sm font-light px-1"
+        onClick={() => setIsTruncated(!isTruncated)}
+      >
+        {truncatedText}
+      </div>
       {/* Add additional buttons or actions here if needed */}
     </div>
   );

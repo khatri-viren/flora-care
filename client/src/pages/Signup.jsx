@@ -79,78 +79,93 @@ const Signup = () => {
         password: "",
         password1: "",
       });
-      toast.success("Successfully Added Product");
-      navigate("/userdashboard");
+      toast.success("Successfully Registered");
+      navigate("/");
     } catch (error) {
-      console.error("Error adding product: ", error);
-      toast.error("Error Adding Product");
+      console.error("Error Registering: ", error);
+      toast.error("Error Registering");
     }
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div className="flex flex-col w-fit mx-auto justify-center text-udark py-32 max-w-lg">
+    <form onSubmit={handleSubmit} className="w-fit mx-auto">
+      <div className="flex flex-col w-fit mx-auto justify-center items-center text-udark py-32 max-w-xl">
         <h1 className="font-bold text-4xl text-center">Signup</h1>
-        <label htmlFor="firstname" className="mt-10">
-          First Name
-        </label>
-        <input
-          className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
-          type="text"
-          name="firstname"
-          placeholder="First Name"
-          id="firstname"
-          onChange={handleChange}
-          value={formData.firstname}
-        />
-        <label htmlFor="lastname" className="">
-          Last Name
-        </label>
-        <input
-          className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
-          type="text"
-          name="lastname"
-          placeholder="Last Name"
-          id="lastname"
-          onChange={handleChange}
-          value={formData.lastname}
-        />
-        <label htmlFor="email" className="">
-          Email
-        </label>
-        <input
-          className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
-          type="email"
-          name="email"
-          placeholder="Your email"
-          id="loginemail"
-          onChange={handleChange}
-          value={formData.email}
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
-          type="password"
-          name="password"
-          placeholder="Your password"
-          id="loginpassword"
-          onChange={handleChange}
-          value={formData.password}
-        />
-        <label htmlFor="password1">Confirm Password</label>
-        <input
-          className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
-          type="password"
-          name="password1"
-          placeholder="Confirm Password"
-          id="loginpassword1"
-          onChange={handleChange}
-          value={formData.password1}
-        />
+        <div className="flex-col flex">
+          <label htmlFor="firstname" className="mt-10 w-fit">
+            First Name
+          </label>
+          <input
+            className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
+            type="text"
+            name="firstname"
+            placeholder="First Name"
+            id="firstname"
+            onChange={handleChange}
+            value={formData.firstname}
+          />
+        </div>
+        <div className="flex-col flex">
+          <label htmlFor="lastname" className="w-fit">
+            Last Name
+          </label>
+          <input
+            className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
+            type="text"
+            name="lastname"
+            placeholder="Last Name"
+            id="lastname"
+            onChange={handleChange}
+            value={formData.lastname}
+          />
+        </div>
+        <div className="flex-col flex">
+          <label htmlFor="email" className="w-fit">
+            Email
+          </label>
+          <input
+            className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
+            type="email"
+            name="email"
+            placeholder="Your email"
+            id="loginemail"
+            onChange={handleChange}
+            value={formData.email}
+          />
+        </div>
+        <div className="flex-col flex">
+          <label htmlFor="password" className="w-fit">
+            Password
+          </label>
+          <input
+            className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
+            type="password"
+            name="password"
+            placeholder="Your password"
+            id="loginpassword"
+            onChange={handleChange}
+            value={formData.password}
+          />
+        </div>
+        <div className="flex-col flex">
+          <label htmlFor="password1" className="w-fit">
+            Confirm Password
+          </label>
+          <input
+            className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
+            type="password"
+            name="password1"
+            placeholder="Confirm Password"
+            id="loginpassword1"
+            onChange={handleChange}
+            value={formData.password1}
+          />
+        </div>
         {Object.keys(errors).map((field) => (
-          <p key={field} className="text-red-500 text-sm w-1/2">
+          <p key={field} className="text-red-500 text-sm w-3/4">
             {errors[field]}
           </p>
         ))}
+
         <div className="mx-auto my-6">
           <BorderButton title="Submit" />
         </div>

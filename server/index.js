@@ -23,10 +23,13 @@ import manageBlogsRoutes from "./routes/admin/manageBlogs.js";
 import blogEditRoutes from "./routes/admin/blogEdit.js";
 import deleteBlogRoute from "./routes/admin/deleteBlog.js";
 import addBlogRoute from "./routes/admin/addBlog.js";
+import adminDashboardOrdersRoute from "./routes/admin/orders.js";
+import adminUserCountRoute from "./routes/admin/userCount.js";
 import blogsHomeRoute from "./routes/blogshome.js";
 import userEditRoute from "./routes/userEdit.js";
+import ordersRoute from "./routes/orders.js";
 import stripe from "./routes/stripe.js";
-import deleteImageRouter from './routes/admin/deleteImage.js';
+import deleteImageRouter from "./routes/admin/deleteImage.js";
 import productEditRoute from "./routes/admin/productEdit.js";
 
 config();
@@ -70,25 +73,32 @@ const __dirname = dirname(__filename);
 app.use("/uploads", express.static(join(__dirname, "uploads")));
 
 // ------------------- Routes --------------------------
+
 app.use("/auth", localAuth);
 app.use("/", iotRoutes);
 app.use("/productpage", productPageRoute);
 app.use("/shop", shopRoute);
+app.use("/blogpage", blogpageRoute);
+app.use("/blogshome", blogsHomeRoute);
+app.use("/userdashboard", userEditRoute);
+app.use("/api/stripe", stripe);
+app.use("/orders", ordersRoute);
+
 app.use("/admin", adminRoutes);
 app.use("/admin/manageproducts", manageProductRoutes);
 app.use("/admin/deleteproduct", deleteProductRoutes);
 app.use("/admin/manageblogs", manageBlogsRoutes);
-app.use("/blogpage", blogpageRoute);
 app.use("/admin/blogedit", blogEditRoutes);
 app.use("/admin/deleteblog", deleteBlogRoute);
 app.use("/admin/addblog", addBlogRoute);
-app.use("/blogshome", blogsHomeRoute);
-app.use("/userdashboard", userEditRoute);
-app.use("/api/stripe", stripe);
 app.use("/admin/addproduct", addProductRoute);
-app.use('/admin/deleteimage', deleteImageRouter); 
-app.use('/admin/productedit', productEditRoute);
+app.use("/admin/deleteimage", deleteImageRouter);
+app.use("/admin/productedit", productEditRoute);
 
+app.use("/admin", adminDashboardOrdersRoute);
+app.use("/admin", adminUserCountRoute);
+
+// Start the server
 app.listen(process.env.PORT || 4001, () => {
   console.log(`Server is running on port 4000`);
 });

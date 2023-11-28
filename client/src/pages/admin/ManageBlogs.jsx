@@ -1,10 +1,12 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { ring } from "ldrs";
 
 const ManageBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  ring.register();
 
   useEffect(() => {
     const fetchBlogs = async () => {
@@ -35,7 +37,15 @@ const ManageBlogs = () => {
       <hr className="border border-solid border-udark my-5" />
       <div className="container">
         {loading ? (
-          <p>Loading...</p>
+          <div className="w-full flex justify-center items-center">
+            <l-ring
+              size="40"
+              stroke="5"
+              bg-opacity="0"
+              speed="2"
+              color="black"
+            ></l-ring>
+          </div>
         ) : (
           blogs.map((blog) => (
             <div key={blog._id} className="product flex my-4">

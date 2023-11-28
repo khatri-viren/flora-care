@@ -1,11 +1,9 @@
 // import { Link } from "react-router-dom";
 import { useCart } from "../store/CartContext.jsx";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 
 const Cart = () => {
-  const navigator = useNavigate();
-  const { cart, removeFromCart } = useCart();
+  const { cart, removeFromCart, clearCart } = useCart();
   const subtotal = cart.reduce(
     (total, item) => total + item.price * item.quantity,
     0
@@ -14,8 +12,6 @@ const Cart = () => {
   const handleClick = async () => {
     console.log(cart);
     let user = {};
-    const token = localStorage.getItem("authToken");
-
     try {
       const token = localStorage.getItem("authToken");
 
@@ -45,6 +41,8 @@ const Cart = () => {
       })
       .then((res) => {
         if (res.data.url) {
+          localStorage.removeItem("cart");
+          clearCart();
           window.location.href = res.data.url;
         }
       })
@@ -62,21 +60,26 @@ const Cart = () => {
               <p className="text-center">No Products Added</p>
             ) : (
               cart.map((item) => (
-                <div className="product flex my-4" key={item.id}>
-                  <img
-                    src={"http://localhost:4000/" + item.images[0]}
-                    alt=""
-                    className="w-24 h-24"
-                  />
-                  <div className="details mx-5 space-y-1">
-                    <div className="text-lg font-bold">{item.name}</div>
-                    <div className="font-semibold">
-                      ${item.price * item.quantity}
+                <div
+                  className="product flex justify-between my-4"
+                  key={item.id}
+                >
+                  <div className="flex">
+                    <img
+                      src={"http://localhost:4000/uploads/" + item.images[1]}
+                      alt=""
+                      className="w-24 h-24"
+                    />
+                    <div className="details mx-5 space-y-1">
+                      <div className="text-lg font-bold">{item.name}</div>
+                      <div className="font-semibold">
+                        ₹{item.price * item.quantity}
+                      </div>
+                      <div>Quantity: {item.quantity}</div>
                     </div>
-                    <div>Quantity: {item.quantity}</div>
                   </div>
                   <button
-                    className="p-2 border border-solid border-udark"
+                    className="p-2 border border-solid h-fit my-auto border-udark"
                     onClick={removeFromCart}
                   >
                     Delete

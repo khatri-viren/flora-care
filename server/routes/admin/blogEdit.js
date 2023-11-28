@@ -1,4 +1,3 @@
-
 import { Router } from "express";
 import Blog from "../../models/blog.js";
 
@@ -7,13 +6,10 @@ const router = Router();
 // Route to update a specific blog by ID
 router.put("/:id", async (req, res) => {
   const blogId = req.params.id;
-
   try {
-    const updatedBlog = await Blog.findByIdAndUpdate(
-      blogId,
-      req.body,
-      { new: true }
-    );
+    const updatedBlog = await Blog.findByIdAndUpdate(blogId, req.body, {
+      new: true,
+    });
 
     if (!updatedBlog) {
       return res.status(404).json({ message: "Blog not found" });

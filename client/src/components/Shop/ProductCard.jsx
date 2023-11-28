@@ -1,10 +1,18 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { useCart } from "../../store/CartContext";
+import { useState } from "react";
 // import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const ProductCard = ({ product }) => {
   const { addToCart, cart } = useCart();
+  const [isTruncated, setIsTruncated] = useState(true);
+  const [inStock, setInStock] = useState(true);
+  const maxChars = 100;
+
+  if (product.quantity === 0) return setInStock(false);
+
   // useEffect(() => {
   //   console.log("Updated Cart:", cart);
   // }, [cart]);
@@ -15,6 +23,7 @@ const ProductCard = ({ product }) => {
     if (existingProduct) {
       // If the product is already in the cart, increment the quantity
       addToCart({ ...existingProduct, quantity: existingProduct.quantity + 1 });
+      toast.success("Product added successfully", { className: "toast" });
     } else {
       // If the product is not in the cart, add it with quantity 1
       addToCart({
@@ -24,8 +33,13 @@ const ProductCard = ({ product }) => {
         images: product.images,
         quantity: 1,
       });
+      toast.success("Product added successfully", { className: "toast" });
     }
   };
+
+  const truncatedText = isTruncated
+    ? product.shortIntroduction.slice(0, maxChars) + "..."
+    : product.shortIntroduction;
 
   return (
     <div className="w-fit space-y-1 mx-auto my-5">
@@ -40,14 +54,20 @@ const ProductCard = ({ product }) => {
         <Link to={`/productpage/${product._id}`}>
           <span className="text-lg font-semibold">{product.name}</span>
         </Link>
-        <span className="text-lg font-semibold">${product.price}</span>
+        <span className="text-lg font-semibold">₹{product.price}</span>
       </div>
-      <div className="text-sm font-light px-1">{product.shortIntroduction}</div>
+      <div
+        className="text-sm font-light px-1"
+        onClick={() => setIsTruncated(!isTruncated)}
+      >
+        {truncatedText}
+      </div>
       <button
         className="border border-udark p-2 w-full"
         onClick={handleAddToCart}
+        disabled={!inStock}
       >
-        Add to Cart
+        {inStock ? "Add to Cart" : "Out of Stock"}
       </button>
     </div>
   );

@@ -1,10 +1,11 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
 import BorderButton from "../components/shared/Buttons/BorderButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const Login = ({ setLogin }) => {
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -35,13 +36,13 @@ const Login = () => {
         });
         const token = response.data.token;
         localStorage.setItem("authToken", token);
-
+        setLogin(true);
         toast.success("Successfully Logged In", { className: "toast" });
         navigate("/");
       }
     } catch (error) {
       console.error("Error Logging In: ", error);
-      toast.error("Error Logging In");
+      toast.error("Error Logging In", { className: "toast" });
     }
   };
 

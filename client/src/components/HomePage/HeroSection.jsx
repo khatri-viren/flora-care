@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import FillButton from "../shared/Buttons/FillButton";
 
 const HeroSection = () => {
@@ -14,10 +15,14 @@ const HeroSection = () => {
             Experience the future of plant care today.
           </p>
           <div className="buttonContainer flex space-x-10">
-            <FillButton title="Learn More" />
-            <button className="p-2 w-32 h-12 text-ubg border-ubg border ">
-              Sign Up
-            </button>
+            <Link to="/aboutus">
+              <FillButton title="Learn More" />
+            </Link>
+            <Link to="/signup">
+              <button className="p-2 w-32 h-12 text-ubg border-ubg border ">
+                Sign Up
+              </button>
+            </Link>
           </div>
         </div>
       </div>

@@ -1,7 +1,5 @@
 /* eslint-disable react/prop-types */
 import { DataGrid } from "@mui/x-data-grid";
-import axios from "axios";
-import { useEffect, useState } from "react";
 
 const columns = [
   { field: "date", headerName: "Ordered on", width: 180 },
@@ -19,48 +17,16 @@ const columns = [
   },
   { field: "delivery_status", headerName: "Delivery Status", width: 130 },
   { field: "id", headerName: "OrderId", width: 150, unique: true },
-  // {
-  //   field: "fullName",
-  //   headerName: "Full name",
-  //   description: "This column has a value getter and is not sortable.",
-  //   sortable: false,
-  //   width: 160,
-  //   valueGetter: (params) =>
-  //     `${params.row.firstName || ""} ${params.row.lastName || ""}`,
-  // },
-  { field: "address", headerName: "address", width: 300 },
 ];
 
-export default function UserOrders({ userId }) {
-  const [orders, setOrders] = useState([]);
-
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:4000/orders/user/${userId}`
-        );
-        setOrders(response.data);
-        console.log(response.data);
-      } catch (error) {
-        console.error("Error fetching orders:", error);
-      }
-    };
-
-    fetchOrders();
-  }, [userId]);
-
+export default function DashboardOrders({ orders }) {
   const rows = orders.map((order) => {
-    const addressFields = Object.values(order.shipping.address);
-    const concatenatedAddress = addressFields.join(", ");
-
     return {
       id: order._id,
       productscount: order.products.length,
       total: order.total / 100,
       delivery_status: order.delivery_status,
       date: new Date(order.createdAt).toLocaleString(),
-      address: concatenatedAddress,
     };
   });
 
@@ -68,8 +34,7 @@ export default function UserOrders({ userId }) {
 
   return (
     <section className="text-udark">
-      <hr className="border border-solid border-umedium my-3" />
-      <h2 className="text-2xl font-semibold">Your Orders</h2>
+      <h2 className="text-2xl font-semibold">All Orders</h2>
       <div className="tableContainer my-5">
         {orders.length === 0 ? (
           <div>No Orders</div>

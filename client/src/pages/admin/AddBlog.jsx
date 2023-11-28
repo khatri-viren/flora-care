@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -8,6 +8,8 @@ const AddBlog = () => {
     intro: "",
     content: "",
     conclusion: "",
+    contributorName: "",
+    contributorPosition: "",
     images: [],
   });
 
@@ -19,7 +21,7 @@ const AddBlog = () => {
     const files = e.target.files;
     setFormData({ ...formData, images: files });
   };
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -28,11 +30,16 @@ const AddBlog = () => {
       formDataToSend.append("intro", formData.intro);
       formDataToSend.append("content", formData.content);
       formDataToSend.append("conclusion", formData.conclusion);
-  
+      formDataToSend.append("contributorName", formData.contributorName);
+      formDataToSend.append(
+        "contributorPosition",
+        formData.contributorPosition
+      );
+
       for (let i = 0; i < formData.images.length; i++) {
         formDataToSend.append("images", formData.images[i]);
       }
-  
+
       await axios.post("http://localhost:4000/admin/addblog", formDataToSend);
       toast.success("Successfully Added Blog");
       window.location.href = "/admin/manageblogs";
@@ -41,7 +48,6 @@ const AddBlog = () => {
       toast.error("Error Adding Blog");
     }
   };
-  
 
   return (
     <div className="mx-5 lg:mx-20 pt-8 my-12 text-udark">
@@ -115,6 +121,32 @@ const AddBlog = () => {
             rows="5"
             onChange={handleChange}
             value={formData.conclusion}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="contributorName" className="ulabel">
+            Contributor Name
+          </label>
+          <input
+            type="text"
+            className="uinput w-1/2"
+            name="contributorName"
+            id=""
+            onChange={handleChange}
+            value={formData.contributorName}
+          />
+        </div>
+        <div className="flex flex-col">
+          <label htmlFor="contributorPosition" className="ulabel">
+            Contributor Position
+          </label>
+          <input
+            type="text"
+            className="uinput w-1/2"
+            name="contributorPosition"
+            id=""
+            onChange={handleChange}
+            value={formData.contributorPosition}
           />
         </div>
 

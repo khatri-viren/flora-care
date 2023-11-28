@@ -31,7 +31,7 @@ router.post("/local/login", async (req, res, next) => {
     else {
       req.logIn(user, (err) => {
         if (err) throw err;
-        console.log("Token Payload:", { userId: user._id });
+        // console.log("Token Payload:", { userId: user._id });
         const token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, {
           expiresIn: "12h",
         });
@@ -50,7 +50,7 @@ router.post("/local/register", async (req, res) => {
     async (doc) => {
       if (doc) res.send("User already Exists");
       else {
-        console.log("fds");
+        // console.log("fds");
         const hashedPassword = await bcrypt.hash(req.body.password, 10);
         const newUser = new User({
           firstname: req.body.firstname,

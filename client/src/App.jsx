@@ -27,18 +27,39 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { CartProvider } from "./store/CartContext.jsx";
 import { UserProvider } from "./store/UserContext.jsx";
+import { useEffect, useState } from "react";
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    // Update the isLoggedIn state whenever the token changes
+    const token = localStorage.getItem("authToken");
+    setIsLoggedIn(token !== null);
+  }, []);
   return (
     <>
       <div className="bg-ubg scroll-smooth">
-        <ToastContainer />
+        <ToastContainer
+          position="top-right"
+          autoClose={1500}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          className="mt-12"
+        />
         <UserProvider>
-          <Navbar />
+          <Navbar isLoggedIn={isLoggedIn} />
           <CartProvider>
             <Routes>
               <Route index path="/" element={<HomePage />} />
-              <Route path="/userdashboard" element={<UserDashboard />} />
+              <Route
+                path="/userdashboard"
+                element={<UserDashboard setLogin={setIsLoggedIn} />}
+              />
               <Route path="/shop" element={<Shop />} />
               <Route path="/aboutus" element={<AboutUs />} />
 
@@ -46,7 +67,10 @@ function App() {
 
               <Route path="/blogshome" element={<BlogsHome />} />
               <Route path="/blogpage/:id" element={<BlogPage />} />
-              <Route path="/login" element={<Login />} />
+              <Route
+                path="/login"
+                element={<Login setLogin={setIsLoggedIn} />}
+              />
               <Route path="/signup" element={<Signup />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/payship" element={<PaymentShipping />} />

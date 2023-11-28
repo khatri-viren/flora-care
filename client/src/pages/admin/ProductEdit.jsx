@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ring } from "ldrs";
 
 const ProductEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  ring.register();
 
   const [product, setProduct] = useState({
     title: "",
@@ -148,7 +150,7 @@ const ProductEdit = () => {
         newImages.forEach((image) => {
           formData.append("images", image);
         });
-  
+
         const response = await fetch(
           `http://localhost:4000/admin/productedit/addimage/${id}`,
           {
@@ -156,15 +158,15 @@ const ProductEdit = () => {
             body: formData,
           }
         );
-  
+
         if (response.ok) {
           console.log("Images added successfully");
-  
+
           // Fetch the updated product data after adding images
           fetchProductData();
           setNewImages([]); // Clear the selected images
           setAreImagesSelected(false); // Reset to false after successful upload
-  
+
           // Reload the page after updating the product
           window.location.reload();
         } else {
@@ -191,55 +193,13 @@ const ProductEdit = () => {
       <h2 className="text-4xl font-bold">Edit Product</h2>
       <div className="imageContainer grid grid-cols-4 gap-10 my-5">
         {product.images.map((image, index) => (
-          <div key={index} className="relative group">
-            <img
-              src={`http://localhost:4000/uploads/${image}`}
-              alt={`Product ${index + 1}`}
-              className="mx-auto max-h-56 cursor-pointer"
-              onClick={() => handleImageDelete(image)}
-            />
-            <button
-              className="absolute top-0 right-1 text-red-600 p-1 rounded-full opacity-0 group-hover:opacity-100"
-              onClick={() => handleImageDelete(image)}
-            >
-              ⓧ
-            </button>
-          </div>
+          <img
+            key={index}
+            src={`http://localhost:4000/uploads/${image}`}
+            alt={`Product ${index + 1}`}
+            className="mx-auto max-h-56"
+          />
         ))}
-      </div>
-      <div className="relative group">
-        {" "}
-        
-        <div className="flex flex-col">
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          className="hidden"
-          id="addImageInput"
-        />{" "}
-        <label htmlFor="addImageInput" className="cursor-pointer">
-          {" "}
-          <div className="bg-gray-200 border-black text-center p-4 rounded-md">
-            {" "}
-            + Add Image{" "}
-          </div>{" "}
-        </label>{" "}
-        {selectedImageCount > 0 && (
-          <p className="text-sm text-gray-500 mt-2">
-            {selectedImageCount} image(s) selected
-          </p>
-        )}
-        </div>
-        <button
-          type="button"
-          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold"
-          onClick={handleAddImages}
-        >
-          {" "}
-          Upload{" "}
-        </button>
       </div>
       <div className="grid lg:grid-cols-2 lg:gap-16">
         <div className="leftSide">

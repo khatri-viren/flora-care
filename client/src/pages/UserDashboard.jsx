@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditProfile from "../components/UserDashboard/EditProfile";
@@ -7,11 +8,12 @@ import { toast } from "react-toastify";
 import { useUser } from "../store/UserContext.jsx";
 import { ring } from "ldrs";
 
-const UserDashboard = () => {
+const UserDashboard = ({ setLogin }) => {
   const [selectedSection, setSelectedSection] = useState("edit");
   const navigate = useNavigate();
 
   const handleLogout = () => {
+    setLogin(false);
     localStorage.removeItem("authToken");
     delete axios.defaults.headers.common["Authorization"];
     navigate("/");
@@ -84,42 +86,46 @@ const UserDashboard = () => {
             /> */}
           </div>
           <div className="rightSide flex flex-col col-span-1 my-auto space-y-2">
-            <span className="text-lg">
-              {user.firstname + " " + user.lastname}
-            </span>
-            <span className="text-lg">{user.email}</span>
-            <span>+911234567890</span>
+            <div className="text-lg font-semibold">
+              Name:{"  "}
+              <span className="font-normal">
+                {user.firstname + " " + user.lastname}
+              </span>
+            </div>
+            <div className="text-lg font-semibold">
+              Email: <span className="font-normal">{user.email}</span>
+            </div>
           </div>
         </div>
         <div className="rightSide my-auto w-full flex justify-evenly">
-          <button
+          {/* <button
             onClick={() => handleSectionSelection("data")}
-            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium "
+            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
           >
             Device Data
-          </button>
+          </button> */}
           <button
             onClick={() => handleSectionSelection("orders")}
-            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium "
+            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
           >
             Your Orders
           </button>
           <button
             onClick={() => handleSectionSelection("edit")}
-            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium "
+            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
           >
             Edit Profile
           </button>
           <button
             onClick={handleLogout}
-            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium "
+            className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
           >
             Logout
           </button>
         </div>
       </div>
       {selectedSection === "edit" && <EditProfile user={user} />}
-      {selectedSection === "orders" && <UserOrders />}
+      {selectedSection === "orders" && <UserOrders userId={user._id} />}
       {selectedSection === "data" && <EditProfile />}
     </div>
   );

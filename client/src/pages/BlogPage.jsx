@@ -64,9 +64,9 @@ const BlogPage = () => {
                     })
                   : "January 11, 2023"}
               </span>
-              <span className="text-sm text-ubg font-light mx-3">
+              {/* <span className="text-sm text-ubg font-light mx-3">
                 {blog.readTime || "5 min read"}
-              </span>
+              </span> */}
             </div>
           </div>
         </div>
@@ -81,9 +81,7 @@ const BlogPage = () => {
               ))
             ) : (
               <>
-                <Contributor placeholder /> {/* Placeholder contributor */}
-                <Contributor placeholder /> {/* Placeholder contributor */}
-                <Contributor placeholder /> {/* Placeholder contributor */}
+                <Contributor placeholder />
               </>
             )}
           </div>
@@ -123,7 +121,7 @@ const BlogPage = () => {
           <div className="text-3xl font-bold">Introduction</div>
           <p>{blog.intro || "Introduction Placeholder"}</p>
 
-          <div className="text-2xl font-bold">Content</div>
+          <div className="text-2xl font-bold whitespace-pre-line">Content</div>
           {/* Adjust the rendering based on whether content is a string or an array */}
           {Array.isArray(blog.content) ? (
             blog.content.map((paragraph, index) => (

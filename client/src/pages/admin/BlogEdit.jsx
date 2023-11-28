@@ -27,6 +27,7 @@ export default function BlogEdit() {
         }
         const data = await response.json();
         setBlog(data);
+        console.log(data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -46,30 +47,33 @@ export default function BlogEdit() {
           method: "DELETE",
         }
       );
-  
+
       if (blogResponse.ok) {
         console.log("Blog deleted successfully");
-  
+
         // Get the list of images associated with the blog
         const blogImagesResponse = await fetch(
           `http://localhost:4000/admin/getblogimages/${blogid}`
         );
-  
+
         if (blogImagesResponse.ok) {
           const images = await blogImagesResponse.json();
-  
+
           // Delete each image associated with the blog
           for (const image of images) {
-            await fetch(`http://localhost:4000/admin/deleteblogimage/${image}`, {
-              method: "DELETE",
-            });
+            await fetch(
+              `http://localhost:4000/admin/deleteblogimage/${image}`,
+              {
+                method: "DELETE",
+              }
+            );
           }
-  
+
           console.log("Blog images deleted successfully");
         } else {
           console.error("Failed to fetch blog images");
         }
-  
+
         // Redirect to the blog management page or perform any other action.
         navigate("/admin/manageblogs");
       } else {
@@ -78,7 +82,7 @@ export default function BlogEdit() {
     } catch (error) {
       console.error("Error deleting Blog:", error);
     }
-  };  
+  };
 
   const handleUpdate = async (blogid) => {
     try {
@@ -185,6 +189,7 @@ export default function BlogEdit() {
               onChange={(e) => setBlog({ ...blog, conclusion: e.target.value })}
             ></textarea>
           </div>
+
           <div className="flex flex-col my-2">
             <button
               className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold mb-5"
