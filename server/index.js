@@ -24,13 +24,10 @@ import blogEditRoutes from "./routes/admin/blogEdit.js";
 import deleteBlogRoute from "./routes/admin/deleteBlog.js";
 import addBlogRoute from "./routes/admin/addBlog.js";
 import blogsHomeRoute from "./routes/blogshome.js";
-<<<<<<< HEAD
 import userEditRoute from "./routes/userEdit.js";
 import stripe from "./routes/stripe.js";
-=======
 import deleteImageRouter from './routes/admin/deleteImage.js';
 import productEditRoute from "./routes/admin/productEdit.js";
->>>>>>> 5ab0eba (Added update product image functionality)
 
 config();
 const app = express();
