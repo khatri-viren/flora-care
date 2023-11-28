@@ -31,7 +31,7 @@ const BlogShowcase = () => {
         </p>
       </div>
       <div className="cardContainer md:grid md:grid-cols-2 md:mx-12 lg:mx-24">
-        {blogs.map((blog) => (
+        {blogs.slice(0, 2).map((blog) => (
           <Link to={`/blogpage/${blog._id}`} key={blog._id}>
             <BlogCard blog={blog} />
           </Link>
