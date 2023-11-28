@@ -24,8 +24,13 @@ import blogEditRoutes from "./routes/admin/blogEdit.js";
 import deleteBlogRoute from "./routes/admin/deleteBlog.js";
 import addBlogRoute from "./routes/admin/addBlog.js";
 import blogsHomeRoute from "./routes/blogshome.js";
+<<<<<<< HEAD
 import userEditRoute from "./routes/userEdit.js";
 import stripe from "./routes/stripe.js";
+=======
+import deleteImageRouter from './routes/admin/deleteImage.js';
+import productEditRoute from "./routes/admin/productEdit.js";
+>>>>>>> 5ab0eba (Added update product image functionality)
 
 config();
 const app = express();
@@ -84,23 +89,9 @@ app.use("/blogshome", blogsHomeRoute);
 app.use("/userdashboard", userEditRoute);
 app.use("/api/stripe", stripe);
 app.use("/admin/addproduct", addProductRoute);
-// app.use(
-//   "/admin/addproduct",
-//   (req, res, next) => {
-//     console.log("File upload middleware triggered");
-//     upload.array("images", 5)(req, res, (err) => {
-//       if (err) {
-//         console.error("Multer error:", err);
-//         return res.status(500).json({ error: "Error uploading files" });
-//       }
-//       console.log("Files uploaded successfully");
-//       next();
-//     });
-//   },
-//   addProductRoute
-// );
+app.use('/admin/deleteimage', deleteImageRouter); 
+app.use('/admin/productedit', productEditRoute);
 
-// Start the server
 app.listen(process.env.PORT || 4001, () => {
   console.log(`Server is running on port 4000`);
 });
