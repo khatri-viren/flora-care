@@ -14,29 +14,74 @@ export default function BlogEdit() {
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [newImages, setNewImages] = useState([]);
+  const [selectedImageCount, setSelectedImageCount] = useState(0);
+  const [areImagesSelected, setAreImagesSelected] = useState(false);
+
+  const fetchBlogData = async () => {
+    try {
+      if (!id) {
+        throw new Error("Product ID is undefined");
+      }
+      const response = await fetch(`http://localhost:4000/blogpage/${id}`);
+      if (!response.ok) {
+        throw new Error("Failed to fetch product data");
+      }
+      const data = await response.json();
+      setBlog(data);
+      console.log(data);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const fetchBlogData = async () => {
-      try {
-        if (!id) {
-          throw new Error("Product ID is undefined");
-        }
-        const response = await fetch(`http://localhost:4000/blogpage/${id}`);
-        if (!response.ok) {
-          throw new Error("Failed to fetch product data");
-        }
-        const data = await response.json();
-        setBlog(data);
-        console.log(data);
-      } catch (error) {
-        setError(error.message);
-      } finally {
-        setLoading(false);
-      }
-    };
-
     fetchBlogData();
   }, [id]);
+
+  const handleImageChange = (e) => {
+    const files = e.target.files;
+    setNewImages([...newImages, ...files]);
+    setSelectedImageCount(files.length);
+    setAreImagesSelected(true);
+  };
+
+  const handleAddImages = async () => {
+    try {
+      // Check if new images are selected
+      if (areImagesSelected) {
+        const formData = new FormData();
+        newImages.forEach((image) => {
+          formData.append("images", image);
+        });
+
+        const response = await fetch(
+          `http://localhost:4000/admin/blogedit/addimage/${id}`,
+          {
+            method: "POST",
+            body: formData,
+          }
+        );
+
+        if (response.ok) {
+          console.log("Blog images added successfully");
+
+          // Fetch the updated blog data after adding images
+          fetchBlogData();
+          setNewImages([]); // Clear the selected images
+          setAreImagesSelected(false); // Reset to false after successful upload
+        } else {
+          console.error("Failed to add blog images");
+        }
+      } else {
+        console.warn("No new images selected");
+      }
+    } catch (error) {
+      console.error("Error adding blog images:", error);
+    }
+  };
 
   const handleDelete = async (blogid) => {
     try {
@@ -108,6 +153,51 @@ export default function BlogEdit() {
     }
   };
 
+  const handleImageDelete = async (imageName) => {
+    try {
+      const deleteResponse = await fetch(
+        `http://localhost:4000/admin/deleteblogimage/${id}/${imageName}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (deleteResponse.ok) {
+        console.log("Blog image deleted successfully");
+
+        // Update the blog in the state by removing the deleted image name
+        const updatedBlog = {
+          ...blog,
+          images: blog.images.filter((img) => img !== imageName),
+        };
+
+        // Send a request to update the product in the database
+        const updateResponse = await fetch(
+          `http://localhost:4000/admin/blogedit/${id}`,
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(updatedBlog),
+          }
+        );
+
+        if (updateResponse.ok) {
+          console.log("Product updated successfully");
+          // Reload the page after updating the product
+          window.location.reload();
+        }else {
+          console.error("Failed to update Blog");
+        }
+      } else {
+        console.error("Failed to delete blog image");
+      }
+    } catch (error) {
+      console.error("Error deleting blog image:", error);
+    }
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -121,14 +211,52 @@ export default function BlogEdit() {
       <h2 className="text-4xl font-bold">Edit Product</h2>
       <div className="imageContainer grid grid-cols-4 gap-10 my-5">
         {blog.images.map((image, index) => (
-          <img
-            key={index}
-            src={`http://localhost:4000/uploads/${image}`}
-            alt={`Blog ${index + 1}`}
-            className="mx-auto max-h-56"
-          />
+          <div key={index} className="relative group">
+            <img
+              src={`http://localhost:4000/uploads/${image}`}
+              alt={`Blog ${index + 1}`}
+              className="mx-auto max-h-56 cursor-pointer"
+              onClick={() => handleImageDelete(image)}
+            />
+            <button
+              className="absolute top-0 right-1 text-red-600 p-1 rounded-full opacity-0 group-hover:opacity-100"
+              onClick={() => handleImageDelete(image)}
+            >
+              ⓧ
+            </button>
+          </div>
         ))}
       </div>
+      <div className="relative group">
+        <div className="flex flex-col">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            className="hidden"
+            id="addImageInput"
+          />
+          <label htmlFor="addImageInput" className="cursor-pointer">
+            <div className="bg-gray-200 border-black text-center p-4 rounded-md">
+              + Add Image
+            </div>
+          </label>
+          {selectedImageCount > 0 && (
+            <p className="text-sm text-gray-500 mt-2">
+              {selectedImageCount} image(s) selected
+            </p>
+          )}
+        </div>
+        <button
+          type="button"
+          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold"
+          onClick={handleAddImages}
+        >
+          Upload
+        </button>
+      </div>
+
       <div className="grid lg:grid-cols-2 lg:gap-16">
         <div className="leftSide">
           <div className="flex flex-col">

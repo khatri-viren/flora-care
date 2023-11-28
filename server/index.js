@@ -29,8 +29,9 @@ import blogsHomeRoute from "./routes/blogshome.js";
 import userEditRoute from "./routes/userEdit.js";
 import ordersRoute from "./routes/orders.js";
 import stripe from "./routes/stripe.js";
-import deleteImageRouter from "./routes/admin/deleteImage.js";
+import deleteProductImageRoute from "./routes/admin/deleteProductImage.js";
 import productEditRoute from "./routes/admin/productEdit.js";
+import deleteBlogImageRoute from "./routes/admin/deleteBlogImage.js";
 
 config();
 const app = express();
@@ -92,9 +93,9 @@ app.use("/admin/blogedit", blogEditRoutes);
 app.use("/admin/deleteblog", deleteBlogRoute);
 app.use("/admin/addblog", addBlogRoute);
 app.use("/admin/addproduct", addProductRoute);
-app.use("/admin/deleteimage", deleteImageRouter);
+app.use("/admin/deleteproductimage", deleteProductImageRoute);
 app.use("/admin/productedit", productEditRoute);
-
+app.use("/admin/deleteblogimage", deleteBlogImageRoute);
 app.use("/admin", adminDashboardOrdersRoute);
 app.use("/admin", adminUserCountRoute);
 
