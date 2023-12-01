@@ -19,6 +19,7 @@ const ProductPage = () => {
       try {
         const response = await fetch(`http://localhost:4000/productpage/${id}`);
         const data = await response.json();
+        console.log("Fetched Product Data:", data);
         setProduct(data);
         setLoading(false);
       } catch (error) {
@@ -28,6 +29,7 @@ const ProductPage = () => {
 
     fetchProduct();
   }, [id]);
+
 
   if (!product) {
     return (
@@ -62,14 +64,14 @@ const ProductPage = () => {
         images={images}
         price={price}
         shortIntro={shortIntroduction}
-        reviews={reviews}
+        reviews={reviews} // Make sure this reviews prop is being set correctly
         quantity={quantity}
         id={id}
       />
       <InfoSection2 />
       <InfoSection3 image={images[2]} desc={description} />
       <InfoSection4 />
-      <Reviews />
+      <Reviews reviews={reviews} />
       <FAQs />
     </div>
   );

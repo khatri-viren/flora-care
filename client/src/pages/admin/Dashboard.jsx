@@ -47,7 +47,7 @@ const Dashboard = () => {
   const today = new Date().toLocaleDateString();
   const todaysSales = orders
     .filter((order) => new Date(order.createdAt).toLocaleDateString() === today)
-    .reduce((total, order) => (total + order.total) / 100, 0);
+    .reduce((total, order) => (total + order.total)/100 ,0);
 
   return (
     <div className="mx-5 lg:mx-20 pt-8 my-12 text-udark mb-96">

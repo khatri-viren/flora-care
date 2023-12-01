@@ -32,6 +32,7 @@ import stripe from "./routes/stripe.js";
 import deleteProductImageRoute from "./routes/admin/deleteProductImage.js";
 import productEditRoute from "./routes/admin/productEdit.js";
 import deleteBlogImageRoute from "./routes/admin/deleteBlogImage.js";
+import productReviewRoute from "./routes/addreview.js";
 
 config();
 const app = express();
@@ -98,6 +99,8 @@ app.use("/admin/productedit", productEditRoute);
 app.use("/admin/deleteblogimage", deleteBlogImageRoute);
 app.use("/admin", adminDashboardOrdersRoute);
 app.use("/admin", adminUserCountRoute);
+app.use("/productreview", productReviewRoute);
+
 
 // Start the server
 app.listen(process.env.PORT || 4001, () => {

@@ -1,12 +1,11 @@
 import { Schema, model } from "mongoose";
 
 const reviewSchema = new Schema({
-  stars: { type: Number, required: true },
-  reviewText: { type: String, required: true 
-    },
-  firstname: { type: String, required: true},
-  lastname: { type: String, required: true},
-  email: { type: String, required: true},
+  stars: { type: Number, required: true ,default: 0},
+  reviewText: { type: String, required: true ,default: ""},
+  firstname: { type: String, required: true,default: ""},
+  lastname: { type: String, required: true,default: ""},
+  email: { type: String, required: true,default: ""},
 });
 
 const productSchema = new Schema({
