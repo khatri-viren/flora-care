@@ -19,7 +19,7 @@ const ProductPage = () => {
       try {
         const response = await fetch(`http://localhost:4000/productpage/${id}`);
         const data = await response.json();
-        console.log("Fetched Product Data:", data);
+        // console.log("Fetched Product Data:", data);
         setProduct(data);
         setLoading(false);
       } catch (error) {

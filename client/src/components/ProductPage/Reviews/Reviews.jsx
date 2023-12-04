@@ -80,16 +80,16 @@ const Reviews = ({ reviews, id }) => {
         device.
       </p>
       <div className="cardContainer grid md:grid-cols-2 lg:grid-cols-3 py-10">
-        <div className="lg:col-span-2 grid grid-cols-2">
+        <div className="lg:col-span-2 grid grid-cols-1 lg:grid-cols-2 grid-rows-2">
           {reviews.length === 0 ? (
             <div className="flex justify-center items-center col-span-2">
               {" "}
               No Reviews{" "}
             </div>
           ) : (
-            reviews.map((review, index) => (
-              <ReviewCard key={index} {...review} />
-            ))
+            reviews
+              .slice(0, 4)
+              .map((review, index) => <ReviewCard key={index} {...review} />)
           )}
         </div>
         <div>
@@ -99,6 +99,7 @@ const Reviews = ({ reviews, id }) => {
                 First Name
               </label>
               <input
+                autoComplete="given-name"
                 onChange={handleChange}
                 className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
                 type="text"
@@ -112,6 +113,7 @@ const Reviews = ({ reviews, id }) => {
                 Last Name
               </label>
               <input
+                autoComplete="family-name"
                 onChange={handleChange}
                 className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
                 type="text"
@@ -125,6 +127,7 @@ const Reviews = ({ reviews, id }) => {
                 Email
               </label>
               <input
+                autoComplete="email"
                 onChange={handleChange}
                 className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
                 type="text"
@@ -138,6 +141,7 @@ const Reviews = ({ reviews, id }) => {
                 Rating Out of 5
               </label>
               <input
+                autoComplete=""
                 onChange={handleChange}
                 className="mb-5 mt-1 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
                 type="number"

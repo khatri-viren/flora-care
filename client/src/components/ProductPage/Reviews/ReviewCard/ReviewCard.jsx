@@ -2,7 +2,7 @@
 import starFilled from "../../../../assets/starFilled.svg";
 
 const ReviewCard = ({ stars, reviewText, firstname, lastname }) => {
-  console.log("ReviewCard Props:", { stars, reviewText, firstname, lastname });
+  // console.log("ReviewCard Props:", { stars, reviewText, firstname, lastname });
 
   return (
     <div className="card my-10 mx-5 flex flex-col">
