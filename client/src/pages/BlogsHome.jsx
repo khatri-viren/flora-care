@@ -5,9 +5,13 @@ import CTA2 from "../components/BlogsHome/CTA2";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ring } from "ldrs";
+import ReactPaginate from "react-paginate";
+import { motion } from "framer-motion";
 
 const BlogsHome = () => {
   const [blogs, setBlogs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(3);
   const [loading, setLoading] = useState(true);
   ring.register();
 
@@ -25,6 +29,14 @@ const BlogsHome = () => {
 
     fetchData();
   }, []);
+
+  const indexOfLastPost = currentPage * productsPerPage;
+  const indexOfFirstPost = indexOfLastPost - productsPerPage;
+  const sortedBlogs = blogs.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
 
   return (
     <div className="text-udark pt-5">
@@ -45,7 +57,13 @@ const BlogsHome = () => {
           </div>
         ) : (
           <>
-            <div className="heroSection grid lg:grid-cols-2 my-10 gap-10">
+            <motion.div
+              className="heroSection grid lg:grid-cols-2 my-10 gap-10"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 2, ease: "easeInOut" }}
+              viewport={{ once: true }}
+            >
               <div className="img mx-auto hover:cursor-pointer">
                 {blogs.length > 0 && blogs[0].images.length > 0 ? (
                   <Link to={"/blogpage/" + blogs[0]._id}>
@@ -73,26 +91,57 @@ const BlogsHome = () => {
                     : "Introduction Placeholder"}
                 </p>
               </div>
-            </div>
-            <div className="cardsContainer grid grid-cols-3 gap-12">
+            </motion.div>
+            <motion.div
+              className="cardsContainer grid grid-cols-3 gap-12"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              transition={{ duration: 2, delay: 0.1, ease: "easeInOut" }}
+              viewport={{ once: true }}
+            >
               {blogs.slice(0, 3).map((blog) => (
                 <Link to={`/blogpage/${blog._id}`} key={blog._id}>
                   <BlogCard blog={blog} />
                 </Link>
               ))}
-            </div>
+            </motion.div>
           </>
         )}
       </section>
       <section className="posts mx-5 lg:mx-20 my-12">
         <h2 className="text-3xl font-bold my-5">All Posts</h2>
         <hr className="border border-solid border-umedium mb-6" />
-        <div className="cardsContainer grid grid-cols-3 gap-12">
-          {blogs.map((blog) => (
+        <motion.div
+          viewport={{ once: true }}
+          className="cardsContainer grid grid-cols-3 gap-12"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 2, ease: "easeInOut" }}
+        >
+          {sortedBlogs.map((blog) => (
             <Link to={`/blogpage/${blog._id}`} key={blog._id}>
               <BlogCard blog={blog} />
             </Link>
           ))}
+        </motion.div>
+        <div className="flex justify-center mb-10 mt-5">
+          <ReactPaginate
+            onPageChange={paginate}
+            pageCount={Math.ceil(blogs.length / productsPerPage)}
+            previousLabel={"Prev"}
+            nextLabel={"Next"}
+            containerClassName={"flex justify-evenly w-fit space-x-5"}
+            pageLinkClassName={
+              "page-number border border-solid border-udark p-2"
+            }
+            previousLinkClassName={
+              "page-number border border-solid border-udark p-2"
+            }
+            nextLinkClassName={
+              "page-number border border-solid border-udark p-2"
+            }
+            activeLinkClassName={"active border-umedium text-umedium"}
+          />
         </div>
       </section>
       <CTA2 />

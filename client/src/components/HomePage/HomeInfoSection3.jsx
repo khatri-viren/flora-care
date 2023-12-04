@@ -1,13 +1,32 @@
 /* eslint-disable react/no-unescaped-entities */
 import productimg from "../../assets/product_13.png";
+import { motion } from "framer-motion";
 
 export default function HomeInfoSection3() {
   return (
     <section className="mx-16 lg:grid lg:grid-cols-2 text-udark  my-32 py-5">
-      <div className="leftSide mx-auto hidden lg:block">
+      <motion.div
+        className="leftSide mx-auto hidden lg:block"
+        initial={{ translateX: -50, opacity: 0 }}
+        whileInView={{
+          translateX: 0,
+          opacity: 1,
+          transition: { ease: "easeInOut", duration: 1.5 },
+        }}
+        viewport={{ once: true }}
+      >
         <img src={productimg} alt="" className="max-h-[500px]" />
-      </div>
-      <div className="rightSide flex flex-col my-auto mx-5 space-y-5">
+      </motion.div>
+      <motion.div
+        className="rightSide flex flex-col my-auto mx-5 space-y-5"
+        initial={{ translateX: 50, opacity: 0 }}
+        whileInView={{
+          translateX: 0,
+          opacity: 1,
+          transition: { ease: "easeInOut", duration: 1.5 },
+        }}
+        viewport={{ once: true }}
+      >
         <div>
           <h5 className="text-3xl font-bold">
             Expert Device Installation Services
@@ -37,7 +56,7 @@ export default function HomeInfoSection3() {
             optimal growth and resource management.
           </p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

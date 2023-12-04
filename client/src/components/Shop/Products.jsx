@@ -2,10 +2,14 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import axios from "axios";
 import { ring } from "ldrs";
+import ReactPaginate from "react-paginate";
+import { motion } from "framer-motion";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [productsPerPage] = useState(3);
   const [sortOption, setSortOption] = useState("default");
   ring.register();
 
@@ -41,6 +45,14 @@ const Products = () => {
 
   const sortedProducts = sortProducts(products);
 
+  const indexOfLastPost = currentPage * productsPerPage;
+  const indexOfFirstPost = indexOfLastPost - productsPerPage;
+  const sortedProd = sortedProducts.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = ({ selected }) => {
+    setCurrentPage(selected + 1);
+  };
+
   return (
     <section className="mx-5 md:mx-20 py-10">
       <div className="headingsContainer flex justify-between space-y-2 my-10 text-udark">
@@ -74,12 +86,27 @@ const Products = () => {
           ></l-ring>
         </div>
       ) : (
-        <div className="cardContainer grid grid-cols-2 gap-8 lg:grid-cols-3 mb-24">
-          {sortedProducts.map((product) => (
+        <div className="cardContainer grid grid-cols-2 gap-8 lg:grid-cols-3 ">
+          {sortedProd.map((product) => (
             <ProductCard key={product._id} product={product} />
           ))}
         </div>
       )}
+      <div className="flex justify-center mb-10 mt-5">
+        <ReactPaginate
+          onPageChange={paginate}
+          pageCount={Math.ceil(products.length / productsPerPage)}
+          previousLabel={"Prev"}
+          nextLabel={"Next"}
+          containerClassName={"flex justify-evenly w-fit space-x-5"}
+          pageLinkClassName={"page-number border border-solid border-udark p-2"}
+          previousLinkClassName={
+            "page-number border border-solid border-udark p-2"
+          }
+          nextLinkClassName={"page-number border border-solid border-udark p-2"}
+          activeLinkClassName={"active border-umedium text-umedium"}
+        />
+      </div>
     </section>
   );
 };

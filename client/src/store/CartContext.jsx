@@ -32,11 +32,17 @@ const cartReducer = (state, action) => {
         return { ...state, cart: [...state.cart, action.payload] };
       }
 
-    case REMOVE_FROM_CART:
+    case REMOVE_FROM_CART: {
+      const updatedCart = state.cart.filter(
+        (item) => item.id !== action.payload.id
+      );
+      console.log(action.payload.id);
+      localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update local storage
       return {
         ...state,
-        cart: state.cart.filter((item) => item.id !== action.payload.id),
+        cart: updatedCart,
       };
+    }
 
     case CLEAR_CART:
       return { ...state, cart: [] };

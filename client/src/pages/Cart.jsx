@@ -80,7 +80,7 @@ const Cart = () => {
                   </div>
                   <button
                     className="p-2 border border-solid h-fit my-auto border-udark"
-                    onClick={removeFromCart}
+                    onClick={() => removeFromCart(item)}
                   >
                     Delete
                   </button>

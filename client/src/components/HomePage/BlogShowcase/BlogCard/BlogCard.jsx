@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
   return (
-    <div className="flex mx-5 text-udark my-5">
+    <div className="flex mx-5 text-udark my-5 hover:cursor-pointer">
       <div className="leftSide">
         {/* <img
           src={`http://localhost:4000/uploads/${blog.images[0]}`}

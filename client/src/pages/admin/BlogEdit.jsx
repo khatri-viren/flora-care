@@ -187,7 +187,7 @@ export default function BlogEdit() {
           console.log("Product updated successfully");
           // Reload the page after updating the product
           window.location.reload();
-        }else {
+        } else {
           console.error("Failed to update Blog");
         }
       } else {
@@ -238,7 +238,7 @@ export default function BlogEdit() {
             id="addImageInput"
           />
           <label htmlFor="addImageInput" className="cursor-pointer">
-            <div className="bg-gray-200 border-black text-center p-4 rounded-md">
+            <div className="border border-solid border-udark text-center p-4">
               + Add Image
             </div>
           </label>
@@ -250,7 +250,7 @@ export default function BlogEdit() {
         </div>
         <button
           type="button"
-          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold"
+          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold my-5"
           onClick={handleAddImages}
         >
           Upload

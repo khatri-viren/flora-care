@@ -2,6 +2,7 @@
 import { DataGrid } from "@mui/x-data-grid";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { ring } from "ldrs";
 
 const columns = [
   { field: "date", headerName: "Ordered on", width: 180 },
@@ -32,6 +33,8 @@ const columns = [
 ];
 
 export default function UserOrders({ userId }) {
+  const [loading, setLoading] = useState(true);
+  ring.register();
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
@@ -41,8 +44,12 @@ export default function UserOrders({ userId }) {
           `http://localhost:4000/orders/user/${userId}`
         );
         setOrders(response.data);
+        setLoading(false); // Set loading to false when data is fetched
+
         console.log(response.data);
       } catch (error) {
+        setLoading(false); // Set loading to false when data is fetched
+
         console.error("Error fetching orders:", error);
       }
     };
@@ -71,7 +78,17 @@ export default function UserOrders({ userId }) {
       <hr className="border border-solid border-umedium my-3" />
       <h2 className="text-2xl font-semibold">Your Orders</h2>
       <div className="tableContainer my-5">
-        {orders.length === 0 ? (
+        {loading ? (
+          <div className="w-full col-span-2 flex justify-center items-center">
+            <l-ring
+              size="40"
+              stroke="5"
+              bg-opacity="0"
+              speed="2"
+              color="black"
+            ></l-ring>
+          </div>
+        ) : orders.length === 0 ? (
           <div>No Orders</div>
         ) : (
           <>

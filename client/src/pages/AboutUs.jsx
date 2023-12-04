@@ -13,10 +13,10 @@ const AboutUs = () => {
             optimized growth.
           </h3>
           <p className="font-light text-sm">
-            At BotanicBalance Systems, we are on a mission to transform plant
-            care by leveraging the power of IoT-based monitoring devices. Our
-            innovative technology optimizes plant growth while minimizing water
-            waste, making it easier than ever for users to achieve thriving and
+            At Flora Care, we are on a mission to transform plant care by
+            leveraging the power of IoT-based monitoring devices. Our innovative
+            technology optimizes plant growth while minimizing water waste,
+            making it easier than ever for users to achieve thriving and
             sustainable gardens.
           </p>
         </div>

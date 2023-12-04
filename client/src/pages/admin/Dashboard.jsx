@@ -39,7 +39,7 @@ const Dashboard = () => {
   }, []);
 
   const totalSales = orders.reduce(
-    (total, order) => (total + order.total) / 100,
+    (total, order) => total + order.total / 100,
     0
   );
 
@@ -47,12 +47,12 @@ const Dashboard = () => {
   const today = new Date().toLocaleDateString();
   const todaysSales = orders
     .filter((order) => new Date(order.createdAt).toLocaleDateString() === today)
-    .reduce((total, order) => (total + order.total)/100 ,0);
+    .reduce((total, order) => total + order.total / 100, 0);
 
   return (
     <div className="mx-5 lg:mx-20 pt-8 my-12 text-udark mb-96">
       <h2 className="text-4xl font-bold my-5">Dashboard</h2>
-      <div className="grid grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <Link
           className="p-10 border-[2px] border-solid border-udark text-center font-bold text-xl"
           to="/admin/manageproducts"
@@ -66,7 +66,7 @@ const Dashboard = () => {
           Manage Blog
         </Link>
       </div>
-      <div className="grid grid-cols-2 gap-10 my-5 ">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 my-5 ">
         <DashboardOrders orders={orders} />
         <div className="grid grid-cols-2 gap-5 grid-rows-2 h-fit ">
           <div className="w-full h-fit py-5 flex px-5 justify-center space-x-3 border-2 border-solid border-udark col-span-2">

@@ -148,7 +148,7 @@ const ProductEdit = () => {
         newImages.forEach((image) => {
           formData.append("images", image);
         });
-  
+
         const response = await fetch(
           `http://localhost:4000/admin/productedit/addimage/${id}`,
           {
@@ -156,15 +156,15 @@ const ProductEdit = () => {
             body: formData,
           }
         );
-  
+
         if (response.ok) {
           console.log("Images added successfully");
-  
+
           // Fetch the updated product data after adding images
           fetchProductData();
           setNewImages([]); // Clear the selected images
           setAreImagesSelected(false); // Reset to false after successful upload
-  
+
           // Reload the page after updating the product
           window.location.reload();
         } else {
@@ -209,32 +209,31 @@ const ProductEdit = () => {
       </div>
       <div className="relative group">
         {" "}
-        
         <div className="flex flex-col">
-        <input
-          type="file"
-          accept="image/*"
-          multiple
-          onChange={handleImageChange}
-          className="hidden"
-          id="addImageInput"
-        />{" "}
-        <label htmlFor="addImageInput" className="cursor-pointer">
-          {" "}
-          <div className="bg-gray-200 border-black text-center p-4 rounded-md">
+          <input
+            type="file"
+            accept="image/*"
+            multiple
+            onChange={handleImageChange}
+            className="hidden"
+            id="addImageInput"
+          />{" "}
+          <label htmlFor="addImageInput" className="cursor-pointer">
             {" "}
-            + Add Image{" "}
-          </div>{" "}
-        </label>{" "}
-        {selectedImageCount > 0 && (
-          <p className="text-sm text-gray-500 mt-2">
-            {selectedImageCount} image(s) selected
-          </p>
-        )}
+            <div className="border border-solid border-udark text-center p-4 ">
+              {" "}
+              + Add Image{" "}
+            </div>{" "}
+          </label>{" "}
+          {selectedImageCount > 0 && (
+            <p className="text-sm text-udark mt-2">
+              {selectedImageCount} image(s) selected
+            </p>
+          )}
         </div>
         <button
           type="button"
-          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold"
+          className="py-2 px-4 bg-ubg border border-solid border-udark font-semibold my-5"
           onClick={handleAddImages}
         >
           {" "}

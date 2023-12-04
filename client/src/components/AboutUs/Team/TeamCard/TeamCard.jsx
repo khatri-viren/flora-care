@@ -1,12 +1,8 @@
 /* eslint-disable react/prop-types */
-const TeamCard = ({ name, position }) => {
+const TeamCard = ({ name, position, image }) => {
   return (
     <div className="w-3/4 flex-col justify-center items-center text-center gap-4 inline-flex my-5 mx-auto">
-      <img
-        className="w-20 h-20 rounded-full"
-        src="https://via.placeholder.com/80x80"
-        alt=""
-      />
+      <img className="w-20 h-20 rounded-full" src={image} alt="" />
       <div className="">
         <div className="">
           <div className="text-xl font-semibold leading-relaxed">{name}</div>
@@ -51,7 +47,7 @@ const TeamCard = ({ name, position }) => {
             </svg>
           </a>
         </div>
-        <div className="w-6">
+        {/* <div className="w-6">
           <a href="/">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +64,7 @@ const TeamCard = ({ name, position }) => {
               />
             </svg>
           </a>
-        </div>
+        </div> */}
       </div>
     </div>
   );

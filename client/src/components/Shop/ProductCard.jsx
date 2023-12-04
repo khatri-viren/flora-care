@@ -4,6 +4,7 @@ import { useCart } from "../../store/CartContext";
 import { useState } from "react";
 // import { useEffect } from "react";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const ProductCard = ({ product }) => {
   const { addToCart, cart } = useCart();
@@ -42,7 +43,12 @@ const ProductCard = ({ product }) => {
     : product.shortIntroduction;
 
   return (
-    <div className="w-fit space-y-1 mx-auto my-5">
+    <motion.div
+      className="w-fit space-y-1 mx-auto my-5"
+      initial={{ opacity: 0, translateY: 50 }}
+      whileInView={{ opacity: 1, translateY: 0 }}
+      transition={{ duration: 1, ease: "easeInOut" }}
+    >
       <Link to={`/productpage/${product._id}`}>
         <img
           src={"http://localhost:4000/uploads/" + product.images[0]}
@@ -69,7 +75,7 @@ const ProductCard = ({ product }) => {
       >
         {inStock ? "Add to Cart" : "Out of Stock"}
       </button>
-    </div>
+    </motion.div>
   );
 };
 

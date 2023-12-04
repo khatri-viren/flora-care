@@ -1,9 +1,16 @@
 /* eslint-disable react/no-unescaped-entities */
 import BorderButton from "../shared/Buttons/BorderButton";
+import { motion } from "framer-motion";
 
 const InfoSection4 = () => {
   return (
-    <section className="grid md:grid-cols-3 space-y-8 md:space-y-0 md:mx-5 lg:mx-20 my-12">
+    <motion.section
+      className="grid md:grid-cols-3 space-y-8 md:space-y-0 md:mx-5 lg:mx-20 my-12"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.5, ease: "easeInOut" }}
+      viewport={{ once: true }}
+    >
       <div className="card flex flex-col mx-10 text-center my-auto">
         <div className="text-2xl font-bold">
           Step by Step Installation and Usage Guide
@@ -38,7 +45,7 @@ const InfoSection4 = () => {
           <BorderButton title="See More" />
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

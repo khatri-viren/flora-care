@@ -5,14 +5,7 @@ const orderSchema = new Schema(
     userID: { type: String, required: true },
     customerID: { type: String },
     paymentIntentId: { type: String },
-    products: [
-      {
-        id: String,
-        name: String,
-        price: Number,
-        quantity: Number,
-      },
-    ],
+    products: [],
     subtotal: { type: Number, required: true },
     total: { type: Number, required: true },
     shipping: { type: Object, required: true },

@@ -4,8 +4,10 @@ import BorderButton from "../components/shared/Buttons/BorderButton";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { useUser } from "../store/UserContext";
 
 const Login = ({ setLogin }) => {
+  const { setIsLoggedIn } = useUser();
   const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
@@ -36,7 +38,7 @@ const Login = ({ setLogin }) => {
         });
         const token = response.data.token;
         localStorage.setItem("authToken", token);
-        setLogin(true);
+        setIsLoggedIn(true);
         toast.success("Successfully Logged In", { className: "toast" });
         navigate("/");
       }
@@ -54,6 +56,7 @@ const Login = ({ setLogin }) => {
           Email
         </label>
         <input
+          autoComplete="email"
           className="my-2 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
           type="email"
           name="email"
@@ -64,6 +67,7 @@ const Login = ({ setLogin }) => {
         />
         <label htmlFor="password">Password</label>
         <input
+          autoComplete="password"
           className="my-2 bg-ubg border border-solid border-udark px-4 py-2 w-96 focus:outline-none"
           type="password"
           name="password"

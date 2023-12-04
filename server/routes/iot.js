@@ -1,4 +1,5 @@
 import { Router } from "express";
+import Data from "../models/iotData.js";
 
 const router = Router();
 

@@ -33,6 +33,7 @@ import deleteProductImageRoute from "./routes/admin/deleteProductImage.js";
 import productEditRoute from "./routes/admin/productEdit.js";
 import deleteBlogImageRoute from "./routes/admin/deleteBlogImage.js";
 import productAddReviewRoute from "./routes/addreview.js";
+import iotRoute from "./routes/iot.js";
 
 config();
 const app = express();
@@ -86,6 +87,7 @@ app.use("/userdashboard", userEditRoute);
 app.use("/api/stripe", stripe);
 app.use("/orders", ordersRoute);
 app.use("/", productAddReviewRoute);
+app.use("/", iotRoute);
 
 app.use("/admin", adminRoutes);
 app.use("/admin/manageproducts", manageProductRoutes);

@@ -5,6 +5,7 @@
 import FillButton from "../shared/Buttons/FillButton";
 import { useEffect, useState } from "react";
 import { useCart } from "../../store/CartContext.jsx";
+import { motion } from "framer-motion";
 
 const ProductHeader = ({
   id,
@@ -45,7 +46,13 @@ const ProductHeader = ({
   };
 
   return (
-    <section className="mx-5 md:mx-20 my-12">
+    <motion.section
+      className="mx-5 md:mx-20 my-12"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.5, ease: "easeInOut" }}
+      viewport={{ once: true }}
+    >
       <div className="breadcrumbs flex space-x-1 text-sm pt-5">
         <span>Home</span>
         <svg
@@ -96,14 +103,16 @@ const ProductHeader = ({
           <h1 className="productName text-4xl font-bold my-1">{name}</h1>
           <h2 className="productName text-2xl font-bold my-4">₹{price}</h2>
           <div className="stars flex space-x-2 my-4">
-            {[1, 2, 3, 4, 5].map((star) => (
+            {/* {[1, 2, 3, 4, 5].map((star) => (
               <svg
                 key={star}
                 className="my-auto"
                 width="20"
                 height="19"
                 viewBox="0 0 20 19"
-                fill={star <= Math.round(averageStars) ? "#FFD700" : "none"}
+                fill={
+                  star < Math.floor(averageStars + 0.5) ? "#FFD700" : "none"
+                }
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
@@ -111,9 +120,9 @@ const ProductHeader = ({
                   fill="#343829"
                 />
               </svg>
-            ))}
+            ))} */}
             <div>
-              ({averageStars.toFixed(1)} stars) • {reviews.length} reviews
+              {averageStars.toFixed(1)} stars • {reviews.length} reviews
             </div>
           </div>
           <p className="shortDesc my-4">{shortIntro}</p>
@@ -137,7 +146,7 @@ const ProductHeader = ({
           </p>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

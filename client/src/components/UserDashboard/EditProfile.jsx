@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-// import { useUser } from "../../store/UserContext.jsx";
+import { useUser } from "../../store/UserContext.jsx";
 
 /* eslint-disable react/prop-types */
-export default function EditProfile({ user }) {
-  // const { updateUser } = useUser();
+export default function EditProfile() {
+  const { user, updateUser } = useUser();
 
-  // useEffect(() => {
-  //   console.log(user);
-  // }, []);
+  useEffect(() => {
+    console.log(user);
+  }, []);
 
   const [formData, setFormData] = useState({
     firstname: user.firstname,
@@ -45,7 +45,7 @@ export default function EditProfile({ user }) {
 
       if (response.ok) {
         // console.log("Blog updated successfully");
-        // updateUser({ ...user, ...formData });
+        updateUser({ ...user, ...formData });
         toast.success("Profile updated successfully", { className: "toast" });
       } else {
         // console.error("Failed to update Profile");
@@ -73,7 +73,7 @@ export default function EditProfile({ user }) {
               className="uinput"
               name="firstname"
               id=""
-              value={user.firstname}
+              value={formData.firstname}
             />
           </div>
           <div className="flex flex-col">
@@ -86,7 +86,7 @@ export default function EditProfile({ user }) {
               className="uinput"
               name="lastname"
               id=""
-              value={user.lastname}
+              value={formData.lastname}
             />
           </div>
           <div className="flex flex-col">
@@ -100,7 +100,7 @@ export default function EditProfile({ user }) {
               name="email"
               id=""
               disabled
-              value={user.email}
+              value={formData.email}
             />
           </div>
           <div className=" flex flex-col col-span-2">
@@ -113,7 +113,7 @@ export default function EditProfile({ user }) {
               type="text"
               name="addressline1"
               id=""
-              value={user.address.addressline1}
+              value={formData.addressline1}
             />
           </div>
           <div className=" flex flex-col">
@@ -126,7 +126,7 @@ export default function EditProfile({ user }) {
               type="text"
               name="phoneno"
               id=""
-              value={user.profile.phoneno}
+              value={formData.phoneno}
             />
           </div>
           <div className=" flex flex-col col-span-2">
@@ -139,7 +139,7 @@ export default function EditProfile({ user }) {
               type="text"
               name="addressline2"
               id=""
-              value={user.address.addressline2}
+              value={formData.addressline2}
             />
           </div>
           <div className=" flex flex-col">
@@ -152,7 +152,7 @@ export default function EditProfile({ user }) {
               type="text"
               name="city"
               id=""
-              value={user.address.city}
+              value={formData.city}
             />
           </div>
           <div className=" flex flex-col">
@@ -165,7 +165,7 @@ export default function EditProfile({ user }) {
               type="number"
               name="pincode"
               id=""
-              value={user.address.pincode}
+              value={formData.pincode}
             />
           </div>
         </div>

@@ -2,18 +2,24 @@
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditProfile from "../components/UserDashboard/EditProfile";
+import UserInfo from "../components/UserDashboard/UserInfo.jsx";
 import UserOrders from "../components/UserDashboard/UserOrders";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { useUser } from "../store/UserContext.jsx";
 import { ring } from "ldrs";
 
-const UserDashboard = ({ setLogin }) => {
+const UserDashboard = () => {
   const [selectedSection, setSelectedSection] = useState("edit");
+  const { user, updateUser, setIsLoggedIn } = useUser();
+  const [loading, setLoading] = useState(true);
+  ring.register();
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    setLogin(false);
+    updateUser(null);
+    setIsLoggedIn(false);
     localStorage.removeItem("authToken");
     delete axios.defaults.headers.common["Authorization"];
     navigate("/");
@@ -22,10 +28,6 @@ const UserDashboard = ({ setLogin }) => {
   const handleSectionSelection = (section) => {
     setSelectedSection(section);
   };
-
-  const { user, updateUser } = useUser();
-  const [loading, setLoading] = useState(true);
-  ring.register();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -46,6 +48,7 @@ const UserDashboard = ({ setLogin }) => {
         const userData = response.data;
         // Update the user context with the fetched data
         updateUser(userData);
+        setIsLoggedIn(true);
       } catch (error) {
         console.error("Error fetching user data:", error);
         toast.error("Error fetching user data", { className: "toast" });
@@ -57,7 +60,7 @@ const UserDashboard = ({ setLogin }) => {
     };
     // Call the fetchUserData function
     fetchUserData();
-  }, [updateUser]); // Only re-run the effect if updateUser changes
+  }, []); // Only re-run the effect if updateUser changes
 
   if (loading) {
     return (
@@ -97,13 +100,13 @@ const UserDashboard = ({ setLogin }) => {
             </div>
           </div>
         </div>
-        <div className="rightSide my-auto w-full flex justify-evenly">
-          {/* <button
+        <div className="rightSide my-auto w-full flex flex-col md:flex-row space-y-2 md:space-y-0 justify-evenly">
+          <button
             onClick={() => handleSectionSelection("data")}
             className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
           >
             Device Data
-          </button> */}
+          </button>
           <button
             onClick={() => handleSectionSelection("orders")}
             className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
@@ -126,7 +129,7 @@ const UserDashboard = ({ setLogin }) => {
       </div>
       {selectedSection === "edit" && <EditProfile user={user} />}
       {selectedSection === "orders" && <UserOrders userId={user._id} />}
-      {selectedSection === "data" && <EditProfile />}
+      {selectedSection === "data" && <UserInfo />}
     </div>
   );
 };

@@ -1,13 +1,13 @@
 // deleteBlogImage.js
-import express from 'express';
-import { promises as fsPromises } from 'fs';
-import path from 'path';
-import Blog from '../../models/blog.js';
+import express from "express";
+import { promises as fsPromises } from "fs";
+import path from "path";
+import Blog from "../../models/blog.js";
 
 const { unlink } = fsPromises;
 const router = express.Router();
 
-router.delete('/:id/:imageName', async (req, res) => {
+router.delete("/:id/:imageName", async (req, res) => {
   const blogId = req.params.id;
   const imageName = req.params.imageName;
 
@@ -15,12 +15,12 @@ router.delete('/:id/:imageName', async (req, res) => {
     const blog = await Blog.findById(blogId);
 
     if (!blog) {
-      return res.status(404).json({ message: 'Blog not found' });
+      return res.status(404).json({ message: "Blog not found" });
     }
 
     const imagesDirectory = path.join(
       new URL(import.meta.url).pathname,
-      '../../../uploads'
+      "../../../uploads"
     );
 
     const imagePathResized = path.join(imagesDirectory, `${imageName}`);
@@ -33,10 +33,10 @@ router.delete('/:id/:imageName', async (req, res) => {
 
     await Blog.findByIdAndUpdate(blogId, { images: updatedImages });
 
-    res.json({ message: 'Blog image deleted successfully' });
+    res.json({ message: "Blog image deleted successfully" });
   } catch (error) {
-    console.error('Failed to delete blog image:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    console.error("Failed to delete blog image:", error);
+    res.status(500).json({ message: "Internal Server Error" });
   }
 });
 

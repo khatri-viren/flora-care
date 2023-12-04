@@ -1,4 +1,7 @@
 import TeamCard from "./TeamCard/TeamCard";
+import virenImg from "../../../assets/viren.png";
+import parimalImg from "../../../assets/parimal.jpeg";
+import mithiImg from "../../../assets/mithi.jpeg";
 
 const Team = () => {
   return (
@@ -13,9 +16,17 @@ const Team = () => {
         </p>
       </div>
       <div className="cardContainer grid lg:grid-cols-3 grid-cols-2 gap-5">
-        <TeamCard name="Viren Khatri" position="Co-Founder" />
-        <TeamCard name="Parimal Kolhe" position="Co-Founder" />
-        <TeamCard name="Mitheelesh Katyarmal" position="Co-Founder" />
+        <TeamCard name="Viren Khatri" position="Co-Founder" image={virenImg} />
+        <TeamCard
+          name="Parimal Kolhe"
+          position="Co-Founder"
+          image={parimalImg}
+        />
+        <TeamCard
+          name="Mitheelesh Katyarmal"
+          position="Co-Founder"
+          image={mithiImg}
+        />
       </div>
     </section>
   );

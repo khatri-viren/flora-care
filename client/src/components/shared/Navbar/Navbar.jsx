@@ -3,9 +3,11 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import leftArrow from "../../../assets/leftArrow.svg";
 import hamburger from "../../../assets/hamburger.svg";
-import { toast } from "react-toastify";
+// import { toast } from "react-toastify";
+import { useUser } from "../../../store/UserContext";
 
-const Navbar = ({ isLoggedIn }) => {
+const Navbar = () => {
+  const { isLoggedIn } = useUser();
   const [showMenu, setShowMenu] = useState(false);
 
   const handleMenuToggle = () => {

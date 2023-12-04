@@ -3,6 +3,7 @@ import { useState } from "react";
 import ReviewCard from "./ReviewCard/ReviewCard";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { motion } from "framer-motion";
 
 const Reviews = ({ reviews, id }) => {
   // console.log("Product Reviews Received:", reviews);
@@ -73,7 +74,13 @@ const Reviews = ({ reviews, id }) => {
   };
 
   return (
-    <section className="mx-5 lg:mx-20 my-12 pt-12">
+    <motion.section
+      className="mx-5 lg:mx-20 my-12 pt-12"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      transition={{ duration: 1.5, ease: "easeInOut" }}
+      viewport={{ once: true }}
+    >
       <h3 className="font-bold text-4xl">Customer Reviews</h3>
       <p className="font-light text-sm mt-4">
         Read what our customers have to say about our IoT-based monitoring
@@ -175,7 +182,7 @@ const Reviews = ({ reviews, id }) => {
           </form>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 
