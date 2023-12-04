@@ -1,4 +1,4 @@
-import React from 'react'
+/* eslint-disable react/prop-types */
 import starFilled from "../../../../assets/starFilled.svg";
 
 const ReviewCard = ({ stars, reviewText, firstname, lastname }) => {
@@ -20,4 +20,4 @@ const ReviewCard = ({ stars, reviewText, firstname, lastname }) => {
   );
 };
 
-export default ReviewCard
+export default ReviewCard;

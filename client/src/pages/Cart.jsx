@@ -93,7 +93,7 @@ const Cart = () => {
           <div className="container border-[3px] border-solid border-ulight">
             <div className="flex flex-col p-3 my-3">
               <h2 className="text-3xl font-semibold mx-auto">Subtotal</h2>
-              <div className="text-2xl  mx-auto my-4">${subtotal}</div>
+              <div className="text-2xl  mx-auto my-4">₹{subtotal}</div>
               <hr className="border-[0.5px] border-solid border-umedium my-3" />
               <label htmlFor="addComments" className="mb-2">
                 Additional Comments:

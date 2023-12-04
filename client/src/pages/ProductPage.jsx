@@ -30,7 +30,6 @@ const ProductPage = () => {
     fetchProduct();
   }, [id]);
 
-
   if (!product) {
     return (
       loading && (
@@ -64,14 +63,14 @@ const ProductPage = () => {
         images={images}
         price={price}
         shortIntro={shortIntroduction}
-        reviews={reviews} // Make sure this reviews prop is being set correctly
+        reviews={reviews}
         quantity={quantity}
         id={id}
       />
       <InfoSection2 />
       <InfoSection3 image={images[2]} desc={description} />
       <InfoSection4 />
-      <Reviews reviews={reviews} />
+      <Reviews reviews={reviews} id={id} />
       <FAQs />
     </div>
   );
