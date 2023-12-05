@@ -65,7 +65,7 @@ const UserInfo = () => {
     <section className="userInfo">
       <hr className="border border-solid border-umedium my-3" />
       <h2 className="text-2xl font-semibold">Your Device Data</h2>
-      <div className="grid grid-cols-2 gap-10 my-5">
+      <div className="grid md:grid-cols-2 gap-10 my-5">
         {loading ? (
           <div className="w-full col-span-2 my-20 flex justify-center items-center">
             <l-ring

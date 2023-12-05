@@ -75,13 +75,13 @@ const Navbar = () => {
         <img
           src={hamburger}
           alt=""
-          className={`h-4 my-auto md:hidden ${
+          className={`h-4 my-auto md:hidden mr-5 ${
             showMenu ? "hidden" : "inline-block"
           }`}
           onClick={handleMenuToggle}
         />
         <div
-          className={`smallMenu right-0 fixed bg-ubg text-right md:hidden ${
+          className={`smallMenu right-0 fixed bg-ubg text-right md:hidden mr-5 ${
             showMenu ? "block" : "hidden"
           } flex flex-col z-10 h-full drop-shadow-2xl top-0`}
         >

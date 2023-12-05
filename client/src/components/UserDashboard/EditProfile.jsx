@@ -62,7 +62,7 @@ export default function EditProfile() {
       <hr className="border border-solid border-umedium my-3" />
       <h2 className="text-2xl font-semibold">Edit Profile</h2>
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-3 gap-x-8 gap-y-2 my-5">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-2 my-5">
           <div className="flex flex-col">
             <label htmlFor="title" className="ulabel">
               First Name

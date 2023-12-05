@@ -40,7 +40,7 @@ const BlogPage = () => {
       >
         <div className="backdrop bg-[rgba(0,0,0,0.5)] w-full h-full flex">
           <div className="heroContent flex flex-col w-full my-auto mx-12 text-center">
-            <h1 className="text-5xl font-bold text-ubg mx-auto mt-3 mb-10">
+            <h1 className="text-3xl md:text-5xl font-bold text-ubg mx-auto mt-3 mb-10">
               {blog.title || "Blog Title Placeholder"}
             </h1>
             <div className="space-y-4">
@@ -135,7 +135,7 @@ const BlogPage = () => {
           <p>{blog.conclusion || "Conclusion Placeholder"}</p>
         </div>
       </div>
-      <div className="lg:hidden w-3/4 mx-auto flex space-x-4">
+      <div className="lg:hidden w-3/4 mx-auto flex flex-col md:flex-row  space-x-4">
         <div>
           <div className="font-bold text-lg">Contributor</div>
           <div>

@@ -93,7 +93,7 @@ const BlogsHome = () => {
               </div>
             </motion.div>
             <motion.div
-              className="cardsContainer grid grid-cols-3 gap-12"
+              className="cardsContainer hidden md:grid grid-cols-1 md:grid-cols-3 gap-12"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               transition={{ duration: 2, delay: 0.1, ease: "easeInOut" }}
@@ -113,7 +113,7 @@ const BlogsHome = () => {
         <hr className="border border-solid border-umedium mb-6" />
         <motion.div
           viewport={{ once: true }}
-          className="cardsContainer grid grid-cols-3 gap-12"
+          className="cardsContainer grid grid-cols-1 md:grid-cols-3 gap-12"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 2, ease: "easeInOut" }}

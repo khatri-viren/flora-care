@@ -79,7 +79,7 @@ const UserDashboard = () => {
     <div className="bg-ubg text-udark lg:mx-20 mx-5 pb-12 pt-20">
       <h1 className="text-4xl font-bold">Dashboard</h1>
       <hr className="border border-solid border-umedium my-3" />
-      <div className="userInfo grid grid-cols-2 my-auto font-medium m-5">
+      <div className="userInfo grid grid-cols-1 md:grid-cols-2 my-auto font-medium m-5">
         <div className="flex">
           <div className="leftSide col-span-1">
             {/* <img
