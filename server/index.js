@@ -6,7 +6,6 @@ import session from "express-session";
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import passportConfig from "./config/passport.js";
-import { upload } from "./config/multer.js";
 import { join, dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -61,12 +60,11 @@ app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  ); // Add 'Authorization' to the header
+  );
   next();
 });
 app.use(
   cors({
-    origin: "http://localhost:3000",
     credentials: true,
   })
 );

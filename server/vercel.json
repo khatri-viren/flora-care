@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "Flora Care Server",
+  "builds": [
+    {
+      "src": "*.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
