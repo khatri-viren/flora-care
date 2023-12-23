@@ -29,7 +29,7 @@ const Login = ({ setLogin }) => {
         method: "post",
         data: loginData,
         withCredentials: true,
-        url: "http://localhost:4000/auth/local/login",
+        url: "https://flora-care-server.vercel.app/auth/local/login",
       });
       if (response.status === 200) {
         setLoginData({

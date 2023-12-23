@@ -15,7 +15,7 @@ const BlogPage = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/blogpage/${id}`
+          `https://flora-care-server.vercel.app/blogpage/${id}`
         );
         setBlog(response.data);
       } catch (error) {

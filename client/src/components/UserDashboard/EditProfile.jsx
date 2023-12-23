@@ -32,16 +32,19 @@ export default function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`http://localhost:4000/userdashboard`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          userId: user._id,
-          formData,
-        }),
-      });
+      const response = await fetch(
+        `https://flora-care-server.vercel.app/userdashboard`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: user._id,
+            formData,
+          }),
+        }
+      );
 
       if (response.ok) {
         // console.log("Blog updated successfully");

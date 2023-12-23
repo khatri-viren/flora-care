@@ -35,7 +35,10 @@ const AddProduct = () => {
         formDataToSend.append("images", formData.images[i]);
       }
 
-      await axios.post("http://localhost:4000/admin/addproduct", formDataToSend);
+      await axios.post(
+        "https://flora-care-server.vercel.app/admin/addproduct",
+        formDataToSend
+      );
       toast.success("Successfully Added Product");
       window.location.href = "/admin/manageproducts";
     } catch (error) {

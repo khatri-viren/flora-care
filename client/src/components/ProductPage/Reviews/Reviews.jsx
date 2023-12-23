@@ -54,7 +54,10 @@ const Reviews = ({ reviews, id }) => {
     // Add your code to submit the form data to the server or perform any other action
     console.log("Form submitted:", formData);
     try {
-      await axios.post(`http://localhost:4000/${id}/addreview`, formData);
+      await axios.post(
+        `https://flora-care-server.vercel.app/${id}/addreview`,
+        formData
+      );
       window.location.reload();
       toast.success("Review Successfully Added");
     } catch (error) {

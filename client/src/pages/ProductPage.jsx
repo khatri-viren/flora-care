@@ -17,7 +17,9 @@ const ProductPage = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await fetch(`http://localhost:4000/productpage/${id}`);
+        const response = await fetch(
+          `https://flora-care-server.vercel.app/productpage/${id}`
+        );
         const data = await response.json();
         // console.log("Fetched Product Data:", data);
         setProduct(data);

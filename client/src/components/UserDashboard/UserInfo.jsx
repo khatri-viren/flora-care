@@ -23,20 +23,49 @@ const UserInfo = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/api/data/d1`);
+        const response = await axios.get(
+          `https://flora-care-server.vercel.app/api/data/d1`
+        );
         const data = response.data;
 
         setAttributes((prevAttributes) => ({
           ...prevAttributes,
-          timestamps: [...prevAttributes.timestamps, ...data.map((item) => new Date(item.timestamp).toISOString())],
-          Soil_Moisture_1: [...prevAttributes.Soil_Moisture_1, ...data.map((item) => item.sm1)],
-          Soil_Moisture_2: [...prevAttributes.Soil_Moisture_2, ...data.map((item) => item.sm2)],
-          Soil_Moisture_3: [...prevAttributes.Soil_Moisture_3, ...data.map((item) => item.sm3)],
-          Soil_Moisture_4: [...prevAttributes.Soil_Moisture_4, ...data.map((item) => item.sm4)],
-          Ambient_Light_Sensor: [...prevAttributes.Ambient_Light_Sensor, ...data.map((item) => item.ALS)],
-          UV_Light_Sensor: [...prevAttributes.UV_Light_Sensor, ...data.map((item) => item.UVS)],
-          Temperature: [...prevAttributes.Temperature, ...data.map((item) => item.temp)],
-          Humidity: [...prevAttributes.Humidity, ...data.map((item) => item.hum)],
+          timestamps: [
+            ...prevAttributes.timestamps,
+            ...data.map((item) => new Date(item.timestamp).toISOString()),
+          ],
+          Soil_Moisture_1: [
+            ...prevAttributes.Soil_Moisture_1,
+            ...data.map((item) => item.sm1),
+          ],
+          Soil_Moisture_2: [
+            ...prevAttributes.Soil_Moisture_2,
+            ...data.map((item) => item.sm2),
+          ],
+          Soil_Moisture_3: [
+            ...prevAttributes.Soil_Moisture_3,
+            ...data.map((item) => item.sm3),
+          ],
+          Soil_Moisture_4: [
+            ...prevAttributes.Soil_Moisture_4,
+            ...data.map((item) => item.sm4),
+          ],
+          Ambient_Light_Sensor: [
+            ...prevAttributes.Ambient_Light_Sensor,
+            ...data.map((item) => item.ALS),
+          ],
+          UV_Light_Sensor: [
+            ...prevAttributes.UV_Light_Sensor,
+            ...data.map((item) => item.UVS),
+          ],
+          Temperature: [
+            ...prevAttributes.Temperature,
+            ...data.map((item) => item.temp),
+          ],
+          Humidity: [
+            ...prevAttributes.Humidity,
+            ...data.map((item) => item.hum),
+          ],
         }));
 
         setLoading(false); // Set loading to false when data is fetched
@@ -47,7 +76,9 @@ const UserInfo = () => {
     };
 
     fetchData();
-    const eventSource = new EventSource("http://localhost:4000/api/sse");
+    const eventSource = new EventSource(
+      "https://flora-care-server.vercel.app/api/sse"
+    );
     eventSource.onopen = () => {
       console.log("SSE connection opened");
     };
@@ -57,27 +88,30 @@ const UserInfo = () => {
     };
     eventSource.onmessage = (event) => {
       console.log("Received SSE event:", event.data);
-      console.log(typeof(event.data));
+      console.log(typeof event.data);
       try {
         const newData = JSON.parse(event.data); // Assuming server sends data in JSON format
         // Extract and format data for each attribute
-      console.log(typeof(newData));
-      console.log(newData);
-      
-      const newTimestamp = new Date(newData.timestamp).toISOString();
-  
-      setAttributes((prevAttributes) => ({
-        ...prevAttributes,
-        timestamps: [...prevAttributes.timestamps, newTimestamp],
-        Soil_Moisture_1: [...prevAttributes.Soil_Moisture_1, newData.sm1],
-        Soil_Moisture_2: [...prevAttributes.Soil_Moisture_2, newData.sm2],
-        Soil_Moisture_3: [...prevAttributes.Soil_Moisture_3, newData.sm3],
-        Soil_Moisture_4: [...prevAttributes.Soil_Moisture_4, newData.sm4],
-        Ambient_Light_Sensor: [...prevAttributes.Ambient_Light_Sensor, newData.ALS],
-        UV_Light_Sensor: [...prevAttributes.UV_Light_Sensor, newData.UVS],
-        Temperature: [...prevAttributes.Temperature, newData.temp],
-        Humidity: [...prevAttributes.Humidity, newData.hum],
-      }));
+        console.log(typeof newData);
+        console.log(newData);
+
+        const newTimestamp = new Date(newData.timestamp).toISOString();
+
+        setAttributes((prevAttributes) => ({
+          ...prevAttributes,
+          timestamps: [...prevAttributes.timestamps, newTimestamp],
+          Soil_Moisture_1: [...prevAttributes.Soil_Moisture_1, newData.sm1],
+          Soil_Moisture_2: [...prevAttributes.Soil_Moisture_2, newData.sm2],
+          Soil_Moisture_3: [...prevAttributes.Soil_Moisture_3, newData.sm3],
+          Soil_Moisture_4: [...prevAttributes.Soil_Moisture_4, newData.sm4],
+          Ambient_Light_Sensor: [
+            ...prevAttributes.Ambient_Light_Sensor,
+            newData.ALS,
+          ],
+          UV_Light_Sensor: [...prevAttributes.UV_Light_Sensor, newData.UVS],
+          Temperature: [...prevAttributes.Temperature, newData.temp],
+          Humidity: [...prevAttributes.Humidity, newData.hum],
+        }));
       } catch (error) {
         console.error("Error parsing SSE data:", error);
         // Handle the error appropriately, e.g., display a message to the user
@@ -87,7 +121,7 @@ const UserInfo = () => {
     return () => {
       // Cleanup on unmount
       eventSource.close();
-    };  
+    };
   }, []);
 
   return (

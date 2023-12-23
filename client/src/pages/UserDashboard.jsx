@@ -42,7 +42,7 @@ const UserDashboard = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         const response = await axios.get(
-          "http://localhost:4000/auth/local/getuser"
+          "https://flora-care-server.vercel.app/auth/local/getuser"
         );
         // Assuming the server sends the user details in the response data
         const userData = response.data;

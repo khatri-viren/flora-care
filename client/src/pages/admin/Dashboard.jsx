@@ -12,7 +12,9 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:4000/admin/orders`);
+        const response = await axios.get(
+          `https://flora-care-server.vercel.app/admin/orders`
+        );
         setOrders(response.data);
         // console.log(response.data);
       } catch (error) {
@@ -29,7 +31,7 @@ const Dashboard = () => {
     const fetchUserCount = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:4000/admin/usercount`
+          `https://flora-care-server.vercel.app/admin/usercount`
         );
         setUserCount(response.data.userCount);
       } catch (error) {

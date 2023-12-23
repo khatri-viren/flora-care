@@ -9,7 +9,9 @@ const BlogShowcase = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:4000/blogshome");
+        const response = await axios.get(
+          "https://flora-care-server.vercel.app/blogshome"
+        );
         setBlogs(response.data);
       } catch (error) {
         console.error("Error fetching blogs:", error);

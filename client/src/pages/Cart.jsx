@@ -23,7 +23,7 @@ const Cart = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       const response = await axios.get(
-        "http://localhost:4000/auth/local/getuser"
+        "https://flora-care-server.vercel.app/auth/local/getuser"
       );
       // Assuming the server sends the user details in the response data
       user = response.data;
@@ -35,10 +35,13 @@ const Cart = () => {
     console.log(user._id);
 
     axios
-      .post("http://localhost:4000/api/stripe/create-checkout-session", {
-        cart,
-        userID: user._id,
-      })
+      .post(
+        "https://flora-care-server.vercel.app/api/stripe/create-checkout-session",
+        {
+          cart,
+          userID: user._id,
+        }
+      )
       .then((res) => {
         if (res.data.url) {
           localStorage.removeItem("cart");
@@ -66,7 +69,10 @@ const Cart = () => {
                 >
                   <div className="flex">
                     <img
-                      src={"http://localhost:4000/uploads/" + item.images[1]}
+                      src={
+                        "https://flora-care-server.vercel.app/uploads/" +
+                        item.images[1]
+                      }
                       alt=""
                       className="w-24 h-24"
                     />

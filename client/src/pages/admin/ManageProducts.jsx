@@ -12,7 +12,7 @@ const ManageProducts = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          "http://localhost:4000/admin/manageproducts"
+          "https://flora-care-server.vercel.app/admin/manageproducts"
         );
         const data = await response.json();
         setProducts(data);

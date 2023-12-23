@@ -6,7 +6,7 @@ const BlogCard = ({ blog }) => {
     <div className="flex mx-5 text-udark my-5 hover:cursor-pointer">
       <div className="leftSide">
         {/* <img
-          src={`http://localhost:4000/uploads/${blog.images[0]}`}
+          src={`https://flora-care-server.vercel.app/uploads/${blog.images[0]}`}
           alt={blog.title}
           className=""
         /> */}

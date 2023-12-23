@@ -16,7 +16,7 @@ const Products = () => {
   useEffect(() => {
     // Fetch products from your server
     axios
-      .get("http://localhost:4000/shop")
+      .get("https://flora-care-server.vercel.app/shop")
       .then((response) => {
         setProducts(response.data);
         setLoading(false); // Set loading to false when data is fetched

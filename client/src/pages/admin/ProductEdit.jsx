@@ -26,7 +26,9 @@ const ProductEdit = () => {
       if (!id) {
         throw new Error("Product ID is undefined");
       }
-      const response = await fetch(`http://localhost:4000/productpage/${id}`);
+      const response = await fetch(
+        `https://flora-care-server.vercel.app/productpage/${id}`
+      );
       if (!response.ok) {
         throw new Error("Failed to fetch product data");
       }
@@ -46,7 +48,7 @@ const ProductEdit = () => {
   const handleDelete = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/deleteproduct/${productId}`,
+        `https://flora-care-server.vercel.app/admin/deleteproduct/${productId}`,
         {
           method: "DELETE",
         }
@@ -68,7 +70,7 @@ const ProductEdit = () => {
     try {
       // Send a request to delete the image from the server
       const deleteResponse = await fetch(
-        `http://localhost:4000/admin/deleteproductimage/${id}/${imageName}`,
+        `https://flora-care-server.vercel.app/admin/deleteproductimage/${id}/${imageName}`,
         {
           method: "DELETE",
         }
@@ -85,7 +87,7 @@ const ProductEdit = () => {
 
         // Send a request to update the product in the database
         const updateResponse = await fetch(
-          `http://localhost:4000/admin/productedit/${id}`,
+          `https://flora-care-server.vercel.app/admin/productedit/${id}`,
           {
             method: "PUT",
             headers: {
@@ -113,7 +115,7 @@ const ProductEdit = () => {
   const handleUpdate = async (productId) => {
     try {
       const response = await fetch(
-        `http://localhost:4000/admin/productedit/${productId}`,
+        `https://flora-care-server.vercel.app/admin/productedit/${productId}`,
         {
           method: "PUT",
           headers: {
@@ -151,7 +153,7 @@ const ProductEdit = () => {
         });
 
         const response = await fetch(
-          `http://localhost:4000/admin/productedit/addimage/${id}`,
+          `https://flora-care-server.vercel.app/admin/productedit/addimage/${id}`,
           {
             method: "POST",
             body: formData,

@@ -12,7 +12,9 @@ const ManageBlogs = () => {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        const response = await fetch("http://localhost:4000/admin/manageblogs");
+        const response = await fetch(
+          "https://flora-care-server.vercel.app/admin/manageblogs"
+        );
         const data = await response.json();
         setBlogs(data);
       } catch (error) {

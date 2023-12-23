@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
 
       axios
-        .get("http://localhost:4000/auth/local/getuser")
+        .get("https://flora-care-server.vercel.app/auth/local/getuser")
         .then((response) => {
           const userData = response.data;
           updateUser(userData);

@@ -40,7 +40,10 @@ const AddBlog = () => {
         formDataToSend.append("images", formData.images[i]);
       }
 
-      await axios.post("http://localhost:4000/admin/addblog", formDataToSend);
+      await axios.post(
+        "https://flora-care-server.vercel.app/admin/addblog",
+        formDataToSend
+      );
       toast.success("Successfully Added Blog");
       window.location.href = "/admin/manageblogs";
     } catch (error) {
