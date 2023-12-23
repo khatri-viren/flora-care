@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useUser } from "../store/UserContext";
 
+// eslint-disable-next-line no-unused-vars
 const Login = ({ setLogin }) => {
   const { setIsLoggedIn } = useUser();
   const navigate = useNavigate();
