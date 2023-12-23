@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Navigate, useNavigate } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditProfile from "../components/UserDashboard/EditProfile";
 import UserInfo from "../components/UserDashboard/UserInfo.jsx";
@@ -102,12 +102,11 @@ const UserDashboard = () => {
         </div>
         <div className="rightSide my-auto w-full flex flex-col md:flex-row space-y-2 md:space-y-0 justify-evenly">
           {user.role === "admin" && (
-            <button
-              onClick={() => window.location.href("/admin/dashboard")}
-              className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
-            >
-              Admin Panel
-            </button>
+            <Link to="/admin/dashboard">
+              <button className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer ">
+                Admin
+              </button>
+            </Link>
           )}
           <button
             onClick={() => handleSectionSelection("data")}
