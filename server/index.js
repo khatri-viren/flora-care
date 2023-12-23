@@ -52,7 +52,10 @@ connect(`${process.env.MONGODB_URI}`, {
 // ------------------- Middleware --------------------
 app.use(express.json());
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://flora-care-sigma.vercel.app"
+  );
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PUT, DELETE, OPTIONS"
@@ -65,6 +68,7 @@ app.use((req, res, next) => {
 });
 app.use(
   cors({
+    origin: "https://flora-care-sigma.vercel.app",
     credentials: true,
   })
 );
