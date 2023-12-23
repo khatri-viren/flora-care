@@ -4,6 +4,11 @@
 /node_modules
 /.pnp
 .pnp.js
+logs
+*.log
+pnpm-debug.log*
+lerna-debug.log*
+
 
 # testing
 /coverage
@@ -13,6 +18,7 @@
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -23,3 +29,14 @@ yarn-debug.log*
 yarn-error.log*
 combined.log*
 error.log*
+
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
