@@ -71,12 +71,12 @@ app.use(
 app.use(express.urlencoded({ extended: true }));
 app.use(
   session({
-    secret: process.env.GENERAL_SECRET_CODE,
+    secret: "secretcode",
     resave: true,
     saveUninitialized: true,
   })
 );
-app.use(cookieParser(process.env.GENERAL_SECRET_CODE));
+app.use(cookieParser("secretcode"));
 app.use(passport.initialize());
 app.use(passport.session());
 passportConfig(passport);
