@@ -86,6 +86,9 @@ const __dirname = dirname(__filename);
 app.use("/uploads", express.static(join(__dirname, "uploads")));
 
 // ------------------- Routes --------------------------
+app.get("/", async (req, res) => {
+  res.status(200).json({ message: "Flora Care Server is Live" });
+});
 
 app.use("/auth", localAuth);
 app.use("/", iotRoutes);
