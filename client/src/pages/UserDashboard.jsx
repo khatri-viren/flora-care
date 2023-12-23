@@ -103,7 +103,7 @@ const UserDashboard = () => {
         <div className="rightSide my-auto w-full flex flex-col md:flex-row space-y-2 md:space-y-0 justify-evenly">
           {user.role === "admin" && (
             <button
-              onClick={() => <Navigate to="/admin/dashboard" />}
+              onClick={() => window.location.href("/admin/dashboard")}
               className="py-2 px-6 w-fit h-12  text-udark border-udark border-2 hover:text-umedium hover:cursor-pointer "
             >
               Admin Panel
