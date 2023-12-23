@@ -6,9 +6,9 @@ import { useUser } from "../../store/UserContext.jsx";
 export default function EditProfile() {
   const { user, updateUser } = useUser();
 
-  useEffect(() => {
-    console.log(user);
-  }, []);
+  // useEffect(() => {
+  //   console.log(user);
+  // }, []);
 
   const [formData, setFormData] = useState({
     firstname: user.firstname,

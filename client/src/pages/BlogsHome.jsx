@@ -13,6 +13,8 @@ const BlogsHome = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [productsPerPage] = useState(3);
   const [loading, setLoading] = useState(true);
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
+
   ring.register();
 
   useEffect(() => {
@@ -68,7 +70,7 @@ const BlogsHome = () => {
                 {blogs.length > 0 && blogs[0].images.length > 0 ? (
                   <Link to={"/blogpage/" + blogs[0]._id}>
                     <img
-                      src={`http://localhost:4000/uploads/${blogs[0].images[0]}`}
+                      src={cloudFrontUrl + blogs[0].images[0]}
                       alt={blogs[0].title}
                     />
                   </Link>

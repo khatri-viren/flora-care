@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 const ProductEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
 
   const [product, setProduct] = useState({
     title: "",
@@ -193,7 +194,7 @@ const ProductEdit = () => {
         {product.images.map((image, index) => (
           <div key={index} className="relative group">
             <img
-              src={`http://localhost:4000/uploads/${image}`}
+              src={cloudFrontUrl + image}
               alt={`Product ${index + 1}`}
               className="mx-auto max-h-56 cursor-pointer"
               onClick={() => handleImageDelete(image)}

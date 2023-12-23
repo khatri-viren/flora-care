@@ -6,6 +6,7 @@ import { ring } from "ldrs";
 const ManageBlogs = () => {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(true);
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
   ring.register();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const ManageBlogs = () => {
           blogs.map((blog) => (
             <div key={blog._id} className="product flex my-4">
               <img
-                src={`http://localhost:4000/uploads/${blog.images[0]}`}
+                src={cloudFrontUrl + blog.images[0]}
                 alt={blog.title}
                 className="w-16 h-16 object-cover rounded"
               />

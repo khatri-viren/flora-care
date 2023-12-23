@@ -6,7 +6,7 @@ const router = Router();
 router.get("/user/:id", async (req, res) => {
   try {
     const userId = req.params.id;
-    console.log(userId);
+    // console.log(userId);
 
     // Find all orders for the specified user
     const orders = await Order.find({ userID: userId }).sort({ createdAt: -1 });

@@ -24,14 +24,14 @@ const BlogPage = () => {
     };
 
     fetchData();
+    // console.log(blog.images);
   }, [id]);
-
   return (
     <div className="text-udark pt-5">
       <div
         className="heroSection bg-cover flex w-full h-96"
         style={{
-          backgroundImage: `url(http://localhost:4000/uploads/${
+          backgroundImage: `url(https://d3mrhlrrrul5h2.cloudfront.net/${
             blog.images && blog.images.length > 0
               ? blog.images[0]
               : "placeholder-image.jpg"

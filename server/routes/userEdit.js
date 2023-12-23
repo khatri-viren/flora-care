@@ -14,7 +14,7 @@ router.put("/", async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
     // Update user fields based on the request body
-    console.log(req.body);
+    // console.log(req.body);
 
     user.firstname = req.body.formData.firstname || user.firstname;
     user.lastname = req.body.formData.lastname || user.lastname;
@@ -38,7 +38,7 @@ router.put("/", async (req, res) => {
     user.modifiedAt = Date.now();
     const updatedUser = await user.save();
     res.json(updatedUser);
-    console.log(updatedUser);
+    // console.log(updatedUser);
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Internal Server Error" });

@@ -32,9 +32,7 @@ const BlogShowcase = () => {
       </div>
       <div className="cardContainer md:grid md:grid-cols-2 md:mx-12 lg:mx-24">
         {blogs.slice(0, 2).map((blog) => (
-          <Link to={`/blogpage/${blog._id}`} key={blog._id}>
-            <BlogCard blog={blog} />
-          </Link>
+          <BlogCard blog={blog} key={blog._id} />
         ))}
       </div>
     </section>

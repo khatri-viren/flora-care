@@ -2,6 +2,7 @@
 /* eslint-disable react/no-unescaped-entities */
 import { motion } from "framer-motion";
 const InfoSection3 = ({ image, desc }) => {
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
   return (
     <motion.section
       className="mx-16 lg:grid lg:grid-cols-2 text-udark  my-32 py-5"
@@ -12,7 +13,7 @@ const InfoSection3 = ({ image, desc }) => {
     >
       <div className="leftSide mx-auto hidden lg:block">
         <img
-          src={"http://localhost:4000/uploads/" + image}
+          src={cloudFrontUrl + image}
           alt=""
           className="max-h-[500px]"
         />

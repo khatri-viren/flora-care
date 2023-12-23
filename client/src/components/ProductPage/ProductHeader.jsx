@@ -18,6 +18,8 @@ const ProductHeader = ({
 }) => {
   const [selectedImg, setSelectedImg] = useState(images[0]);
   const [inStock, setInStock] = useState(true);
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
+
 
   if (quantity === 0) return setInStock(false);
 
@@ -85,7 +87,7 @@ const ProductHeader = ({
               <img
                 key={index}
                 className="h-20 cursor-pointer"
-                src={"http://localhost:4000/uploads/" + img}
+                src={cloudFrontUrl + img}
                 alt={`Product ${index + 1}`}
                 onClick={() => handleThumbnailClick(img)}
               />
@@ -94,7 +96,7 @@ const ProductHeader = ({
           <div className="h-fit">
             <img
               className="w-3/4 md:w-11/12"
-              src={"http://localhost:4000/uploads/" + selectedImg}
+              src={cloudFrontUrl + selectedImg}
               alt={name}
             />
           </div>

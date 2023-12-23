@@ -3,6 +3,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const BlogCard = ({ blog }) => {
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
+
   const [isTruncated, setIsTruncated] = useState(true);
   const maxChars = 150;
 
@@ -14,7 +16,7 @@ const BlogCard = ({ blog }) => {
     <div className="w-fit space-y-1 mx-auto my-5">
       <Link to={`/blogpage/${blog._id}`}>
         <img
-          src={`http://localhost:4000/uploads/${blog.images[0]}`}
+          src={cloudFrontUrl + blog.images[0]}
           alt={blog.title}
           className="w-full h-auto"
         />

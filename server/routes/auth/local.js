@@ -66,7 +66,7 @@ router.post("/local/register", async (req, res) => {
       throw err;
     }
   );
-  console.log(req.body);
+  // console.log(req.body);
 });
 
 router.get("/local/getuser", verifyToken, async (req, res) => {

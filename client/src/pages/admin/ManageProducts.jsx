@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { ring } from "ldrs";
 
 const ManageProducts = () => {
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   ring.register();
@@ -51,7 +52,7 @@ const ManageProducts = () => {
           products.map((product, index) => (
             <div key={index} className="product flex my-4">
               <img
-                src={`http://localhost:4000/uploads/${product.images[0]}`}
+                src={cloudFrontUrl + product.images[0]}
                 alt={product.name}
                 className="w-16 h-16 object-cover rounded"
               />

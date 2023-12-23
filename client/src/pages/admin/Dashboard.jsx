@@ -3,16 +3,18 @@ import { Link } from "react-router-dom";
 import DashboardOrders from "../../components/admin/DashboardOrders";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useUser } from "../../store/UserContext";
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
+  const { user, isLoggedIn } = useUser();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get(`http://localhost:4000/admin/orders`);
         setOrders(response.data);
-        console.log(response.data);
+        // console.log(response.data);
       } catch (error) {
         console.error("Error fetching orders:", error);
       }

@@ -3,7 +3,9 @@ import path from 'path';
 import Product from '../../models/product.js';
 const { unlink } = fsPromises;
 import express from 'express';
+import aws from 'aws-sdk';
 
+const s3 = new aws.S3();
 const router = express.Router();
 
 // Route to delete a specific image associated with a product
@@ -18,6 +20,11 @@ router.delete('/:id/:imageName', async (req, res) => {
       return res.status(404).json({ message: 'Product not found' });
     }
 
+    const bucketName = process.env.AWS_S3_BUCKET_NAME;
+
+    // Delete the image from S3
+    await s3.deleteObject({ Bucket: bucketName, Key: imageName }).promise();
+
     // Assuming the images are stored in the 'uploads' directory
     const imagesDirectory = path.join(
       new URL(import.meta.url).pathname,
@@ -25,7 +32,7 @@ router.delete('/:id/:imageName', async (req, res) => {
     );
 
     // const imagePathOriginal = path.join(imagesDirectory, imageName);
-    const imagePathResized = path.join(imagesDirectory, `${imageName}`);
+    const imagePathResized = path.join(imagesDirectory, `resized_${imageName}`);
 
     // Delete both the original and resized images
     // await unlink(imagePathOriginal);

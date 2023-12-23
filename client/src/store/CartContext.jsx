@@ -17,7 +17,7 @@ const UPDATE_QUANTITY = "UPDATE_QUANTITY";
 const cartReducer = (state, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log(action.payload);
+      // console.log(action.payload);
       const existingProductIndex = state.cart.findIndex(
         (item) => item.id === action.payload.id
       );
@@ -36,7 +36,7 @@ const cartReducer = (state, action) => {
       const updatedCart = state.cart.filter(
         (item) => item.id !== action.payload.id
       );
-      console.log(action.payload.id);
+      // console.log(action.payload.id);
       localStorage.setItem("cart", JSON.stringify(updatedCart)); // Update local storage
       return {
         ...state,

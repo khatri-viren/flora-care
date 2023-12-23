@@ -12,6 +12,8 @@ const ProductCard = ({ product }) => {
   const [inStock, setInStock] = useState(true);
   const maxChars = 100;
 
+  const cloudFrontUrl = "https://d3mrhlrrrul5h2.cloudfront.net/";
+
   if (product.quantity === 0) return setInStock(false);
 
   // useEffect(() => {
@@ -51,7 +53,7 @@ const ProductCard = ({ product }) => {
     >
       <Link to={`/productpage/${product._id}`}>
         <img
-          src={"http://localhost:4000/uploads/" + product.images[0]}
+          src={cloudFrontUrl + product.images[0]}
           alt={product.name}
           className="w-full  aspect-square shadow-md "
         />

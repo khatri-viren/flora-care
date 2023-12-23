@@ -12,8 +12,8 @@ const router = Router();
 
 router.post("/create-checkout-session", async (req, res) => {
   const productIDs = req.body.cart.map((item) => item.id);
-  console.log(req.body.cart);
-  console.log(productIDs);
+  // console.log(req.body.cart);
+  // console.log(productIDs);
   const customer = await stripe.customers.create({
     metadata: {
       userId: req.body.userID,
@@ -77,9 +77,9 @@ router.post("/create-checkout-session", async (req, res) => {
 });
 
 const createOrder = async (customer, data) => {
-  console.log("Data:", data);
-  console.log("================================================");
-  console.log(customer.metadata);
+  // console.log("Data:", data);
+  // console.log("================================================");
+  // console.log(customer.metadata);
   const items = JSON.parse(customer.metadata.cart);
 
   const newOrder = new order({
@@ -96,14 +96,13 @@ const createOrder = async (customer, data) => {
 
   try {
     const savedOrder = await newOrder.save();
-    console.log("Processed Order: ", savedOrder);
+    // console.log("Processed Order: ", savedOrder);
   } catch (error) {
     console.log(error);
   }
 };
 
-let endpointSecret;
-// endpointSecret = "whsec_7c69998b33ea7d92f4a75a4f5edaca203215e880dd00042f07fc3356fbf710fd";
+let endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
 router.post(
   "/webhook",
