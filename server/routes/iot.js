@@ -60,9 +60,11 @@ router.get("/api/data/:id", async (req, res) => {
 
     if (!accumulatedData[deviceID]) {
       // Fetch data from MongoDB if not yet accumulated
-      const fetchedData = await Data.find({ id: deviceID }).sort({
-        timestamp: 1,
-      });
+      const fetchedData = await Data.find({ id: deviceID })
+        .sort({
+          timestamp: 1,
+        })
+        .limit(500);
       accumulatedData[deviceID] = fetchedData;
     }
 

@@ -4,6 +4,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  body {
+    background-color: #ebe6de;
+  }
+}
 @layer components {
   .uinput {
     padding-top: 0.5rem;
