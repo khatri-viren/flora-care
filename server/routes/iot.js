@@ -10,6 +10,7 @@ const sse = new SSE(); // Create an SSE instance
 const accumulatedData = {};
 
 router.post("/api/data", async (req, res) => {
+  console.log("Data Received");
   try {
     const { id, sm1, sm2, sm3, sm4, temp, hum, ALS, UVS } = req.body;
 
@@ -35,7 +36,7 @@ router.post("/api/data", async (req, res) => {
     res.setHeader("Content-Type", "text/event-stream");
     res.setHeader("Cache-Control", "no-cache");
     res.setHeader("Connection", "keep-alive");
-    sse.send( newData );
+    sse.send(newData);
 
     res.status(201).json({ message: "Data received and stored successfully." });
   } catch (err) {
@@ -44,10 +45,14 @@ router.post("/api/data", async (req, res) => {
   }
 });
 
-router.get("/api/sse",(req, res, next) => {
-  res.flush = () => {}; 
-  next();
-}, sse.init);
+router.get(
+  "/api/sse",
+  (req, res, next) => {
+    res.flush = () => {};
+    next();
+  },
+  sse.init
+);
 
 router.get("/api/data/:id", async (req, res) => {
   try {
@@ -55,7 +60,9 @@ router.get("/api/data/:id", async (req, res) => {
 
     if (!accumulatedData[deviceID]) {
       // Fetch data from MongoDB if not yet accumulated
-      const fetchedData = await Data.find({ id: deviceID }).sort({ timestamp: 1 });
+      const fetchedData = await Data.find({ id: deviceID }).sort({
+        timestamp: 1,
+      });
       accumulatedData[deviceID] = fetchedData;
     }
 
