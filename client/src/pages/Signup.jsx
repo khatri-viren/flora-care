@@ -69,7 +69,7 @@ const Signup = () => {
       await axios({
         method: "post",
         data: formData,
-        withCredentials: true,
+        // withCredentials: true,
         url: import.meta.env.VITE_SERVER_URL + "auth/local/register",
       });
       setFormData({

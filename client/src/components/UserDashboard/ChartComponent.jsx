@@ -33,8 +33,9 @@ const ChartComponent = ({ data, label }) => {
 
   useEffect(() => {
     const filteredTimestamps =
-      viewMode === "latest" ? data.timestamps.slice(-10) : data.timestamps;
-    const filteredValues = viewMode === "latest" ? data.values.slice(-10) : data.values;
+      viewMode === "latest" ? data.timestamps.slice(-50) : data.timestamps;
+    const filteredValues =
+      viewMode === "latest" ? data.values.slice(-50) : data.values;
 
     setChartData({
       labels: filteredTimestamps,
@@ -44,11 +45,13 @@ const ChartComponent = ({ data, label }) => {
           data: filteredValues,
           fill: false,
           borderColor: "#7A8222",
+          // fill: true, // Set fill to "start" to color the area below the line
+          // backgroundColor: "rgba(122, 130, 34, 0.1)", // Adjust the color and transparency as needed
+          // borderColor: "#7A8222",
         },
       ],
     });
-  }, [data, viewMode]);
-  
+  }, [data, viewMode, label]);
 
   const options = {
     responsive: true,
@@ -68,6 +71,7 @@ const ChartComponent = ({ data, label }) => {
       },
       y: {
         display: true,
+        suggestedMax: 100,
         grid: {
           display: false,
         },

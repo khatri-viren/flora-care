@@ -29,7 +29,7 @@ const Login = ({ setLogin }) => {
       const response = await axios({
         method: "post",
         data: loginData,
-        withCredentials: true,
+        // withCredentials: true,
         url: import.meta.env.VITE_SERVER_URL + "auth/local/login",
       });
       if (response.status === 200) {
