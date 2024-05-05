@@ -10,7 +10,7 @@ const BlogShowcase = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://flora-care-server.vercel.app/blogshome"
+          import.meta.env.VITE_SERVER_URL + "blogshome"
         );
         setBlogs(response.data);
       } catch (error) {

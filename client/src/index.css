@@ -28,4 +28,12 @@
     color: #343829;
     font-weight: 400;
   }
+
+  .navButton.active {
+    @apply text-umedium;
+  }
+
+  .navButton {
+    @apply hover:text-umedium hover:cursor-pointer;
+  }
 }

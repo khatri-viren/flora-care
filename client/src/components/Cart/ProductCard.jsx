@@ -3,7 +3,7 @@ const ProductCard = ({ key, name, price, quantity, image }) => {
   return (
     <div className="product flex my-4" key={key}>
       <img
-        src={"https://flora-care-server.vercel.app/" + image}
+        src={import.meta.env.VITE_SERVER_URL + image}
         alt=""
         className="w-24 h-24"
       />

@@ -11,7 +11,7 @@ const HomeInfo2 = () => {
         whileInView={{
           translateX: 0,
           opacity: 1,
-          transition: { ease: "easeInOut", duration: 1.5 },
+          transition: { ease: "easeInOut", duration: 1 },
         }}
         viewport={{ once: true }}
       >

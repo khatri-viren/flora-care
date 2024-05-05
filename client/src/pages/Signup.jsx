@@ -70,7 +70,7 @@ const Signup = () => {
         method: "post",
         data: formData,
         withCredentials: true,
-        url: "https://flora-care-server.vercel.app/auth/local/register",
+        url: import.meta.env.VITE_SERVER_URL + "auth/local/register",
       });
       setFormData({
         firstname: "",

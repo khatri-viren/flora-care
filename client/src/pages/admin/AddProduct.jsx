@@ -36,7 +36,7 @@ const AddProduct = () => {
       }
 
       await axios.post(
-        "https://flora-care-server.vercel.app/admin/addproduct",
+        import.meta.env.VITE_SERVER_URL + "admin/addproduct",
         formDataToSend
       );
       toast.success("Successfully Added Product");

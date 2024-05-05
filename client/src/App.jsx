@@ -10,52 +10,57 @@ import { CartProvider } from "./store/CartContext.jsx";
 import { useUser } from "./store/UserContext.jsx";
 import userRoutes from "./routes/user.js";
 import adminRoutes from "./routes/admin.js";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   const { user } = useUser();
   return (
     <>
-      <div className="bg-ubg scroll-smooth">
-        <ToastContainer
-          position="top-right"
-          autoClose={1500}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          className="mt-12"
-        />
-        <CartProvider>
-          <Navbar />
-          <Routes>
-            {userRoutes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={<route.component />}
-              />
-            ))}
-            {adminRoutes.map((route, index) => (
-              <Route
-                key={index}
-                path={route.path}
-                element={
-                  user && user.role === "admin" ? (
-                    <route.component />
-                  ) : (
-                    <Navigate to="/notfound" />
-                  )
-                }
-              />
-            ))}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </CartProvider>
-        <Footer />
-      </div>
+      <QueryClientProvider client={queryClient}>
+        <div className="bg-ubg scroll-smooth">
+          <ToastContainer
+            position="top-right"
+            autoClose={1500}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            className="mt-12"
+          />
+          <CartProvider>
+            <Navbar />
+            <Routes>
+              {userRoutes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={<route.component />}
+                />
+              ))}
+              {adminRoutes.map((route, index) => (
+                <Route
+                  key={index}
+                  path={route.path}
+                  element={
+                    user && user.role === "admin" ? (
+                      <route.component />
+                    ) : (
+                      <Navigate to="/notfound" />
+                    )
+                  }
+                />
+              ))}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </CartProvider>
+          <Footer />
+        </div>
+      </QueryClientProvider>
     </>
   );
 }

@@ -20,7 +20,7 @@ export const UserProvider = ({ children }) => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${authToken}`;
 
       axios
-        .get("https://flora-care-server.vercel.app/auth/local/getuser")
+        .get(import.meta.env.VITE_SERVER_URL + "auth/local/getuser")
         .then((response) => {
           const userData = response.data;
           updateUser(userData);

@@ -33,7 +33,7 @@ export default function EditProfile() {
     e.preventDefault();
     try {
       const response = await fetch(
-        `https://flora-care-server.vercel.app/userdashboard`,
+        import.meta.env.VITE_SERVER_URL + `userdashboard`,
         {
           method: "PUT",
           headers: {

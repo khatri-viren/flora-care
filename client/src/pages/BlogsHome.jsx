@@ -21,7 +21,7 @@ const BlogsHome = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          "https://flora-care-server.vercel.app/blogshome"
+          import.meta.env.VITE_SERVER_URL + "blogshome"
         );
         setBlogs(response.data);
         setLoading(false);
@@ -65,7 +65,7 @@ const BlogsHome = () => {
               className="heroSection grid lg:grid-cols-2 my-10 gap-10"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ duration: 2, ease: "easeInOut" }}
+              transition={{ duration: 0.5, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
               <div className="img mx-auto hover:cursor-pointer">
@@ -100,7 +100,7 @@ const BlogsHome = () => {
               className="cardsContainer hidden md:grid grid-cols-1 md:grid-cols-3 gap-12"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              transition={{ duration: 2, delay: 0.1, ease: "easeInOut" }}
+              transition={{ duration: 0.5, delay: 0.1, ease: "easeInOut" }}
               viewport={{ once: true }}
             >
               {blogs.slice(0, 3).map((blog) => (

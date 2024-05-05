@@ -47,9 +47,9 @@ const ProductCard = ({ product }) => {
   return (
     <motion.div
       className="w-fit space-y-1 mx-auto my-5"
-      initial={{ opacity: 0, translateY: 50 }}
-      whileInView={{ opacity: 1, translateY: 0 }}
-      transition={{ duration: 1, ease: "easeInOut" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
     >
       <Link to={`/productpage/${product._id}`}>
         <img

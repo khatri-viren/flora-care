@@ -13,7 +13,7 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://flora-care-server.vercel.app/admin/orders`
+          import.meta.env.VITE_SERVER_URL + `admin/orders`
         );
         setOrders(response.data);
         // console.log(response.data);
@@ -31,7 +31,7 @@ const Dashboard = () => {
     const fetchUserCount = async () => {
       try {
         const response = await axios.get(
-          `https://flora-care-server.vercel.app/admin/usercount`
+          import.meta.env.VITE_SERVER_URL + `admin/usercount`
         );
         setUserCount(response.data.userCount);
       } catch (error) {

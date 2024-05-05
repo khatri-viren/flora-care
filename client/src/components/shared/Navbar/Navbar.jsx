@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import leftArrow from "../../../assets/leftArrow.svg";
 import hamburger from "../../../assets/hamburger.svg";
 // import { toast } from "react-toastify";
@@ -17,30 +17,18 @@ const Navbar = () => {
     <div className="flex fixed w-full justify-between px-3 md:px-10 lg:px-20 py-3 top-0 bg-ubg  text-udark flex-nowrap z-50 ">
       <div className="mx-auto flex justify-between w-full">
         <div className="hidden leftSide md:flex md:space-x-8 md:my-auto ">
-          <Link
-            to="/"
-            className="navButton hover:text-umedium hover:cursor-pointer"
-          >
+          <NavLink to="/" className="navButton" end>
             Home
-          </Link>
-          <Link
-            to="/aboutus"
-            className="navButton hover:text-umedium hover:cursor-pointer"
-          >
+          </NavLink>
+          <NavLink to="/aboutus" className="navButton">
             About Us
-          </Link>
-          <Link
-            to="/shop"
-            className="navButton hover:text-umedium hover:cursor-pointer"
-          >
+          </NavLink>
+          <NavLink to="/shop" className="navButton">
             Products
-          </Link>
-          <Link
-            to="/blogshome"
-            className="navButton hover:text-umedium hover:cursor-pointer"
-          >
+          </NavLink>
+          <NavLink to="/blogshome" className="navButton">
             Blog
-          </Link>
+          </NavLink>
         </div>
         <div className="logo w-fit">
           <Link to="/">
@@ -50,26 +38,17 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="rightSide my-auto md:flex space-x-8 hidden">
-          <Link
-            to="/cart"
-            className="navButton hover:text-umedium hover:cursor-pointer"
-          >
+          <NavLink to="/cart" className="navButton">
             Cart
-          </Link>
+          </NavLink>
           {isLoggedIn ? (
-            <Link
-              to="/userdashboard"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            <NavLink to="/userdashboard" className="navButton">
               Account
-            </Link>
+            </NavLink>
           ) : (
-            <Link
-              to="/login"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            <NavLink to="/login" className="navButton">
               Login
-            </Link>
+            </NavLink>
           )}
         </div>
         <img
@@ -92,50 +71,39 @@ const Navbar = () => {
             onClick={handleMenuToggle}
           />
           <div className="pl-28 pr-4 flex flex-col space-y-5 mt-5 text-lg">
-            <Link
-              to="/"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            <NavLink to="/" className="navButton" end>
               Home
-            </Link>
-            <Link
-              to="/aboutus"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to="/aboutus" className="navButton">
               About Us
-            </Link>
-            <Link
-              to="/shop"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to="/shop" className="navButton">
               Products
-            </Link>
-            <Link
-              to="/blogshome"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to="/blogshome" className="navButton">
               Blog
-            </Link>
-            <Link
-              to="/cart"
-              className="navButton hover:text-umedium hover:cursor-pointer"
-            >
+            </NavLink>
+            <NavLink to="/cart" className="navButton">
               Cart
-            </Link>
+            </NavLink>
             {isLoggedIn ? (
-              <Link
+              <NavLink
                 to="/userdashboard"
-                className="navButton hover:text-umedium hover:cursor-pointer"
+                className={({ isActive }) => {
+                  isActive ? "active:text-umedium navButton " : "navButton";
+                }}
               >
                 Account
-              </Link>
+              </NavLink>
             ) : (
-              <Link
+              <NavLink
                 to="/login"
-                className="navButton hover:text-umedium hover:cursor-pointer"
+                className={({ isActive }) => {
+                  isActive ? "active:text-umedium navButton " : "navButton";
+                }}
               >
                 Login
-              </Link>
+              </NavLink>
             )}
           </div>
         </div>

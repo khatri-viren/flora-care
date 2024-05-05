@@ -13,7 +13,7 @@ const ManageBlogs = () => {
     const fetchBlogs = async () => {
       try {
         const response = await fetch(
-          "https://flora-care-server.vercel.app/admin/manageblogs"
+          import.meta.env.VITE_SERVER_URL + "admin/manageblogs"
         );
         const data = await response.json();
         setBlogs(data);

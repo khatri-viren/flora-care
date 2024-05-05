@@ -55,7 +55,7 @@ const Reviews = ({ reviews, id }) => {
     console.log("Form submitted:", formData);
     try {
       await axios.post(
-        `https://flora-care-server.vercel.app/${id}/addreview`,
+        import.meta.env.VITE_SERVER_URL + `${id}/addreview`,
         formData
       );
       window.location.reload();

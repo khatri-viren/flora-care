@@ -18,7 +18,7 @@ const ProductPage = () => {
     const fetchProduct = async () => {
       try {
         const response = await fetch(
-          `https://flora-care-server.vercel.app/productpage/${id}`
+          import.meta.env.VITE_SERVER_URL + `productpage/${id}`
         );
         const data = await response.json();
         // console.log("Fetched Product Data:", data);

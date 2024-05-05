@@ -41,7 +41,7 @@ const AddBlog = () => {
       }
 
       await axios.post(
-        "https://flora-care-server.vercel.app/admin/addblog",
+        import.meta.env.VITE_SERVER_URL + "admin/addblog",
         formDataToSend
       );
       toast.success("Successfully Added Blog");

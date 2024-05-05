@@ -41,7 +41,7 @@ export default function UserOrders({ userId }) {
     const fetchOrders = async () => {
       try {
         const response = await axios.get(
-          `https://flora-care-server.vercel.app/orders/user/${userId}`
+          import.meta.env.VITE_SERVER_URL + `orders/user/${userId}`
         );
         setOrders(response.data);
         setLoading(false); // Set loading to false when data is fetched

@@ -25,7 +25,7 @@ export default function BlogEdit() {
         throw new Error("Product ID is undefined");
       }
       const response = await fetch(
-        `https://flora-care-server.vercel.app/blogpage/${id}`
+        import.meta.env.VITE_SERVER_URL + `blogpage/${id}`
       );
       if (!response.ok) {
         throw new Error("Failed to fetch product data");
@@ -61,7 +61,7 @@ export default function BlogEdit() {
         });
 
         const response = await fetch(
-          `https://flora-care-server.vercel.app/admin/blogedit/addimage/${id}`,
+          import.meta.env.VITE_SERVER_URL + `admin/blogedit/addimage/${id}`,
           {
             method: "POST",
             body: formData,
@@ -90,7 +90,7 @@ export default function BlogEdit() {
     try {
       // Delete the blog
       const blogResponse = await fetch(
-        `https://flora-care-server.vercel.app/admin/deleteblog/${blogid}`,
+        import.meta.env.VITE_SERVER_URL + `admin/deleteblog/${blogid}`,
         {
           method: "DELETE",
         }
@@ -101,7 +101,7 @@ export default function BlogEdit() {
 
         // Get the list of images associated with the blog
         const blogImagesResponse = await fetch(
-          `https://flora-care-server.vercel.app/admin/getblogimages/${blogid}`
+          import.meta.env.VITE_SERVER_URL + `admin/getblogimages/${blogid}`
         );
 
         if (blogImagesResponse.ok) {
@@ -110,7 +110,8 @@ export default function BlogEdit() {
           // Delete each image associated with the blog
           for (const image of images) {
             await fetch(
-              `https://flora-care-server.vercel.app/admin/deleteblogimage/${image}`,
+              import.meta.env.VITE_SERVER_URL +
+                `admin/deleteblogimage/${image}`,
               {
                 method: "DELETE",
               }
@@ -135,7 +136,7 @@ export default function BlogEdit() {
   const handleUpdate = async (blogid) => {
     try {
       const response = await fetch(
-        `https://flora-care-server.vercel.app/admin/blogedit/${blogid}`,
+        import.meta.env.VITE_SERVER_URL + `admin/blogedit/${blogid}`,
         {
           method: "PUT",
           headers: {
@@ -159,7 +160,8 @@ export default function BlogEdit() {
   const handleImageDelete = async (imageName) => {
     try {
       const deleteResponse = await fetch(
-        `https://flora-care-server.vercel.app/admin/deleteblogimage/${id}/${imageName}`,
+        import.meta.env.VITE_SERVER_URL +
+          `admin/deleteblogimage/${id}/${imageName}`,
         {
           method: "DELETE",
         }
@@ -176,7 +178,7 @@ export default function BlogEdit() {
 
         // Send a request to update the product in the database
         const updateResponse = await fetch(
-          `https://flora-care-server.vercel.app/admin/blogedit/${id}`,
+          import.meta.env.VITE_SERVER_URL + `admin/blogedit/${id}`,
           {
             method: "PUT",
             headers: {

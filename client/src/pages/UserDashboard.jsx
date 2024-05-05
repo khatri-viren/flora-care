@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import EditProfile from "../components/UserDashboard/EditProfile";
 import UserInfo from "../components/UserDashboard/UserInfo.jsx";
@@ -42,7 +42,7 @@ const UserDashboard = () => {
         axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
         const response = await axios.get(
-          "https://flora-care-server.vercel.app/auth/local/getuser"
+          import.meta.env.VITE_SERVER_URL + "auth/local/getuser"
         );
         // Assuming the server sends the user details in the response data
         const userData = response.data;
@@ -79,8 +79,8 @@ const UserDashboard = () => {
     <div className="bg-ubg text-udark lg:mx-20 mx-5 pb-12 pt-20">
       <h1 className="text-4xl font-bold">Dashboard</h1>
       <hr className="border border-solid border-umedium my-3" />
-      <div className="userInfo grid grid-cols-1 md:grid-cols-2 my-auto font-medium m-5">
-        <div className="flex">
+      <div className="userInfo  flex my-auto font-medium m-5">
+        <div className="flex md:pr-20">
           <div className="leftSide col-span-1">
             {/* <img
               src="https://images.pexels.com/photos/2380794/pexels-photo-2380794.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
@@ -95,7 +95,7 @@ const UserDashboard = () => {
                 {user.firstname + " " + user.lastname}
               </span>
             </div>
-            <div className="text-lg font-semibold">
+            <div className="text-lg font-semibold flex">
               Email: <span className="font-normal">{user.email}</span>
             </div>
           </div>

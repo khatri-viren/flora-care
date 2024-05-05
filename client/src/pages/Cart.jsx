@@ -23,7 +23,7 @@ const Cart = () => {
       axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
 
       const response = await axios.get(
-        "https://flora-care-server.vercel.app/auth/local/getuser"
+        import.meta.env.VITE_SERVER_URL + "auth/local/getuser"
       );
       // Assuming the server sends the user details in the response data
       user = response.data;
@@ -36,7 +36,7 @@ const Cart = () => {
 
     axios
       .post(
-        "https://flora-care-server.vercel.app/api/stripe/create-checkout-session",
+        import.meta.env.VITE_SERVER_URL + "api/stripe/create-checkout-session",
         {
           cart,
           userID: user._id,
@@ -70,7 +70,8 @@ const Cart = () => {
                   <div className="flex">
                     <img
                       src={
-                        "https://flora-care-server.vercel.app/uploads/" +
+                        import.meta.env.VITE_SERVER_URL +
+                        "uploads/" +
                         item.images[1]
                       }
                       alt=""

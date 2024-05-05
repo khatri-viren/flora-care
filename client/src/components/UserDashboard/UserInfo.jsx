@@ -3,9 +3,15 @@ import ChartComponent from "./ChartComponent";
 // import data from "./data.json";
 import axios from "axios";
 import { ring } from "ldrs";
+// import { useQuery } from "@tanstack/react-query";
 
 const UserInfo = () => {
   const [loading, setLoading] = useState(true);
+  // const queryClient = useQueryClient();
+  // const { data, isLoading, isSuccess, isError, error } = useQuery({
+  //   queryKey: ["iotdata"],
+  //   // queryFn: fetchData(),
+  // });
   ring.register();
 
   const [attributes, setAttributes] = useState({
@@ -24,7 +30,7 @@ const UserInfo = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://flora-care-server.vercel.app/api/data/d1`
+          import.meta.env.VITE_SERVER_URL + `api/data/d1`
         );
         const data = response.data;
 
@@ -77,7 +83,7 @@ const UserInfo = () => {
 
     fetchData();
     const eventSource = new EventSource(
-      "https://flora-care-server.vercel.app/api/sse"
+      import.meta.env.VITE_SERVER_URL + "api/sse"
     );
     eventSource.onopen = () => {
       console.log("SSE connection opened");

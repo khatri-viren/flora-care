@@ -30,7 +30,7 @@ const Login = ({ setLogin }) => {
         method: "post",
         data: loginData,
         withCredentials: true,
-        url: "https://flora-care-server.vercel.app/auth/local/login",
+        url: import.meta.env.VITE_SERVER_URL + "auth/local/login",
       });
       if (response.status === 200) {
         setLoginData({
